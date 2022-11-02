@@ -1,0 +1,62 @@
+#ifndef PCSCREEN_H
+#define PCSCREEN_H
+
+#include <QWidget>
+#include <QLabel>
+#include <QPushButton>
+#include "rate.h"
+#include "hansoku.h"
+
+class PcScreen : public QWidget {
+    Q_OBJECT
+
+private:
+    virtual void paintEvent(QPaintEvent *);
+    virtual void resizeEvent(QResizeEvent *);
+
+    QLabel* lblBallBlue;
+    QLabel* lblBallRed;
+
+    QLabel* lblVazWhite;
+    QLabel* lblUkoWhite;
+    QLabel* lblKokWhite;
+    QLabel* lblHanWhite;
+    QLabel* lblVazBlue;
+    QLabel* lblUkoBlue;
+    QLabel* lblKokBlue;
+    QLabel* lblHanBlue;
+
+    QLabel* lblKoeff;
+    QLabel* lblKoeffValue;
+
+    QLabel* lblFight;
+    QLabel* lblFightValue;
+
+    QPushButton* btnTime;
+    QPushButton* btnCucami;
+    QPushButton* btnParter;
+    QPushButton* btnSettings;
+    QPushButton* btnTimer;
+
+    Rate* vaz_blue;
+    Rate* uko_blue;
+    Rate* kok_blue;
+    Hansoku* han_blue;
+    Rate* vaz_white;
+    Rate* uko_white;
+    Rate* kok_white;
+    Hansoku* han_white;
+
+    Rate* rate_blue;
+    Rate* rate_white;
+
+private slots:
+    void setBallBlue(bool);
+    void setBallWhite(bool);
+
+
+public:
+    PcScreen(QWidget *parent = nullptr);
+    ~PcScreen();
+};
+#endif // PCSCREEN_H
