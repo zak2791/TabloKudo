@@ -120,3 +120,7 @@ void Rate::setViewStyle(int s, int width){
     else if (s == 4)
         setStyleSheet("QLabel{background-color: black; color: blue; border-width: 0px; border-style: solid;}");
 }
+
+int Rate::getRate(){
+    return rate;
+}

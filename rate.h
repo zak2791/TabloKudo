@@ -22,6 +22,7 @@ public slots:
     void sbros();
     void setRate(int);
     void setViewStyle(int, int);
+    int getRate(void);
 
 private:
     virtual void mousePressEvent(QMouseEvent *);

@@ -7,7 +7,7 @@
 class Hansoku : public QLabel{
     Q_OBJECT
 public:
-    Hansoku(QWidget *parent = 0);
+    Hansoku(QString, QWidget *parent = 0);
 
 private:
     virtual void mousePressEvent(QMouseEvent *);
@@ -17,6 +17,20 @@ private:
     QDialog* hansoku;
 
     QFont font;
+
+    QString color;
+    QString stileString;
+    QString style;
+    QString styleKei;
+    QString styleHan1;
+    QString styleHan2;
+    QString styleHan3;
+
+private slots:
+    void choiceHansoku(int);
+
+signals:
+    void sigHansoku(int);
 
 };
 

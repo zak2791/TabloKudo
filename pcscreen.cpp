@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QGridLayout>
 #include "lcdtimer.h"
+#include <QDebug>
 
 PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
@@ -20,8 +21,9 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     kok_blue->setObjectName("kok_blue");
     connect(kok_blue, SIGNAL(sigPlusMinus(bool)), this, SLOT(setBallBlue(bool)));
 
-    han_blue = new Hansoku(this);
+    han_blue = new Hansoku("white", this);
     han_blue->setFrameShape(QFrame::Box);
+    connect(han_blue, SIGNAL(sigHansoku(int)), this, SLOT(changeBallWhite(int)));
 
     vaz_white = new Rate(this);
     vaz_white->setFrameShape(QFrame::Box);
@@ -57,14 +59,9 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
                              "color: white;}");
     connect(kok_white, SIGNAL(sigPlusMinus(bool)), this, SLOT(setBallWhite(bool)));
 
-    han_white = new Hansoku(this);
+    han_white = new Hansoku("blue", this);
     han_white->setFrameShape(QFrame::Box);
-    han_white->setStyleSheet("QLabel{border-radius: 30px; "
-                             "border-width: 2px; "
-                             "border-style: solid; "
-                             "border-color:blue; "
-                             "background-color: black; "
-                             "color: white;}");
+    connect(han_white, SIGNAL(sigHansoku(int)), this, SLOT(changeBallBlue(int)));
 
     rate_blue = new Rate(this);
     rate_blue->setFrameShape(QFrame::Box);
@@ -231,6 +228,22 @@ void PcScreen::resizeEvent(QResizeEvent *){
     btnSettings->setFont(font);
     btnTimer->setFont(font);
 
+}
+
+void PcScreen::changeBallWhite(int b){
+    int r = rate_white->getRate() + b;
+    if(r > 0)
+        rate_white->setRate(r);
+    else
+        rate_white->setRate(0);
+}
+
+void PcScreen::changeBallBlue(int b){
+    int r = rate_blue->getRate() + b;
+    if(r > 0)
+        rate_blue->setRate(r);
+    else
+        rate_blue->setRate(0);
 }
 
 void PcScreen::setBallBlue(bool b){

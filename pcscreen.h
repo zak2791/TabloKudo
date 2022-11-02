@@ -53,7 +53,8 @@ private:
 private slots:
     void setBallBlue(bool);
     void setBallWhite(bool);
-
+    void changeBallWhite(int);
+    void changeBallBlue(int);
 
 public:
     PcScreen(QWidget *parent = nullptr);
