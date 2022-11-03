@@ -1,7 +1,6 @@
 #include "pcscreen.h"
 #include <QPainter>
 #include <QGridLayout>
-#include "lcdtimer.h"
 #include <QDebug>
 
 PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
@@ -69,7 +68,11 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     rate_white = new Rate(this);
     rate_white->setFrameShape(QFrame::Box);
 
-    LCDTimer* mainTimer = new LCDTimer(this);
+    mainTimer = new LCDTimer(this);
+    cukamiTimer = new LCDTimer(this, "0:10", QColor(0, 0, 255), QColor(0, 0, 255));
+    cukamiTimer->setVisible(false);
+    parterTimer = new LCDTimer(this, "0:30", QColor(255, 0, 0), QColor(255, 0, 0));
+    parterTimer->setVisible(false);
 
     //QLabel* lbl = new QLabel(this);
 
@@ -132,6 +135,9 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     btnTimer = new QPushButton("ТАЙМЕР", this);
     btnTimer->setStyleSheet("color: yellow");
 
+    connect(btnTime, SIGNAL(clicked()), this, SLOT(manageTime()));
+    connect(btnParter, SIGNAL(clicked()), this, SLOT(manageParter()));
+
     QGridLayout* grid = new QGridLayout(this);
     //spacing = 6;
     //margin = 6;
@@ -172,6 +178,8 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     grid->addWidget(btnTimer,    13, 24, 3, 7);
 
     grid->addWidget(mainTimer,   16, 17, 12, 21);
+    grid->addWidget(cukamiTimer,   16, 17, 12, 21);
+    grid->addWidget(parterTimer,   16, 17, 12, 21);
 
     grid->addWidget(lblBallBlue, 28, 0,  3, 16);
     grid->addWidget(lblBallRed,  28, 39, 3, 16);
@@ -185,6 +193,23 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
 PcScreen::~PcScreen()
 {
+}
+
+void PcScreen::manageTime(){
+    mainTimer->StartStop();
+}
+
+void PcScreen::manageParter(){
+    if(mainTimer->getStatus() == 1){
+        if(parterTimer->isVisible()){
+            parterTimer->StartStop();
+            parterTimer->Reset();
+            parterTimer->setVisible(false);
+        }else{
+            parterTimer->setVisible(true);
+            parterTimer->StartStop();
+        }
+    }
 }
 
 void PcScreen::resizeEvent(QResizeEvent *){

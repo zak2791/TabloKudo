@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include "rate.h"
 #include "hansoku.h"
+#include "lcdtimer.h"
 
 class PcScreen : public QWidget {
     Q_OBJECT
@@ -50,11 +51,17 @@ private:
     Rate* rate_blue;
     Rate* rate_white;
 
+    LCDTimer* mainTimer;
+    LCDTimer* cukamiTimer;
+    LCDTimer* parterTimer;
+
 private slots:
     void setBallBlue(bool);
     void setBallWhite(bool);
     void changeBallWhite(int);
     void changeBallBlue(int);
+    void manageTime(void);
+    void manageParter(void);
 
 public:
     PcScreen(QWidget *parent = nullptr);

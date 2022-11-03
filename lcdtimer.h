@@ -28,7 +28,7 @@ public:
     void setTime(int);
     virtual void showEvent(QShowEvent*);
     virtual void hideEvent(QHideEvent*);
-
+    int getStatus(void);
 
 
 private:
@@ -37,7 +37,7 @@ private:
     bool visible = false;
     //QString strInitTime;
     int strTimeToInt(QString);
-    int getStatus(void);
+
     bool getVisible(void);
 
 protected:
@@ -51,6 +51,7 @@ protected:
     int time;
     int intInitTime;
     bool _sound;
+
 
 
 public slots:
