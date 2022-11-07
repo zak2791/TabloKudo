@@ -2,8 +2,11 @@
 #include <QPainter>
 #include <QGridLayout>
 #include <QDebug>
+#include <QMessageBox>
 
 PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
+
+    numFight = 1;
 
     vaz_blue = new Rate(this);
     vaz_blue->setFrameShape(QFrame::Box);
@@ -74,6 +77,9 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     parterTimer = new LCDTimer(this, "0:30", QColor(255, 0, 0), QColor(255, 0, 0));
     parterTimer->setVisible(false);
 
+    stopwatch = new LCDStopwatch(this, "3:00", QColor(255, 255, 0), QColor(255, 255, 0), true);
+    stopwatch->setVisible(false);
+
     //QLabel* lbl = new QLabel(this);
 
     lblBallBlue = new QLabel("БАЛЛЫ", this);
@@ -126,8 +132,8 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     btnTime = new QPushButton("ВРЕМЯ", this);
     btnTime->setStyleSheet("color: green");
-    btnCucami = new QPushButton("ЦУКАМИ", this);
-    btnCucami->setStyleSheet("color: blue");
+    btnCukami = new QPushButton("ЦУКАМИ", this);
+    btnCukami->setStyleSheet("color: blue");
     btnParter = new QPushButton("ПАРТЕР", this);
     btnParter->setStyleSheet("color: red");
     btnSettings = new QPushButton("НАСТРОЙКИ", this);
@@ -137,6 +143,9 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     connect(btnTime, SIGNAL(clicked()), this, SLOT(manageTime()));
     connect(btnParter, SIGNAL(clicked()), this, SLOT(manageParter()));
+    connect(btnCukami, SIGNAL(clicked()), this, SLOT(manageCukami()));
+    connect(btnTimer, SIGNAL(clicked()), this, SLOT(manageTimer()));
+    connect(btnSettings, SIGNAL(clicked()), this, SLOT(settings()));
 
     QGridLayout* grid = new QGridLayout(this);
     //spacing = 6;
@@ -178,16 +187,25 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     grid->addWidget(btnTimer,    13, 24, 3, 7);
 
     grid->addWidget(mainTimer,   16, 17, 12, 21);
-    grid->addWidget(cukamiTimer,   16, 17, 12, 21);
-    grid->addWidget(parterTimer,   16, 17, 12, 21);
+    grid->addWidget(cukamiTimer, 16, 17, 12, 21);
+    grid->addWidget(parterTimer, 16, 17, 12, 21);
+    grid->addWidget(stopwatch,   16, 17, 12, 21);
 
     grid->addWidget(lblBallBlue, 28, 0,  3, 16);
     grid->addWidget(lblBallRed,  28, 39, 3, 16);
 
-    grid->addWidget(btnCucami,   28,  17, 3, 6);
+    grid->addWidget(btnCukami,   28,  17, 3, 6);
     grid->addWidget(btnTime,     28,  24, 3, 7);
     grid->addWidget(btnParter,   28,  32, 3, 6);
 
+    frmSettings = new QWidget;
+    frmSettings->setWindowModality(Qt::ApplicationModal);
+    ui.setupUi(frmSettings);
+    connect(ui.lwKoef, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(choiceKoef(QListWidgetItem*)));
+    connect(ui.rb300, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
+    connect(ui.rb200, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
+    connect(ui.rb130, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
+    connect(ui.rb100, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
 
 }
 
@@ -195,9 +213,60 @@ PcScreen::~PcScreen()
 {
 }
 
-void PcScreen::manageTime(){
-    mainTimer->StartStop();
+void PcScreen::choiceMainTime(bool checked){
+    if(checked){
+        if(sender() == ui.rb300)
+            mainTimer->setTime(180);
+        else if(sender() == ui.rb200)
+            mainTimer->setTime(120);
+        else if(sender() == ui.rb130)
+            mainTimer->setTime(90);
+        else if(sender() == ui.rb100)
+            mainTimer->setTime(60);
+    }
 }
+
+void PcScreen::choiceKoef(QListWidgetItem* item){
+    lblKoeffValue->setText(item->text());
+}
+
+void PcScreen::settings(){
+    if(!(cukamiTimer->isVisible()) && mainTimer->getStatus() == 0){
+        frmSettings->show();
+    }
+}
+
+void PcScreen::manageTime(){
+    if(stopwatch->isVisible() == true)
+        return;
+    mainTimer->StartStop();
+    if(parterTimer->isVisible()){
+        parterTimer->StartStop();
+        parterTimer->Reset();
+        parterTimer->setVisible(false);
+    }else if(cukamiTimer->isVisible()){
+        cukamiTimer->StartStop();
+        cukamiTimer->Reset();
+        cukamiTimer->setVisible(false);
+    }
+}
+
+void PcScreen::manageTimer(){
+    if(mainTimer->isVisible() && (mainTimer->getStatus() != 1)){
+        if(!stopwatch->isVisible()){
+            stopwatch->setVisible(true);
+            stopwatch->StartStop();
+        }else{
+            if(stopwatch->getStatus() == 1){
+                stopwatch->StartStop();
+            }else{
+                stopwatch->Reset();
+                stopwatch->hide();
+            }
+        }
+    }
+}
+
 
 void PcScreen::manageParter(){
     if(mainTimer->getStatus() == 1){
@@ -208,6 +277,24 @@ void PcScreen::manageParter(){
         }else{
             parterTimer->setVisible(true);
             parterTimer->StartStop();
+            if(cukamiTimer->isVisible()){
+                cukamiTimer->StartStop();
+                cukamiTimer->Reset();
+                cukamiTimer->setVisible(false);
+            }
+        }
+    }
+}
+
+void PcScreen::manageCukami(){
+    if(mainTimer->getStatus() == 1 && !(parterTimer->isVisible())){
+        if(cukamiTimer->isVisible()){
+            cukamiTimer->StartStop();
+            cukamiTimer->Reset();
+            cukamiTimer->setVisible(false);
+        }else{
+            cukamiTimer->setVisible(true);
+            cukamiTimer->StartStop();
         }
     }
 }
@@ -230,7 +317,7 @@ void PcScreen::resizeEvent(QResizeEvent *){
     lblKokWhite->setFont(font);
     lblHanWhite->setFont(font);
     h = lblKoeff->height();
-    font.setPixelSize(h * 0.9);
+    font.setPixelSize(h * 0.8);
     lblKoeff->setFont(font);
     lblFight->setFont(font);
     h = lblKoeffValue->height();
@@ -240,7 +327,7 @@ void PcScreen::resizeEvent(QResizeEvent *){
 
     int minHeight = height() * 2 / 31;
     btnTime->setMinimumHeight(minHeight);
-    btnCucami->setMinimumHeight(minHeight);
+    btnCukami->setMinimumHeight(minHeight);
     btnParter->setMinimumHeight(minHeight);
     btnSettings->setMinimumHeight(minHeight);
     btnTimer->setMinimumHeight(minHeight);
@@ -248,7 +335,7 @@ void PcScreen::resizeEvent(QResizeEvent *){
     h = btnTime->height();
     font.setPixelSize(h * 0.4);
     btnTime->setFont(font);
-    btnCucami->setFont(font);
+    btnCukami->setFont(font);
     btnParter->setFont(font);
     btnSettings->setFont(font);
     btnTimer->setFont(font);
@@ -339,4 +426,81 @@ void PcScreen::paintEvent(QPaintEvent * ) {
     pn.drawRect(width() / 2, 0, width() / 2, height());
 
     pn.end();
+}
+
+void PcScreen::keyPressEvent(QKeyEvent * e){
+    if(e->key() == Qt::Key_Backspace){
+        qDebug()<<e->modifiers();
+        if(e->modifiers() != Qt::AltModifier)
+            Reset();
+        else
+            Fight(-1);
+    }
+    else if(e->key() == Qt::Key_Escape){
+        if(QMessageBox::question(0, "Выход", u8"Вы уверены?") == QMessageBox::No)
+            return;
+        else
+            QApplication::exit();
+    }else if(e->key() == Qt::Key_0)
+        Fight(0);
+    else if(e->key() == Qt::Key_1)
+        Fight(1);
+    else if(e->key() == Qt::Key_2)
+        Fight(2);
+    else if(e->key() == Qt::Key_3)
+        Fight(3);
+    else if(e->key() == Qt::Key_4)
+        Fight(4);
+    else if(e->key() == Qt::Key_5)
+        Fight(5);
+    else if(e->key() == Qt::Key_6)
+        Fight(6);
+    else if(e->key() == Qt::Key_7)
+        Fight(7);
+    else if(e->key() == Qt::Key_8)
+        Fight(8);
+    else if(e->key() == Qt::Key_9)
+        Fight(9);
+}
+
+void PcScreen::Fight(int f){
+    if(f != -1){
+        if(numFight == 0){
+            numFight = f;
+            lblFightValue->setText(QString::number(numFight));
+        }else if(numFight < 100){
+            numFight = numFight * 10 + f;
+            lblFightValue->setText(QString::number(numFight));
+        }
+    }else{
+        if(numFight > 10){
+            numFight = numFight / 10;
+            lblFightValue->setText(QString::number(numFight));
+        }else{
+            numFight = 0;
+            lblFightValue->setText("");
+        }
+    }
+}
+
+void PcScreen::Reset(){
+    if(mainTimer->getStatus() == 1 || stopwatch->isVisible())
+        return;
+    if(QMessageBox::question(0, "Сброс", u8"Вы уверены?") == QMessageBox::No)
+        return;
+    vaz_blue->sbros();
+    uko_blue->sbros();
+    kok_blue->sbros();
+    han_blue->sbros();
+    vaz_white->sbros();
+    uko_white->sbros();
+    kok_white->sbros();
+    han_white->sbros();
+
+    rate_blue->sbros();
+    rate_white->sbros();
+
+    mainTimer->Reset();
+    cukamiTimer->Reset();
+    parterTimer->Reset();
 }

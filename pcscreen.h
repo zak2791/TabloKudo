@@ -7,6 +7,9 @@
 #include "rate.h"
 #include "hansoku.h"
 #include "lcdtimer.h"
+#include "lcdstopwatch.h"
+#include "ui_formsettings.h"
+#include <QKeyEvent>
 
 class PcScreen : public QWidget {
     Q_OBJECT
@@ -14,6 +17,10 @@ class PcScreen : public QWidget {
 private:
     virtual void paintEvent(QPaintEvent *);
     virtual void resizeEvent(QResizeEvent *);
+    virtual void keyPressEvent(QKeyEvent *);
+
+    void Reset(void);
+    void Fight(int);
 
     QLabel* lblBallBlue;
     QLabel* lblBallRed;
@@ -34,7 +41,7 @@ private:
     QLabel* lblFightValue;
 
     QPushButton* btnTime;
-    QPushButton* btnCucami;
+    QPushButton* btnCukami;
     QPushButton* btnParter;
     QPushButton* btnSettings;
     QPushButton* btnTimer;
@@ -54,6 +61,12 @@ private:
     LCDTimer* mainTimer;
     LCDTimer* cukamiTimer;
     LCDTimer* parterTimer;
+    LCDStopwatch * stopwatch;
+
+    Ui::FormSettings ui;
+    QWidget* frmSettings;
+
+    int numFight;
 
 private slots:
     void setBallBlue(bool);
@@ -62,6 +75,11 @@ private slots:
     void changeBallBlue(int);
     void manageTime(void);
     void manageParter(void);
+    void manageCukami(void);
+    void manageTimer(void);
+    void settings(void);
+    void choiceKoef(QListWidgetItem*);
+    void choiceMainTime(bool);
 
 public:
     PcScreen(QWidget *parent = nullptr);

@@ -9,14 +9,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    formsettings.cpp \
     hansoku.cpp \
+    lcdstopwatch.cpp \
     lcdtimer.cpp \
     main.cpp \
     pcscreen.cpp \
     rate.cpp
 
 HEADERS += \
+    formsettings.h \
     hansoku.h \
+    lcdstopwatch.h \
     lcdtimer.h \
     pcscreen.h \
     rate.h
@@ -27,4 +31,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
+    formsettings.ui \
     hans.ui

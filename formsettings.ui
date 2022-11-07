@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormSettings</class>
+ <widget class="QWidget" name="FormSettings">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>280</width>
+    <height>370</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>280</width>
+    <height>370</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>280</width>
+    <height>370</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>14</y>
+     <width>111</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Время боя</string>
+   </property>
+   <widget class="QRadioButton" name="rb300">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>91</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>3:00</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rb200">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>91</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>2:00</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rb130">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>91</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1:30</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rb100">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>91</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1:00</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>239</y>
+     <width>111</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Время партера</string>
+   </property>
+   <widget class="QRadioButton" name="rb030">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>91</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0:30</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rb020">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>91</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0:20</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QListWidget" name="lwKoef">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>20</y>
+     <width>111</width>
+     <height>330</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>140</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>150</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>160</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>170</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>180</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>190</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>200</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>210</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>220</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>230</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>240</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>+240</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>250</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>260</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>+260</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>270</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>+270</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>ABS</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string/>
+    </property>
+   </item>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

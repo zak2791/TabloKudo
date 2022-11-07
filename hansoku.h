@@ -8,6 +8,7 @@ class Hansoku : public QLabel{
     Q_OBJECT
 public:
     Hansoku(QString, QWidget *parent = 0);
+    void sbros(void);
 
 private:
     virtual void mousePressEvent(QMouseEvent *);

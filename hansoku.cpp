@@ -15,11 +15,11 @@ QLabel(parent){
                   "background-color: %2; "
                   "color: black;}";
 
-    style = stileString.arg(col).arg("black");
-    styleKei =  stileString.arg(col).arg("yellow");
-    styleHan1 = stileString.arg(col).arg("yellow");
-    styleHan2 = stileString.arg(col).arg("yellow");
-    styleHan3 = stileString.arg(col).arg("red");
+    style = stileString.arg(col, "black");
+    styleKei =  stileString.arg(col, "yellow");
+    styleHan1 = stileString.arg(col, "yellow");
+    styleHan2 = stileString.arg(col, "yellow");
+    styleHan3 = stileString.arg(col, "red");
 
     setStyleSheet(style);
     connect(ui.cbKeikoku, SIGNAL(stateChanged(int)), this, SLOT(choiceHansoku(int)));
@@ -31,21 +31,21 @@ QLabel(parent){
 void Hansoku::choiceHansoku(int state){
     if(sender()->objectName() == "cbHansoku1"){
         if(state){
-            sigHansoku(1);
+            emit sigHansoku(1);
         }else{
-            sigHansoku(-1);
+            emit sigHansoku(-1);
         }
     }else if(sender()->objectName() == "cbHansoku2"){
         if(state){
-            sigHansoku(2);
+            emit sigHansoku(2);
         }else{
-            sigHansoku(-2);
+            emit sigHansoku(-2);
         }
     }else if(sender()->objectName() == "cbHansoku3"){
         if(state){
-            sigHansoku(4);
+            emit sigHansoku(4);
         }else{
-            sigHansoku(-4);
+            emit sigHansoku(-4);
         }
     }
     if(ui.cbHansoku3->isChecked()){
@@ -76,13 +76,21 @@ void Hansoku::mousePressEvent(QMouseEvent *){
 
     font = QFont();
 }
+
+void Hansoku::sbros(){
+    ui.cbKeikoku->setChecked(false);
+    ui.cbHansoku1->setChecked(false);
+    ui.cbHansoku2->setChecked(false);
+    ui.cbHansoku3->setChecked(false);
+
+    //setStyleSheet(style);
+    //setText("");
+}
+
 void Hansoku::resizeEvent(QResizeEvent *){
     font.setWeight(50);
     font.setPixelSize(height() * 2);
     QFontMetrics fm = QFontMetrics(font);
-
-
-
 
     int fontSize = height() * 1.05;
     while (true) {
