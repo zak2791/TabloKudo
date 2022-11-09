@@ -10,6 +10,7 @@
 #include "lcdstopwatch.h"
 #include "ui_formsettings.h"
 #include <QKeyEvent>
+#include "tvscreen.h"
 
 class PcScreen : public QWidget {
     Q_OBJECT
@@ -18,6 +19,7 @@ private:
     virtual void paintEvent(QPaintEvent *);
     virtual void resizeEvent(QResizeEvent *);
     virtual void keyPressEvent(QKeyEvent *);
+    virtual void closeEvent(QCloseEvent *);
 
     void Reset(void);
     void Fight(int);
@@ -67,6 +69,8 @@ private:
     QWidget* frmSettings;
 
     int numFight;
+
+    TVScreen* tvScreen;
 
 private slots:
     void setBallBlue(bool);

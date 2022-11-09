@@ -1,3 +1,5 @@
+RC_ICONS = kudo.ico
+
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -15,7 +17,8 @@ SOURCES += \
     lcdtimer.cpp \
     main.cpp \
     pcscreen.cpp \
-    rate.cpp
+    rate.cpp \
+    tvscreen.cpp
 
 HEADERS += \
     formsettings.h \
@@ -23,7 +26,8 @@ HEADERS += \
     lcdstopwatch.h \
     lcdtimer.h \
     pcscreen.h \
-    rate.h
+    rate.h \
+    tvscreen.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

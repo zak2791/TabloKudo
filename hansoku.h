@@ -9,12 +9,16 @@ class Hansoku : public QLabel{
 public:
     Hansoku(QString, QWidget *parent = 0);
     void sbros(void);
+    Ui::Dialog ui;
+
+public slots:
+    void setStyleAndText(int);
 
 private:
     virtual void mousePressEvent(QMouseEvent *);
     virtual void resizeEvent(QResizeEvent *);
 
-    Ui::Dialog ui;
+
     QDialog* hansoku;
 
     QFont font;
@@ -32,6 +36,7 @@ private slots:
 
 signals:
     void sigHansoku(int);
+    void sigStyle(int);
 
 };
 

@@ -3,6 +3,7 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QMessageBox>
+#include <QDesktopWidget>
 
 PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
@@ -63,6 +64,7 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     han_white = new Hansoku("blue", this);
     han_white->setFrameShape(QFrame::Box);
+    //han_white->setSizePolicy(Policy::Ignored);
     connect(han_white, SIGNAL(sigHansoku(int)), this, SLOT(changeBallBlue(int)));
 
     rate_blue = new Rate(this);
@@ -207,10 +209,62 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     connect(ui.rb130, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
     connect(ui.rb100, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
 
+    if(QGuiApplication::screens().count() == 2){
+        showFullScreen();
+    }else{
+        show();
+        setGeometry(QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2,
+                    QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2);
+    }
+
+    //if (desk->numScreens() == 1) {
+    if(QGuiApplication::screens().count() == 1){
+        QMessageBox::information(this, "ВНИМАНИЕ!",
+        "Подключите к компьютеру дисплей в режиме \"Расширенный рабочий стол!\"",
+        QMessageBox::Ok);
+    }
+    tvScreen = new TVScreen();
+
+    if(QGuiApplication::screens().count() == 1)
+        tvScreen->setGeometry(0, 0, QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2);
+    else{
+        tvScreen->setGeometry(width(), 0, 100, height());
+        tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right(),
+                        0, QApplication::desktop()->availableGeometry(tvScreen).width(),
+                        QApplication::desktop()->availableGeometry(tvScreen).height());
+    }
+
+    connect(vaz_blue,	SIGNAL(sigRate(int)),		tvScreen->vaz_blue,	  SLOT(setRate(int)));
+    connect(uko_blue,	SIGNAL(sigRate(int)),		tvScreen->uko_blue,   SLOT(setRate(int)));
+    connect(kok_blue,   SIGNAL(sigRate(int)),		tvScreen->kok_blue,	  SLOT(setRate(int)));
+    connect(rate_blue,	SIGNAL(sigRate(int)),		tvScreen->rate_blue,  SLOT(setRate(int)));
+
+    connect(vaz_white,	SIGNAL(sigRate(int)),		tvScreen->vaz_white,  SLOT(setRate(int)));
+    connect(uko_white,	SIGNAL(sigRate(int)),		tvScreen->uko_white,  SLOT(setRate(int)));
+    connect(kok_white,  SIGNAL(sigRate(int)),		tvScreen->kok_white,  SLOT(setRate(int)));
+    connect(rate_white,	SIGNAL(sigRate(int)),		tvScreen->rate_white, SLOT(setRate(int)));
+
+    connect(mainTimer,   SIGNAL(sigTime(QString,QPalette)), tvScreen->mainTimer ,  SLOT(showTime(QString,QPalette)));
+    connect(cukamiTimer, SIGNAL(sigVisible(bool)),          tvScreen->cukamiTimer, SLOT(setVisible(bool)));
+    connect(cukamiTimer, SIGNAL(sigTime(QString,QPalette)), tvScreen->cukamiTimer, SLOT(showTime(QString,QPalette)));
+    connect(parterTimer, SIGNAL(sigVisible(bool)),          tvScreen->parterTimer, SLOT(setVisible(bool)));
+    connect(parterTimer, SIGNAL(sigTime(QString,QPalette)), tvScreen->parterTimer, SLOT(showTime(QString,QPalette)));
+    connect(stopwatch,   SIGNAL(sigVisible(bool)),          tvScreen->stopwatch,   SLOT(setVisible(bool)));
+    connect(stopwatch,   SIGNAL(sigTime(QString,QPalette)), tvScreen->stopwatch,   SLOT(showTime(QString,QPalette)));
+
+    connect(han_blue,    SIGNAL(sigStyle(int)),             tvScreen->han_blue,    SLOT(setStyleAndText(int)));
+    connect(han_white,   SIGNAL(sigStyle(int)),             tvScreen->han_white,   SLOT(setStyleAndText(int)));
+
+    tvScreen->show();
+
 }
 
 PcScreen::~PcScreen()
 {
+}
+
+void PcScreen::closeEvent(QCloseEvent*){
+    QApplication::exit();
 }
 
 void PcScreen::choiceMainTime(bool checked){

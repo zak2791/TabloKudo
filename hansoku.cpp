@@ -22,6 +22,9 @@ QLabel(parent){
     styleHan3 = stileString.arg(col, "red");
 
     setStyleSheet(style);
+    setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+
     connect(ui.cbKeikoku, SIGNAL(stateChanged(int)), this, SLOT(choiceHansoku(int)));
     connect(ui.cbHansoku1 , SIGNAL(stateChanged(int)), this, SLOT(choiceHansoku(int)));
     connect(ui.cbHansoku2, SIGNAL(stateChanged(int)), this, SLOT(choiceHansoku(int)));
@@ -49,21 +52,41 @@ void Hansoku::choiceHansoku(int state){
         }
     }
     if(ui.cbHansoku3->isChecked()){
-        setStyleSheet(styleHan3);
-        setText("3");
+        setStyleAndText(4);
     }else if(ui.cbHansoku2->isChecked()){
-        setStyleSheet(styleHan2);
-        setText("2");
+        setStyleAndText(3);
     }else if(ui.cbHansoku1->isChecked()){
-        setStyleSheet(styleHan1);
-        setText("1");
+        setStyleAndText(2);
     }else if(ui.cbKeikoku->isChecked()){
+        setStyleAndText(1);
+    }else{
+        setStyleAndText(0);
+    }
+}
+
+void Hansoku::setStyleAndText(int st){
+    if(st == 4){
+        setText("3");
+        setStyleSheet(styleHan3);
+        emit sigStyle(4);
+    }else if(st == 3){
+        setText("2");
+        setStyleSheet(styleHan2);
+        emit sigStyle(3);
+    }else if(st == 2){
+        setText("1");
+        setStyleSheet(styleHan1);
+        emit sigStyle(2);
+    }else if(st == 1){
         setStyleSheet(styleKei);
         setText("");
+        emit sigStyle(1);
     }else{
         setStyleSheet(style);
         setText("");
+        emit sigStyle(0);
     }
+
 }
 
 void Hansoku::mousePressEvent(QMouseEvent *){
@@ -104,4 +127,5 @@ void Hansoku::resizeEvent(QResizeEvent *){
         else
             break;
     }
+
 }

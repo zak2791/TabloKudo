@@ -75,7 +75,7 @@ void Rate::resizeEvent(QResizeEvent * ){
     QFontMetrics fm = QFontMetrics(largeFont);
     smallFont.setWeight(50);
     smallFont.setPixelSize(height() * 2);
-    int fontSize = height();
+    int fontSize;
 
     fontSize = height() * 1.05;
     while (true) {
