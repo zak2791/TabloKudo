@@ -32,7 +32,9 @@ public:
     LCDTimer* parterTimer;
     LCDStopwatch * stopwatch;
 
+    QLabel* lblFightValue;
 
+    QLabel* lblKoeffValue;
 
 private:
 
@@ -49,10 +51,9 @@ private:
     QLabel* lblHanBlue;
 
     QLabel* lblKoeff;
-    QLabel* lblKoeffValue;
 
     QLabel* lblFight;
-    QLabel* lblFightValue;
+
 	
 	virtual void paintEvent(QPaintEvent *);
     virtual void resizeEvent(QResizeEvent *);

@@ -282,6 +282,7 @@ void PcScreen::choiceMainTime(bool checked){
 
 void PcScreen::choiceKoef(QListWidgetItem* item){
     lblKoeffValue->setText(item->text());
+    tvScreen->lblKoeffValue->setText(item->text());
 }
 
 void PcScreen::settings(){
@@ -522,17 +523,21 @@ void PcScreen::Fight(int f){
         if(numFight == 0){
             numFight = f;
             lblFightValue->setText(QString::number(numFight));
+            tvScreen->lblFightValue->setText(QString::number(numFight));
         }else if(numFight < 100){
             numFight = numFight * 10 + f;
             lblFightValue->setText(QString::number(numFight));
+            tvScreen->lblFightValue->setText(QString::number(numFight));
         }
     }else{
         if(numFight > 10){
             numFight = numFight / 10;
             lblFightValue->setText(QString::number(numFight));
+            tvScreen->lblFightValue->setText(QString::number(numFight));
         }else{
             numFight = 0;
             lblFightValue->setText("");
+            tvScreen->lblFightValue->setText("");
         }
     }
 }
