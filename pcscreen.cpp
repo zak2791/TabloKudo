@@ -4,8 +4,54 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QDesktopWidget>
+#include <QProcess>
+#include "ui_code.h"
 
 PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
+
+    QProcess process(0);
+    process.start ("cmd"); // Запуск потока cmd
+    process.waitForStarted (); // Ожидание завершения процесса запуска и блокировка контакта по истечении 30 секунд
+    process.write("wmic bios get serialnumber\n");
+    process.closeWriteChannel();
+    process.waitForFinished (); // Ожидание завершения процесса запуска, тайм-аут 30 с, затем блокировка контакта
+    QString s;
+    int i = 0;
+    while(1){
+        s = QString::fromLocal8Bit(process.readLine());
+        i++;
+        if(s.contains("SerialNumber"))
+            break;
+    }
+    QString serialNumber = QString::fromLocal8Bit(process.readLine()).simplified();
+    int lenString = serialNumber.length();
+    int myListStart[lenString];
+    int myListEnd[lenString];
+    for(int i=0; i < lenString; i++){
+        myListStart[i] = serialNumber.at(i).toLatin1();
+        qDebug()<<myListStart[i];
+    }
+    QString code = "";
+    for(int i=0; i < lenString; i++){
+        if(i < lenString - 1){
+            myListEnd[i] = myListStart[i] + myListStart[i + 1];
+        }else{
+            myListEnd[i] = myListStart[i] + myListStart[0];
+        }
+        code = code + QString::number(rec(myListEnd[i]));
+    }
+
+    QDialog* frmCode = new QDialog;
+    Ui::dlgCode ui_code;
+    ui_code.setupUi(frmCode);
+    ui_code.leID->setText(serialNumber);
+    frmCode->setModal(true);
+
+    QFile file("key.txt");
+    if(!file.exists()){
+        file.open(QIODevice::WriteOnly);
+        file.close();
+    }
 
     numFight = 1;
 
@@ -257,10 +303,51 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     tvScreen->show();
 
+    file.open(QIODevice::ReadOnly);
+    QByteArray ba = file.readLine();
+    QString readCode = QString(ba);
+    file.close();
+
+    if(code != readCode){
+        while(1){
+            int ret = frmCode->exec();
+            if(ret == 1){
+                if(ui_code.leCode->text() == code){
+                    file.open(QIODevice::WriteOnly | QIODevice::Text);
+                    QTextStream out(&file);
+                    out << code;
+                    file.close();
+                    break;
+                }else{
+                    ui_code.leCode->setText("");
+                    //break;
+                }
+            }else{
+                delete frmCode;
+                QApplication::exit();
+            }
+        }
+    }
+
+
+
 }
 
 PcScreen::~PcScreen()
 {
+}
+
+int PcScreen::rec(int num){
+    int dig = 0;
+    QString str_num = QString::number(num);
+    for(int i = 0; i < str_num.length(); i++){
+        dig +=  QString(str_num.at(i)).toInt();
+    }
+    if(dig > 9){
+        return rec(dig);
+    }else{
+        return dig;
+    }
 }
 
 void PcScreen::closeEvent(QCloseEvent*){

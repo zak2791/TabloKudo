@@ -23,6 +23,7 @@ private:
 
     void Reset(void);
     void Fight(int);
+    int rec(int);
 
     QLabel* lblBallBlue;
     QLabel* lblBallRed;
