@@ -73,39 +73,39 @@ TVScreen::TVScreen(QWidget * parent) : QWidget(parent) {
 
     //QLabel* lbl = new QLabel(this);
 
-    lblBallBlue = new QLabel("БАЛЛЫ", this);
+    lblBallBlue = new QLabel("POINTS", this);
     lblBallBlue->setStyleSheet("color: white;");
     lblBallBlue->setAlignment(Qt::AlignCenter);
-    lblBallRed = new QLabel("БАЛЛЫ", this);
+    lblBallRed = new QLabel("POINTS", this);
     lblBallRed->setStyleSheet("color: blue");
     lblBallRed->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
-    lblVazBlue =  new QLabel("ВАЗАРИ", this);
+    lblVazBlue =  new QLabel("WAZA-ARI", this);
     lblVazBlue->setStyleSheet("color: white;");
     lblVazBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoBlue =  new QLabel("ЮКО", this);
+    lblUkoBlue =  new QLabel("YUKO", this);
     lblUkoBlue->setStyleSheet("color: white;");
     lblUkoBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokBlue =  new QLabel("КОКА", this);
+    lblKokBlue =  new QLabel("KOKA", this);
     lblKokBlue->setStyleSheet("color: white;");
     lblKokBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanBlue =  new QLabel("ХАНСОКУ", this);
+    lblHanBlue =  new QLabel("HANSOKU", this);
     lblHanBlue->setStyleSheet("color: white;");
     lblHanBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblVazWhite =  new QLabel("ВАЗАРИ", this);
+    lblVazWhite =  new QLabel("WAZA-ARI", this);
     lblVazWhite->setStyleSheet("color: blue;");
     lblVazWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoWhite =  new QLabel("ЮКО", this);
+    lblUkoWhite =  new QLabel("YUKO", this);
     lblUkoWhite->setStyleSheet("color: blue;");
     lblUkoWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokWhite =  new QLabel("КОКА", this);
+    lblKokWhite =  new QLabel("KOKA", this);
     lblKokWhite->setStyleSheet("color: blue;");
     lblKokWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanWhite =  new QLabel("ХАНСОКУ", this);
+    lblHanWhite =  new QLabel("HANSOKU", this);
     lblHanWhite->setStyleSheet("color: blue;");
     lblHanWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
-    lblKoeff =  new QLabel("КОЭФФИЦИЕНТ", this);
+    lblKoeff =  new QLabel("PI (PHYSICAL INDEX)", this);
     lblKoeff->setStyleSheet("color: white;");
     lblKoeff->setAlignment(Qt::AlignCenter);
 
@@ -113,7 +113,7 @@ TVScreen::TVScreen(QWidget * parent) : QWidget(parent) {
     lblKoeffValue->setStyleSheet("color: white;");
     lblKoeffValue->setAlignment(Qt::AlignCenter);
 
-    lblFight =  new QLabel("БОЙ №", this);
+    lblFight =  new QLabel("FIGHT №", this);
     lblFight->setStyleSheet("color: blue;");
     lblFight->setAlignment(Qt::AlignCenter);
 

@@ -41,7 +41,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Время боя</string>
+    <string>Fight time</string>
    </property>
    <widget class="QRadioButton" name="rb300">
     <property name="geometry">
@@ -109,7 +109,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Время партера</string>
+    <string>Ground time</string>
    </property>
    <widget class="QRadioButton" name="rb030">
     <property name="geometry">

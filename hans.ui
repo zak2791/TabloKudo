@@ -50,7 +50,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Кэйкоку</string>
+    <string>Keikoku</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="cbHansoku1">
@@ -63,7 +63,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Хансоку-1</string>
+    <string>Hansoku-1</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="cbHansoku2">
@@ -76,7 +76,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Хансоку-2</string>
+    <string>Hansoku-2</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="cbHansoku3">
@@ -89,7 +89,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Хансоку-3</string>
+    <string>Hansoku-3</string>
    </property>
   </widget>
  </widget>

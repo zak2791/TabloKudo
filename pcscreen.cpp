@@ -131,39 +131,39 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     //QLabel* lbl = new QLabel(this);
 
-    lblBallBlue = new QLabel("БАЛЛЫ", this);
+    lblBallBlue = new QLabel("POINTS", this);
     lblBallBlue->setStyleSheet("color: white;");
     lblBallBlue->setAlignment(Qt::AlignCenter);
-    lblBallRed = new QLabel("БАЛЛЫ", this);
+    lblBallRed = new QLabel("POINTS", this);
     lblBallRed->setStyleSheet("color: blue");
     lblBallRed->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
-    lblVazBlue =  new QLabel("ВАЗАРИ", this);
+    lblVazBlue =  new QLabel("WAZA-ARI", this);
     lblVazBlue->setStyleSheet("color: white;");
     lblVazBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoBlue =  new QLabel("ЮКО", this);
+    lblUkoBlue =  new QLabel("YUKO", this);
     lblUkoBlue->setStyleSheet("color: white;");
     lblUkoBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokBlue =  new QLabel("КОКА", this);
+    lblKokBlue =  new QLabel("KOKA", this);
     lblKokBlue->setStyleSheet("color: white;");
     lblKokBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanBlue =  new QLabel("ХАНСОКУ", this);
+    lblHanBlue =  new QLabel("HANSOKU", this);
     lblHanBlue->setStyleSheet("color: white;");
     lblHanBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblVazWhite =  new QLabel("ВАЗАРИ", this);
+    lblVazWhite =  new QLabel("WAZA-ARI", this);
     lblVazWhite->setStyleSheet("color: blue;");
     lblVazWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoWhite =  new QLabel("ЮКО", this);
+    lblUkoWhite =  new QLabel("YUKO", this);
     lblUkoWhite->setStyleSheet("color: blue;");
     lblUkoWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokWhite =  new QLabel("КОКА", this);
+    lblKokWhite =  new QLabel("KOKA", this);
     lblKokWhite->setStyleSheet("color: blue;");
     lblKokWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanWhite =  new QLabel("ХАНСОКУ", this);
+    lblHanWhite =  new QLabel("HANSOKU", this);
     lblHanWhite->setStyleSheet("color: blue;");
     lblHanWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
-    lblKoeff =  new QLabel("КОЭФФИЦИЕНТ", this);
+    lblKoeff =  new QLabel("PI (PHYSICAL INDEX)", this);
     lblKoeff->setStyleSheet("color: white;");
     lblKoeff->setAlignment(Qt::AlignCenter);
 
@@ -171,7 +171,7 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     lblKoeffValue->setStyleSheet("color: white;");
     lblKoeffValue->setAlignment(Qt::AlignCenter);
 
-    lblFight =  new QLabel("БОЙ №", this);
+    lblFight =  new QLabel("FIGHT №", this);
     lblFight->setStyleSheet("color: blue;");
     lblFight->setAlignment(Qt::AlignCenter);
 
@@ -179,15 +179,15 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     lblFightValue->setStyleSheet("color: blue;");
     lblFightValue->setAlignment(Qt::AlignCenter);
 
-    btnTime = new QPushButton("ВРЕМЯ", this);
+    btnTime = new QPushButton("TIME", this);
     btnTime->setStyleSheet("color: green");
-    btnCukami = new QPushButton("ЦУКАМИ", this);
+    btnCukami = new QPushButton("TSUKAMI", this);
     btnCukami->setStyleSheet("color: blue");
-    btnParter = new QPushButton("ПАРТЕР", this);
+    btnParter = new QPushButton("GROUND", this);
     btnParter->setStyleSheet("color: red");
-    btnSettings = new QPushButton("НАСТРОЙКИ", this);
+    btnSettings = new QPushButton("SETTINGS", this);
     //btnSettings->setStyleSheet("color: red");
-    btnTimer = new QPushButton("ТАЙМЕР", this);
+    btnTimer = new QPushButton("TIMER", this);
     btnTimer->setStyleSheet("color: yellow");
 
     connect(btnTime, SIGNAL(clicked()), this, SLOT(manageTime()));
@@ -268,8 +268,8 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     //if (desk->numScreens() == 1) {
     if(QGuiApplication::screens().count() == 1){
-        QMessageBox::information(this, "ВНИМАНИЕ!",
-        "Подключите к компьютеру дисплей в режиме \"Расширенный рабочий стол!\"",
+        QMessageBox::information(this, "ATTENTION!",
+        "Connect the display to the laptop in the \"extended desktop\" mode",
         QMessageBox::Ok);
     }
     tvScreen = new TVScreen();
@@ -608,7 +608,7 @@ void PcScreen::keyPressEvent(QKeyEvent * e){
             Fight(-1);
     }
     else if(e->key() == Qt::Key_Escape){
-        if(QMessageBox::question(0, "Выход", u8"Вы уверены?") == QMessageBox::No)
+        if(QMessageBox::question(0, "Exit", u8"Are you sure?") == QMessageBox::No)
             return;
         else
             QApplication::exit();
@@ -661,7 +661,7 @@ void PcScreen::Fight(int f){
 void PcScreen::Reset(){
     if(mainTimer->getStatus() == 1 || stopwatch->isVisible())
         return;
-    if(QMessageBox::question(0, "Сброс", u8"Вы уверены?") == QMessageBox::No)
+    if(QMessageBox::question(0, "Reset", u8"Are you sure?") == QMessageBox::No)
         return;
     vaz_blue->sbros();
     uko_blue->sbros();

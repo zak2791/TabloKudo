@@ -10,8 +10,11 @@
     <height>182</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::NoFocus</enum>
+  </property>
   <property name="windowTitle">
-   <string>Ввод кода</string>
+   <string>Entering the code</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -21,6 +24,9 @@
      <width>231</width>
      <height>32</height>
     </rect>
+   </property>
+   <property name="locale">
+    <locale language="English" country="UnitedStates"/>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -39,7 +45,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>ID компьютера</string>
+    <string>Computer ID</string>
    </property>
    <widget class="QLineEdit" name="leID">
     <property name="geometry">
@@ -65,7 +71,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Введите код</string>
+    <string>Enter the code</string>
    </property>
    <widget class="QLineEdit" name="leCode">
     <property name="geometry">
