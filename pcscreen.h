@@ -85,6 +85,8 @@ private slots:
     void settings(void);
     void choiceKoef(QListWidgetItem*);
     void choiceMainTime(bool);
+    void choiceParterTime(bool);
+    void endTime(bool);
 
 public:
     PcScreen(QWidget *parent = nullptr);

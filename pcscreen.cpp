@@ -12,7 +12,8 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     QProcess process(0);
     process.start ("cmd"); // Запуск потока cmd
     process.waitForStarted (); // Ожидание завершения процесса запуска и блокировка контакта по истечении 30 секунд
-    process.write("wmic bios get serialnumber\n");
+    process.write("wmic baseboard get serialnumber\n");
+    //process.write("wmic bios get serialnumber\n");
     process.closeWriteChannel();
     process.waitForFinished (); // Ожидание завершения процесса запуска, тайм-аут 30 с, затем блокировка контакта
     QString s;
@@ -254,6 +255,8 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     connect(ui.rb200, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
     connect(ui.rb130, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
     connect(ui.rb100, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
+    connect(ui.rb020, SIGNAL(toggled(bool)), this, SLOT(choiceParterTime(bool)));
+    connect(ui.rb030, SIGNAL(toggled(bool)), this, SLOT(choiceParterTime(bool)));
 
     if(QGuiApplication::screens().count() == 2){
         showFullScreen();
@@ -301,6 +304,8 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     connect(han_blue,    SIGNAL(sigStyle(int)),             tvScreen->han_blue,    SLOT(setStyleAndText(int)));
     connect(han_white,   SIGNAL(sigStyle(int)),             tvScreen->han_white,   SLOT(setStyleAndText(int)));
 
+    connect(mainTimer,   SIGNAL(sigStarted(bool)),          this ,                 SLOT(endTime(bool)));
+
     tvScreen->show();
 
     file.open(QIODevice::ReadOnly);
@@ -337,6 +342,20 @@ PcScreen::~PcScreen()
 {
 }
 
+void PcScreen::endTime(bool b){
+    if(!b){
+        if(parterTimer->isVisible()){
+            parterTimer->StartStop();
+            parterTimer->Reset();
+            parterTimer->setVisible(false);
+        }else if(cukamiTimer->isVisible()){
+            cukamiTimer->StartStop();
+            cukamiTimer->Reset();
+            cukamiTimer->setVisible(false);
+        }
+    }
+}
+
 int PcScreen::rec(int num){
     int dig = 0;
     QString str_num = QString::number(num);
@@ -352,6 +371,16 @@ int PcScreen::rec(int num){
 
 void PcScreen::closeEvent(QCloseEvent*){
     QApplication::exit();
+}
+
+void PcScreen::choiceParterTime(bool checked){
+    //qDebug()<<"choiceParterTime"<<checked;
+    if(checked){
+        if(sender() == ui.rb020)
+            parterTimer->setTime(20);
+        else if(sender() == ui.rb030)
+            parterTimer->setTime(30);
+   }
 }
 
 void PcScreen::choiceMainTime(bool checked){
