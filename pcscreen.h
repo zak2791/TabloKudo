@@ -25,6 +25,10 @@ private:
     void Fight(int);
     int rec(int);
 
+    QLineEdit* leId;
+    QString serialNumberBios;
+    QString serialNumberMac = "";
+
     QLabel* lblBallBlue;
     QLabel* lblBallRed;
 
@@ -73,6 +77,8 @@ private:
 
     TVScreen* tvScreen;
 
+    QString calculateCode(QString);
+
 private slots:
     void setBallBlue(bool);
     void setBallWhite(bool);
@@ -87,6 +93,7 @@ private slots:
     void choiceMainTime(bool);
     void choiceParterTime(bool);
     void endTime(bool);
+    void slotChangeId(bool);
 
 public:
     PcScreen(QWidget *parent = nullptr);
