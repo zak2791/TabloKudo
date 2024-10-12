@@ -84,8 +84,7 @@ void LCDTimer::showTime(){
         emit sigStarted(false);
         if(_sound){
             QMediaPlayer * pPlayer = new QMediaPlayer;
-            pPlayer->setMedia(QUrl::fromLocalFile("1.mp3"));
-            //emit sigEndTime();
+            pPlayer->setMedia(QUrl("qrc:/gong.mp3"));
             pPlayer->play() ;
         }
     }
