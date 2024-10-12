@@ -130,7 +130,6 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
                              "color: white;}");
     connect(vaz_white, SIGNAL(sigPlusMinus(bool)), this, SLOT(setBallWhite(bool)));
 
-
     uko_white = new Rate(this);
     uko_white->setFrameShape(QFrame::Box);
     uko_white->setObjectName("uko_white");
@@ -234,6 +233,10 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     btnTimer = new QPushButton("TIMER", this);
     btnTimer->setStyleSheet("color: yellow");
 
+    btnResetTime = new QPushButton("Reset time", this);
+    connect(btnResetTime, SIGNAL(clicked(bool)), this, SLOT(resetTime()));
+    //btnResetTime->setStyleSheet("color: black");
+
     connect(btnTime, SIGNAL(clicked()), this, SLOT(manageTime()));
     connect(btnParter, SIGNAL(clicked()), this, SLOT(manageParter()));
     connect(btnCukami, SIGNAL(clicked()), this, SLOT(manageCukami()));
@@ -276,8 +279,9 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     grid->addWidget(rate_blue,  16,  0, 12, 16);
     grid->addWidget(rate_white, 16, 39, 12, 16);
 
-    grid->addWidget(btnSettings, 10, 24, 3, 7);
-    grid->addWidget(btnTimer,    13, 24, 3, 7);
+    grid->addWidget(btnSettings,  10, 24, 3, 7);
+    grid->addWidget(btnTimer,     13, 24, 3, 7);
+    grid->addWidget(btnResetTime, 13, 32, 3, 6);
 
     grid->addWidget(mainTimer,   16, 17, 12, 21);
     grid->addWidget(cukamiTimer, 16, 17, 12, 21);
@@ -411,6 +415,17 @@ void PcScreen::slotChangeId(bool b)
         leId->setText(serialNumberBios);
     else
         leId->setText(serialNumberMac);
+}
+
+void PcScreen::resetTime()
+{
+    if(mainTimer->getStatus() == 1 || stopwatch->isVisible())
+        return;
+    if(QMessageBox::question(0, "Reset", u8"Are you sure?") == QMessageBox::No)
+        return;
+    mainTimer->Reset();
+    cukamiTimer->Reset();
+    parterTimer->Reset();
 }
 
 int PcScreen::rec(int num){
@@ -578,6 +593,7 @@ void PcScreen::resizeEvent(QResizeEvent *){
     btnParter->setMinimumHeight(minHeight);
     btnSettings->setMinimumHeight(minHeight);
     btnTimer->setMinimumHeight(minHeight);
+    btnResetTime->setMinimumHeight(minHeight);
 
     h = btnTime->height();
     font.setPixelSize(h * 0.4);

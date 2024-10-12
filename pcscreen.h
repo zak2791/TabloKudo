@@ -52,6 +52,7 @@ private:
     QPushButton* btnParter;
     QPushButton* btnSettings;
     QPushButton* btnTimer;
+    QPushButton* btnResetTime;
 
     Rate* vaz_blue;
     Rate* uko_blue;
@@ -94,6 +95,7 @@ private slots:
     void choiceParterTime(bool);
     void endTime(bool);
     void slotChangeId(bool);
+    void resetTime(void);
 
 public:
     PcScreen(QWidget *parent = nullptr);

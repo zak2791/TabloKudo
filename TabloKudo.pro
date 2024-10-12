@@ -38,3 +38,6 @@ FORMS += \
     code.ui \
     formsettings.ui \
     hans.ui
+
+RESOURCES += \
+    resources.qrc
