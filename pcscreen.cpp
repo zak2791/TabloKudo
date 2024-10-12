@@ -6,14 +6,45 @@
 #include <QDesktopWidget>
 #include <QProcess>
 #include "ui_code.h"
+#include <QSettings>
 
 PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
+    QSettings settings("settings.ini", QSettings::IniFormat);
+    settings.beginGroup("code");
+    QString codeBios(settings.value("codeBios", "").toString());
+    QString codeMacAddr(settings.value("codeMacAddr", "").toString());
+    settings.endGroup();
+
     QProcess process(0);
+
     process.start ("cmd"); // Запуск потока cmd
     process.waitForStarted (); // Ожидание завершения процесса запуска и блокировка контакта по истечении 30 секунд
-    process.write("wmic baseboard get serialnumber\n");
-    //process.write("wmic bios get serialnumber\n");
+    process.write("getmac\n");
+    process.closeWriteChannel();
+    process.waitForFinished (); // Ожидание завершения процесса запуска, тайм-аут 30 с, затем блокировка контакта
+    QRegularExpression re("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$");
+    serialNumberMac = "";
+    while(1){
+        char buf[1024];
+        qint64 lineLength = process.readLine(buf, sizeof(buf));
+        if (lineLength == -1) {
+            break;
+        }
+        QString s = QString::fromUtf8(buf);
+        QList<QString> list = s.split(QRegExp("\\s+"));
+        foreach(auto each, list){
+            QRegularExpressionMatch match = re.match(each);
+            if (match.hasMatch()) {
+                serialNumberMac = each;
+                break;
+            }
+        }
+    }
+
+    process.start ("cmd"); // Запуск потока cmd
+    process.waitForStarted ();
+    process.write("wmic bios get serialnumber\n");
     process.closeWriteChannel();
     process.waitForFinished (); // Ожидание завершения процесса запуска, тайм-аут 30 с, затем блокировка контакта
     QString s;
@@ -24,35 +55,26 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
         if(s.contains("SerialNumber"))
             break;
     }
-    QString serialNumber = QString::fromLocal8Bit(process.readLine()).simplified();
-    int lenString = serialNumber.length();
-    int myListStart[lenString];
-    int myListEnd[lenString];
-    for(int i=0; i < lenString; i++){
-        myListStart[i] = serialNumber.at(i).toLatin1();
-        qDebug()<<myListStart[i];
+    serialNumberBios = QString::fromLocal8Bit(process.readLine()).simplified();
+
+    QString readCode = "";
+    QString serialNumber = "";
+    if(codeBios != ""){
+        readCode = codeBios;
+        serialNumber = serialNumberBios;
     }
-    QString code = "";
-    for(int i=0; i < lenString; i++){
-        if(i < lenString - 1){
-            myListEnd[i] = myListStart[i] + myListStart[i + 1];
-        }else{
-            myListEnd[i] = myListStart[i] + myListStart[0];
-        }
-        code = code + QString::number(rec(myListEnd[i]));
+    else if(codeMacAddr != ""){
+        readCode = codeMacAddr;
+        serialNumber = serialNumberMac;
     }
 
     QDialog* frmCode = new QDialog;
     Ui::dlgCode ui_code;
     ui_code.setupUi(frmCode);
-    ui_code.leID->setText(serialNumber);
+    ui_code.leID->setText(serialNumberBios);
     frmCode->setModal(true);
-
-    QFile file("key.txt");
-    if(!file.exists()){
-        file.open(QIODevice::WriteOnly);
-        file.close();
-    }
+    leId = ui_code.leID;
+    connect(ui_code.rbBios, SIGNAL(toggled(bool)), this, SLOT(slotChangeId(bool)));
 
     numFight = 1;
 
@@ -190,6 +212,9 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     btnTimer = new QPushButton("ТАЙМЕР", this);
     btnTimer->setStyleSheet("color: yellow");
 
+    btnResetTime = new QPushButton("Сброс времени", this);
+    connect(btnResetTime, SIGNAL(clicked(bool)), this, SLOT(resetTime()));
+
     connect(btnTime, SIGNAL(clicked()), this, SLOT(manageTime()));
     connect(btnParter, SIGNAL(clicked()), this, SLOT(manageParter()));
     connect(btnCukami, SIGNAL(clicked()), this, SLOT(manageCukami()));
@@ -234,6 +259,7 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     grid->addWidget(btnSettings, 10, 24, 3, 7);
     grid->addWidget(btnTimer,    13, 24, 3, 7);
+    grid->addWidget(btnResetTime, 13, 32, 3, 6);
 
     grid->addWidget(mainTimer,   16, 17, 12, 21);
     grid->addWidget(cukamiTimer, 16, 17, 12, 21);
@@ -308,20 +334,28 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     tvScreen->show();
 
-    file.open(QIODevice::ReadOnly);
-    QByteArray ba = file.readLine();
-    QString readCode = QString(ba);
-    file.close();
-
-    if(code != readCode){
+    QString code = calculateCode(serialNumber);
+    if(code != readCode || code == ""){
         while(1){
             int ret = frmCode->exec();
             if(ret == 1){
+                if(ui_code.rbBios->isChecked())
+                    code = calculateCode(serialNumberBios);
+                else
+                    code = calculateCode(serialNumberMac);
+
                 if(ui_code.leCode->text() == code){
-                    file.open(QIODevice::WriteOnly | QIODevice::Text);
-                    QTextStream out(&file);
-                    out << code;
-                    file.close();
+
+                    settings.beginGroup("code");
+                    if(ui_code.rbBios->isChecked()) {
+                        settings.setValue("codeBios", code);
+                        settings.setValue("codeMacAddr", "");
+                    }
+                    else {
+                        settings.setValue("codeBios", "");
+                        settings.setValue("codeMacAddr", code);
+                    }
+                    settings.endGroup();
                     break;
                 }else{
                     ui_code.leCode->setText("");
@@ -333,9 +367,6 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
             }
         }
     }
-
-
-
 }
 
 PcScreen::~PcScreen()
@@ -356,6 +387,25 @@ void PcScreen::endTime(bool b){
     }
 }
 
+void PcScreen::slotChangeId(bool b)
+{
+    if(b)
+        leId->setText(serialNumberBios);
+    else
+        leId->setText(serialNumberMac);
+}
+
+void PcScreen::resetTime()
+{
+    if(mainTimer->getStatus() == 1 || stopwatch->isVisible())
+        return;
+    if(QMessageBox::question(0, "Сброс времени", u8"Вы уверены?") == QMessageBox::No)
+        return;
+    mainTimer->Reset();
+    cukamiTimer->Reset();
+    parterTimer->Reset();
+}
+
 int PcScreen::rec(int num){
     int dig = 0;
     QString str_num = QString::number(num);
@@ -367,6 +417,26 @@ int PcScreen::rec(int num){
     }else{
         return dig;
     }
+}
+
+QString PcScreen::calculateCode(QString serial)
+{
+    int lenString = serial.length();
+    int myListStart[lenString];
+    int myListEnd[lenString];
+    for(int i=0; i < lenString; i++)
+        myListStart[i] = serial.at(i).toLatin1();
+
+    QString code = "";
+    for(int i=0; i < lenString; i++){
+        if(i < lenString - 1){
+            myListEnd[i] = myListStart[i] + myListStart[i + 1];
+        }else{
+            myListEnd[i] = myListStart[i] + myListStart[0];
+        }
+        code = code + QString::number(rec(myListEnd[i]));
+    }
+    return code;
 }
 
 void PcScreen::closeEvent(QCloseEvent*){
@@ -502,6 +572,7 @@ void PcScreen::resizeEvent(QResizeEvent *){
     btnParter->setMinimumHeight(minHeight);
     btnSettings->setMinimumHeight(minHeight);
     btnTimer->setMinimumHeight(minHeight);
+    btnResetTime->setMinimumHeight(minHeight);
 
     h = btnTime->height();
     font.setPixelSize(h * 0.4);

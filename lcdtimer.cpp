@@ -1,5 +1,6 @@
 #include "lcdtimer.h"
 #include <QDebug>
+#include <QMediaPlayer>
 
 LCDTimer::LCDTimer(QWidget *parent,
                    QString strInitTime,
@@ -81,8 +82,11 @@ void LCDTimer::showTime(){
         timer->stop();
         setPalette(palStopped);
         emit sigStarted(false);
-        if(_sound)
-            MessageBeep(MB_OK);
+        if(_sound){
+            QMediaPlayer* pPlayer = new QMediaPlayer;
+            pPlayer->setMedia(QUrl("qrc:/gong.mp3"));
+            pPlayer->play() ;
+        }
     }
 
     QString sTime = intTimeToStr(time);
