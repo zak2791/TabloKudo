@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Табло КУДО</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="mFile">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="openFile"/>
+   </widget>
+   <widget class="QMenu" name="mSettings">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+    <addaction name="actSettings"/>
+   </widget>
+   <widget class="QMenu" name="mTime">
+    <property name="title">
+     <string>Время</string>
+    </property>
+    <widget class="QMenu" name="actTimeFight">
+     <property name="title">
+      <string>Время боя</string>
+     </property>
+     <addaction name="act300"/>
+     <addaction name="act200"/>
+     <addaction name="act130"/>
+     <addaction name="act100"/>
+    </widget>
+    <widget class="QMenu" name="actTimeParter">
+     <property name="title">
+      <string>Время партера</string>
+     </property>
+     <addaction name="act030"/>
+     <addaction name="act020"/>
+    </widget>
+    <addaction name="actTimeFight"/>
+    <addaction name="actTimeParter"/>
+    <addaction name="actNoParter"/>
+    <addaction name="actNoCukami"/>
+   </widget>
+   <widget class="QMenu" name="mReset">
+    <property name="title">
+     <string>Сброс</string>
+    </property>
+    <addaction name="actReset"/>
+   </widget>
+   <widget class="QMenu" name="languages">
+    <property name="title">
+     <string>Язык</string>
+    </property>
+    <addaction name="actRus"/>
+    <addaction name="actEnglish"/>
+   </widget>
+   <widget class="QMenu" name="help">
+    <property name="title">
+     <string>Помощь</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="about"/>
+    <addaction name="winHelp"/>
+   </widget>
+   <addaction name="mFile"/>
+   <addaction name="mSettings"/>
+   <addaction name="mTime"/>
+   <addaction name="mReset"/>
+   <addaction name="languages"/>
+   <addaction name="help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="openFile">
+   <property name="text">
+    <string>Открыть файл</string>
+   </property>
+  </action>
+  <action name="about">
+   <property name="text">
+    <string>Вызов справки</string>
+   </property>
+  </action>
+  <action name="winHelp">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+  </action>
+  <action name="actReset">
+   <property name="text">
+    <string>Сброс</string>
+   </property>
+  </action>
+  <action name="actSettings">
+   <property name="text">
+    <string>Окно настроек</string>
+   </property>
+  </action>
+  <action name="actLastFiles">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Недавние файлы</string>
+   </property>
+  </action>
+  <action name="act300">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">3:00</string>
+   </property>
+  </action>
+  <action name="act200">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">2:00</string>
+   </property>
+  </action>
+  <action name="act130">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">1:30</string>
+   </property>
+  </action>
+  <action name="act100">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">1:00</string>
+   </property>
+  </action>
+  <action name="act030">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">0:30</string>
+   </property>
+  </action>
+  <action name="act020">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">0:20</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>Русский</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Английский</string>
+   </property>
+  </action>
+  <action name="actNoParter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Без партера</string>
+   </property>
+  </action>
+  <action name="actNoCukami">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Без цуками</string>
+   </property>
+  </action>
+  <action name="actRus">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Русский</string>
+   </property>
+  </action>
+  <action name="actEnglish">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Английский</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

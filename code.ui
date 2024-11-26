@@ -32,7 +32,7 @@
    <enum>Qt::NoFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>Entering the code</string>
+   <string>Ввод кода</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -63,7 +63,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Computer ID</string>
+    <string notr="true">Computer ID</string>
    </property>
    <widget class="QLineEdit" name="leID">
     <property name="geometry">
@@ -89,7 +89,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Enter the code</string>
+    <string>Введите код</string>
    </property>
    <widget class="QLineEdit" name="leCode">
     <property name="geometry">
@@ -112,7 +112,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Option</string>
+    <string>Вариант</string>
    </property>
    <widget class="QRadioButton" name="rbBios">
     <property name="geometry">
@@ -124,7 +124,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>BIOS</string>
+     <string notr="true">BIOS</string>
     </property>
     <property name="checked">
      <bool>true</bool>
@@ -140,7 +140,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Mac address</string>
+     <string notr="true">Mac address</string>
     </property>
    </widget>
   </widget>

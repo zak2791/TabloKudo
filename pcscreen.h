@@ -11,6 +11,10 @@
 #include "ui_formsettings.h"
 #include <QKeyEvent>
 #include "tvscreen.h"
+#include "nameandteam.h"
+#include "listfamily.h"
+#include "choosingnames.h"
+#include "endtime.h"
 
 class PcScreen : public QWidget {
     Q_OBJECT
@@ -43,6 +47,9 @@ private:
 
     QLabel* lblKoeff;
     QLabel* lblKoeffValue;
+
+    QLabel* lblAge;
+    QLabel* lblAgeValue;
 
     QLabel* lblFight;
     QLabel* lblFightValue;
@@ -80,6 +87,21 @@ private:
 
     QString calculateCode(QString);
 
+    NameAndTeam* NameBlue;
+    NameAndTeam* NameWhite;
+    NameAndTeam* TeamBlue;
+    NameAndTeam* TeamWhite;
+    NameAndTeam* NameNextBlue;
+    NameAndTeam* NameNextWhite;
+
+    ListFamily * lf = nullptr;
+
+    ChoosingNames* choosingNames = nullptr;
+
+    //QGridLayout* grid;
+
+    void switchLanguage(void);
+
 private slots:
     void setBallBlue(bool);
     void setBallWhite(bool);
@@ -91,14 +113,35 @@ private slots:
     void manageTimer(void);
     void settings(void);
     void choiceKoef(QListWidgetItem*);
-    void choiceMainTime(bool);
-    void choiceParterTime(bool);
+    void choiceMainTime(int);
+
     void endTime(bool);
     void slotChangeId(bool);
     void resetTime(void);
 
+    void closeTablo(void);
+    void resetTablo(void);
+
+    void showListSportsmens(void);
+    void closeWinName(QString, QString, QString, QString, QString, QString, QString, QString);
+    void delListNames(void);
+    void drawTvScreenshot(void);
+
+    void slotParter(void);
+
+public slots:
+    void initListNames(void);   //инициализация списков спортсменов
+    void newListSportsmens(void);
+    void choiceParterTime(bool);
+    void slotHeightTimer(bool);
+
+protected:
+    void changeEvent(QEvent*);
+
 public:
-    PcScreen(QWidget *parent = nullptr);
+    PcScreen(MainWindow*, QWidget *parent = nullptr);
+    MainWindow* mainwin;
+    EndTime * lblEndTimer;         //красный фон по окончании времени
     ~PcScreen();
 };
 #endif // PCSCREEN_H

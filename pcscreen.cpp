@@ -5,10 +5,15 @@
 #include <QMessageBox>
 #include <QDesktopWidget>
 #include <QProcess>
+//#include "qthread.h"
+#include "qmenubar.h"
 #include "ui_code.h"
 #include <QSettings>
+#include "QAction"
 
-PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
+PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
+
+    mainwin = mw;
 
     QSettings settings("settings.ini", QSettings::IniFormat);
     settings.beginGroup("code");
@@ -163,58 +168,85 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     rate_white = new Rate(this);
     rate_white->setFrameShape(QFrame::Box);
 
+    settings.beginGroup("settigs_time");
+    QString timeFight = settings.value("timeFight", "3:00").toString();
+    QString timeParter = settings.value("timeParter", "0:30").toString();
+    settings.endGroup();
+
     mainTimer = new LCDTimer(this);
+    if(timeFight == "3:00")
+        mainTimer->setTime(180);
+    else if(timeFight == "2:00")
+        mainTimer->setTime(120);
+    else if(timeFight == "1:30")
+        mainTimer->setTime(90);
+    else
+        mainTimer->setTime(60);
+
     cukamiTimer = new LCDTimer(this, "0:10", QColor(0, 0, 255), QColor(0, 0, 255));
     cukamiTimer->setVisible(false);
+
     parterTimer = new LCDTimer(this, "0:30", QColor(255, 0, 0), QColor(255, 0, 0));
     parterTimer->setVisible(false);
+    if(timeParter == "0:30")
+        parterTimer->setTime(30);
+    else
+        parterTimer->setTime(20);
 
     stopwatch = new LCDStopwatch(this, "3:00", QColor(255, 255, 0), QColor(255, 255, 0), true);
     stopwatch->setVisible(false);
 
     //QLabel* lbl = new QLabel(this);
 
-    lblBallBlue = new QLabel("POINTS", this);
-    lblBallBlue->setStyleSheet("color: white;");
-    lblBallBlue->setAlignment(Qt::AlignCenter);
-    lblBallRed = new QLabel("POINTS", this);
-    lblBallRed->setStyleSheet("color: blue");
-    lblBallRed->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    // lblBallBlue = new QLabel("POINTS", this);
+    // lblBallBlue->setStyleSheet("color: white;");
+    // lblBallBlue->setAlignment(Qt::AlignCenter);
+    // lblBallRed = new QLabel("POINTS", this);
+    // lblBallRed->setStyleSheet("color: blue");
+    // lblBallRed->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
-    lblVazBlue =  new QLabel("WAZA-ARI", this);
+    lblVazBlue =  new QLabel("ВАЗАРИ", this);//("WAZA-ARI", this);
     lblVazBlue->setStyleSheet("color: white;");
     lblVazBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoBlue =  new QLabel("YUKO", this);
+    lblUkoBlue =  new QLabel("ЮКО", this);//("YUKO", this);
     lblUkoBlue->setStyleSheet("color: white;");
     lblUkoBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokBlue =  new QLabel("KOKA", this);
+    lblKokBlue =  new QLabel("КОКА", this);//("KOKA", this);
     lblKokBlue->setStyleSheet("color: white;");
     lblKokBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanBlue =  new QLabel("HANSOKU", this);
+    lblHanBlue =  new QLabel("ХАНСОКУ", this);//("HANSOKU", this);
     lblHanBlue->setStyleSheet("color: white;");
     lblHanBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblVazWhite =  new QLabel("WAZA-ARI", this);
+    lblVazWhite =  new QLabel("ВАЗАРИ", this);
     lblVazWhite->setStyleSheet("color: blue;");
     lblVazWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoWhite =  new QLabel("YUKO", this);
+    lblUkoWhite =  new QLabel("ЮКО", this);
     lblUkoWhite->setStyleSheet("color: blue;");
     lblUkoWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokWhite =  new QLabel("KOKA", this);
+    lblKokWhite =  new QLabel("КОКА", this);
     lblKokWhite->setStyleSheet("color: blue;");
     lblKokWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanWhite =  new QLabel("HANSOKU", this);
+    lblHanWhite =  new QLabel("ХАНСОКУ", this);
     lblHanWhite->setStyleSheet("color: blue;");
     lblHanWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
-    lblKoeff =  new QLabel("PI (PHYSICAL INDEX)", this);
+    lblKoeff =  new QLabel("КОЭФФИЦИЕНТ", this);//("PI (PHYSICAL INDEX)", this);
     lblKoeff->setStyleSheet("color: white;");
     lblKoeff->setAlignment(Qt::AlignCenter);
 
-    lblKoeffValue =  new QLabel("230", this);
+    lblKoeffValue =  new QLabel("", this);
     lblKoeffValue->setStyleSheet("color: white;");
     lblKoeffValue->setAlignment(Qt::AlignCenter);
 
-    lblFight =  new QLabel("FIGHT №", this);
+    lblAge =  new QLabel("ВОЗРАСТ", this);
+    lblAge->setStyleSheet("color: white;");
+    lblAge->setAlignment(Qt::AlignCenter);
+
+    lblAgeValue =  new QLabel("", this);
+    lblAgeValue->setStyleSheet("color: white;");
+    lblAgeValue->setAlignment(Qt::AlignCenter);
+
+    lblFight =  new QLabel(tr("БОЙ №"), this);
     lblFight->setStyleSheet("color: blue;");
     lblFight->setAlignment(Qt::AlignCenter);
 
@@ -222,18 +254,18 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     lblFightValue->setStyleSheet("color: blue;");
     lblFightValue->setAlignment(Qt::AlignCenter);
 
-    btnTime = new QPushButton("TIME", this);
+    btnTime = new QPushButton("ВРЕМЯ", this);
     btnTime->setStyleSheet("color: green");
-    btnCukami = new QPushButton("TSUKAMI", this);
+    btnCukami = new QPushButton("ЦУКАМИ", this);//("TSUKAMI", this);
     btnCukami->setStyleSheet("color: blue");
-    btnParter = new QPushButton("GROUND", this);
+    btnParter = new QPushButton("ПАРТЕР", this);//("GROUND", this);
     btnParter->setStyleSheet("color: red");
-    btnSettings = new QPushButton("SETTINGS", this);
+    btnSettings = new QPushButton("СПОРТСМЕНЫ", this);
     //btnSettings->setStyleSheet("color: red");
-    btnTimer = new QPushButton("TIMER", this);
+    btnTimer = new QPushButton("ТАЙМЕР", this);
     btnTimer->setStyleSheet("color: yellow");
 
-    btnResetTime = new QPushButton("Reset time", this);
+    btnResetTime = new QPushButton(tr("Сброс времени"), this);
     connect(btnResetTime, SIGNAL(clicked(bool)), this, SLOT(resetTime()));
     //btnResetTime->setStyleSheet("color: black");
 
@@ -241,94 +273,148 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
     connect(btnParter, SIGNAL(clicked()), this, SLOT(manageParter()));
     connect(btnCukami, SIGNAL(clicked()), this, SLOT(manageCukami()));
     connect(btnTimer, SIGNAL(clicked()), this, SLOT(manageTimer()));
-    connect(btnSettings, SIGNAL(clicked()), this, SLOT(settings()));
+    //connect(btnSettings, SIGNAL(clicked()), this, SLOT(settings()));
+    //connect(btnSettings, SIGNAL(clicked()), this, SLOT(showMaximized()));
+    connect(btnSettings, SIGNAL(clicked()), this, SLOT(showListSportsmens()));
 
     QGridLayout* grid = new QGridLayout(this);
     //spacing = 6;
     //margin = 6;
     //сетка 56х31
-    grid->setSpacing(0);
+    grid->setSpacing(5);
     grid->setMargin(5);
 
     //grid->SetNoConstraint;
 
-    grid->addWidget(vaz_blue,    0,  0, 8,  6);
-    grid->addWidget(lblVazBlue,  8,  0, 2,  6);
-    grid->addWidget(uko_blue,    0,  7, 8,  6);
-    grid->addWidget(lblUkoBlue,  8,  7, 2,  6);
-    grid->addWidget(kok_blue,    0, 14, 8,  6);
-    grid->addWidget(lblKokBlue,  8, 14, 2,  6);
-    grid->addWidget(han_blue,    0, 21, 8,  6);
-    grid->addWidget(lblHanBlue,  8, 21, 2,  6);
+    NameBlue = new NameAndTeam("white", "", 63,"",this);
+    //NameBlue ->setObjectName("NameBlue");
+    TeamBlue = new NameAndTeam("white", "", 10, "Lucida Console");
+    //TeamBlue->setObjectName("TeamBlue");
 
-    grid->addWidget(lblKoeff,       10, 0, 2,  27);
-    grid->addWidget(lblKoeffValue,  12, 0, 4,  27);
+    NameWhite = new NameAndTeam("white", "", 63,"",this);
+    //NameWhite->setObjectName("NameWhite");
+    TeamWhite = new NameAndTeam("white", "", 10, "Lucida Console");
+    //TeamWhite->setObjectName("TeamWhite");
 
-    grid->addWidget(vaz_white,   0, 28, 8,  6);
-    grid->addWidget(lblVazWhite, 8, 28, 2,  6);
-    grid->addWidget(uko_white,   0, 35, 8,  6);
-    grid->addWidget(lblUkoWhite, 8, 35, 2,  6);
-    grid->addWidget(kok_white,   0, 42, 8,  6);
-    grid->addWidget(lblKokWhite, 8, 42, 2,  6);
-    grid->addWidget(han_white,   0, 49, 8,  6);
-    grid->addWidget(lblHanWhite, 8, 49, 2,  6);
+    NameNextBlue = new NameAndTeam("white", "", 63,"",this);
+    //NameBlue ->setObjectName("NameBlue");
+    NameNextWhite = new NameAndTeam("white", "", 63,"",this);
+    //TeamBlue->setObjectName("TeamBlue");
 
-    grid->addWidget(lblFight,       10, 28, 2,  27);
-    grid->addWidget(lblFightValue,  12, 28, 4,  27);
+    //connect(mainwin, SIGNAL(triggered()), this, SLOT(closeTablo()));
 
-    grid->addWidget(rate_blue,  16,  0, 12, 16);
-    grid->addWidget(rate_white, 16, 39, 12, 16);
+    lblEndTimer = new EndTime(this);
+    lblEndTimer->setObjectName("lblEndTimer");
 
-    grid->addWidget(btnSettings,  10, 24, 3, 7);
-    grid->addWidget(btnTimer,     13, 24, 3, 7);
-    grid->addWidget(btnResetTime, 13, 32, 3, 6);
+    connect(mainwin->closeProg, SIGNAL(triggered()), this, SLOT(closeTablo()));
 
-    grid->addWidget(mainTimer,   16, 17, 12, 21);
-    grid->addWidget(cukamiTimer, 16, 17, 12, 21);
-    grid->addWidget(parterTimer, 16, 17, 12, 21);
-    grid->addWidget(stopwatch,   16, 17, 12, 21);
+    //сетка 55x35
+    grid->addWidget(NameBlue,    0,  0, 2,  27);
+    grid->addWidget(NameWhite,   0, 28, 2,  27);
 
-    grid->addWidget(lblBallBlue, 28, 0,  3, 16);
-    grid->addWidget(lblBallRed,  28, 39, 3, 16);
+    grid->addWidget(TeamBlue,    2,  0, 2,  27);
+    grid->addWidget(TeamWhite,   2, 28, 2,  27);
 
-    grid->addWidget(btnCukami,   28,  17, 3, 6);
-    grid->addWidget(btnTime,     28,  24, 3, 7);
-    grid->addWidget(btnParter,   28,  32, 3, 6);
+    grid->addWidget(vaz_blue,    4,  0, 8,  6);
+    grid->addWidget(lblVazBlue,  12,  0, 2,  6);
+    grid->addWidget(uko_blue,    4,  7, 8,  6);
+    grid->addWidget(lblUkoBlue,  12,  7, 2,  6);
+    grid->addWidget(kok_blue,    4, 14, 8,  6);
+    grid->addWidget(lblKokBlue,  12, 14, 2,  6);
+    grid->addWidget(han_blue,    4, 21, 8,  6);
+    grid->addWidget(lblHanBlue,  12, 21, 2,  6);
 
-    frmSettings = new QWidget;
-    frmSettings->setWindowModality(Qt::ApplicationModal);
-    ui.setupUi(frmSettings);
-    connect(ui.lwKoef, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(choiceKoef(QListWidgetItem*)));
-    connect(ui.rb300, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
-    connect(ui.rb200, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
-    connect(ui.rb130, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
-    connect(ui.rb100, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
-    connect(ui.rb020, SIGNAL(toggled(bool)), this, SLOT(choiceParterTime(bool)));
-    connect(ui.rb030, SIGNAL(toggled(bool)), this, SLOT(choiceParterTime(bool)));
+    grid->addWidget(lblKoeff,       14, 0, 2,  12);
+    grid->addWidget(lblKoeffValue,  16, 0, 4,  12);
 
-    if(QGuiApplication::screens().count() == 2){
-        showFullScreen();
-    }else{
-        show();
-        setGeometry(QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2,
-                    QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2);
-    }
+    grid->addWidget(lblAge,       14, 12, 2,  12);
+    grid->addWidget(lblAgeValue,  16, 12, 4,  12);
+
+    grid->addWidget(vaz_white,   4, 28, 8,  6);
+    grid->addWidget(lblVazWhite, 12, 28, 2,  6);
+    grid->addWidget(uko_white,   4, 35, 8,  6);
+    grid->addWidget(lblUkoWhite, 12, 35, 2,  6);
+    grid->addWidget(kok_white,   4, 42, 8,  6);
+    grid->addWidget(lblKokWhite, 12, 42, 2,  6);
+    grid->addWidget(han_white,   4, 49, 8,  6);
+    grid->addWidget(lblHanWhite, 12, 49, 2,  6);
+
+    grid->addWidget(lblFight,       14, 28, 2,  27);
+    grid->addWidget(lblFightValue,  16, 28, 4,  27);
+
+    grid->addWidget(rate_blue,  20,  0, 12, 16);
+    grid->addWidget(rate_white, 20, 39, 12, 16);
+
+    grid->addWidget(btnSettings,  14, 24, 3, 7);
+    grid->addWidget(btnTimer,     17, 24, 3, 7);
+    grid->addWidget(btnResetTime, 17, 32, 3, 6);
+
+    grid->addWidget(mainTimer,   20, 17, 12, 21);
+    grid->addWidget(cukamiTimer, 20, 17, 12, 21);
+    grid->addWidget(parterTimer, 20, 17, 12, 21);
+    grid->addWidget(stopwatch,   20, 17, 12, 21);
+
+    //grid->addWidget(lblBallBlue, 32, 0,  3, 16);
+    //grid->addWidget(lblBallRed,  32, 39, 3, 16);
+
+    grid->addWidget(btnCukami,   32,  17, 3, 6);
+    grid->addWidget(btnTime,     32,  24, 3, 7);
+    grid->addWidget(btnParter,   32,  32, 3, 6);
+
+    grid->addWidget(NameNextBlue,     35,  0, 2, 27);
+    grid->addWidget(NameNextWhite,   35,  28, 2, 27);
+
+    // frmSettings = new QWidget;
+    // frmSettings->setWindowModality(Qt::ApplicationModal);
+    // ui.setupUi(frmSettings);
+    // connect(ui.lwKoef, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(choiceKoef(QListWidgetItem*)));
+    // connect(ui.rb300, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
+    // connect(ui.rb200, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
+    // connect(ui.rb130, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
+    // connect(ui.rb100, SIGNAL(toggled(bool)), this, SLOT(choiceMainTime(bool)));
+    // connect(ui.rb020, SIGNAL(toggled(bool)), this, SLOT(choiceParterTime(bool)));
+    // connect(ui.rb030, SIGNAL(toggled(bool)), this, SLOT(choiceParterTime(bool)));
+
+    // connect(mainwin->act100, SIGNAL(triggered(bool)), this, SLOT(choiceMainTime(bool)));
+    // connect(mainwin->act130, SIGNAL(triggered(bool)), this, SLOT(choiceMainTime(bool)));
+    // connect(mainwin->act200, SIGNAL(triggered(bool)), this, SLOT(choiceMainTime(bool)));
+    // connect(mainwin->act300, SIGNAL(triggered(bool)), this, SLOT(choiceMainTime(bool)));
+
+    connect(mainwin, SIGNAL(sigTimeParter(bool)), this, SLOT(choiceParterTime(bool)));
+    connect(mainwin, SIGNAL(sigTime(int)),        this, SLOT(choiceMainTime(int)));
+
+    // if(QGuiApplication::screens().count() == 2){
+    //     showFullScreen();
+    // }else{
+    //     show();
+    //     setGeometry(QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2,
+    //                 QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2);
+    // }
 
     //if (desk->numScreens() == 1) {
     if(QGuiApplication::screens().count() == 1){
-        QMessageBox::information(this, "ATTENTION!",
-        "Connect the display to the laptop in the \"extended desktop\" mode",
-        QMessageBox::Ok);
+        if(mainwin->actLang->isChecked()){
+            QMessageBox::information(this, "ATTENTION!",
+                                     "Connect the display to the laptop in the \"extended desktop\" mode",
+                                     QMessageBox::Ok);
+        }
+        else{
+            QMessageBox::information(this, "ВНИМАНИЕ!",
+                                     "Подключите к ноутбуку телевизор в режиме \"расширенный рабочий стол\"",
+                                     QMessageBox::Ok);
+        }
     }
-    tvScreen = new TVScreen();
+    //MainWindow* mainW = new MainWindow;
+    //mainW = static_cast<MainWindow*>(parent);
+    tvScreen = new TVScreen(mainwin);
 
     if(QGuiApplication::screens().count() == 1)
         tvScreen->setGeometry(0, 0, QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2);
     else{
         tvScreen->setGeometry(width(), 0, 100, height());
         tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right(),
-                        0, QApplication::desktop()->availableGeometry(tvScreen).width(),
-                        QApplication::desktop()->availableGeometry(tvScreen).height());
+                              0, QApplication::desktop()->availableGeometry(tvScreen).width(),
+                              QApplication::desktop()->availableGeometry(tvScreen).height());
     }
 
     connect(vaz_blue,	SIGNAL(sigRate(int)),		tvScreen->vaz_blue,	  SLOT(setRate(int)));
@@ -356,6 +442,15 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
 
     tvScreen->show();
 
+    connect(NameBlue,      SIGNAL(sigText(QString)), tvScreen->NameBlue,      SLOT(Text(QString)));
+    connect(NameWhite,     SIGNAL(sigText(QString)), tvScreen->NameWhite,     SLOT(Text(QString)));
+    connect(TeamBlue,      SIGNAL(sigText(QString)), tvScreen->TeamBlue,      SLOT(Text(QString)));
+    connect(TeamWhite,     SIGNAL(sigText(QString)), tvScreen->TeamWhite,     SLOT(Text(QString)));
+    connect(NameNextBlue,  SIGNAL(sigText(QString)), tvScreen->NameNextBlue,  SLOT(Text(QString)));
+    connect(NameNextWhite, SIGNAL(sigText(QString)), tvScreen->NameNextWhite, SLOT(Text(QString)));
+
+    connect(mainwin, SIGNAL(reset()), this, SLOT(resetTablo()));
+
     QString code = calculateCode(serialNumber);
     if(code != readCode || code == ""){
         while(1){
@@ -378,17 +473,34 @@ PcScreen::PcScreen(QWidget *parent) : QWidget(parent){
                         settings.setValue("codeMacAddr", code);
                     }
                     settings.endGroup();
+                    tvScreen->removeLogo();
                     break;
                 }else{
                     ui_code.leCode->setText("");
                     //break;
                 }
             }else{
-                delete frmCode;
-                QApplication::exit();
+                //delete frmCode;
+                //tvScreen->removeLogo();
+                break;
             }
         }
     }
+    else{
+        tvScreen->removeLogo();
+    }
+
+    initListNames();
+
+    QTimer* tmr = new QTimer(this);
+    connect(tmr, SIGNAL(timeout()), this, SLOT(drawTvScreenshot()));
+    tmr->start(100);
+
+    connect(mainwin, SIGNAL(sigParter()), this, SLOT(slotParter()));
+    slotParter();
+
+    connect(mainTimer, SIGNAL(sigEndTime()), tvScreen->lblEndTimer,     SLOT(startProcess()));
+    connect(mainTimer, SIGNAL(sigEndTime()), lblEndTimer,               SLOT(startProcess()));
 }
 
 PcScreen::~PcScreen()
@@ -396,6 +508,7 @@ PcScreen::~PcScreen()
 }
 
 void PcScreen::endTime(bool b){
+    //qDebug()<<"endTime = "<<b;
     if(!b){
         if(parterTimer->isVisible()){
             parterTimer->StartStop();
@@ -406,6 +519,10 @@ void PcScreen::endTime(bool b){
             cukamiTimer->Reset();
             cukamiTimer->setVisible(false);
         }
+        mainwin->menu->setEnabled(true);
+    }
+    else{
+        mainwin->menu->setEnabled(false);
     }
 }
 
@@ -421,11 +538,31 @@ void PcScreen::resetTime()
 {
     if(mainTimer->getStatus() == 1 || stopwatch->isVisible())
         return;
-    if(QMessageBox::question(0, "Reset", u8"Are you sure?") == QMessageBox::No)
-        return;
+    //qDebug()<<"mainwin->actLang->isChecked() = "<<mainwin->actLang->isChecked();
+    if(mainwin->actLang->isChecked()){
+        if(QMessageBox::question(0, "Reset", u8"Are you sure?") == QMessageBox::No)
+            return;
+    }
+    else{
+        if(QMessageBox::question(0, "Сброс", u8"Вы уверены?") == QMessageBox::No)
+            return;
+    }
+
     mainTimer->Reset();
     cukamiTimer->Reset();
     parterTimer->Reset();
+}
+
+void PcScreen::closeTablo()
+{
+    QKeyEvent *key_press = new QKeyEvent(QKeyEvent::KeyPress, Qt::Key_Escape, Qt::NoModifier);
+    QApplication::sendEvent(this, key_press);
+}
+
+void PcScreen::resetTablo()
+{
+    QKeyEvent *key_press = new QKeyEvent(QKeyEvent::KeyPress, Qt::Key_Backspace, Qt::NoModifier);
+    QApplication::sendEvent(this, key_press);
 }
 
 int PcScreen::rec(int num){
@@ -465,26 +602,66 @@ void PcScreen::closeEvent(QCloseEvent*){
     QApplication::exit();
 }
 
-void PcScreen::choiceParterTime(bool checked){
-    if(checked){
-        if(sender() == ui.rb020)
-            parterTimer->setTime(20);
-        else if(sender() == ui.rb030)
-            parterTimer->setTime(30);
-   }
+void PcScreen::choiceParterTime(bool b){
+    qDebug()<<"choiceParterTime = "<<b;
+    if(b)
+        //if(sender() == ui.rb020)
+        parterTimer->setTime(30);
+    else //if(sender() == ui.rb030)
+        parterTimer->setTime(20);
+
 }
 
-void PcScreen::choiceMainTime(bool checked){
-    if(checked){
-        if(sender() == ui.rb300)
-            mainTimer->setTime(180);
-        else if(sender() == ui.rb200)
-            mainTimer->setTime(120);
-        else if(sender() == ui.rb130)
-            mainTimer->setTime(90);
-        else if(sender() == ui.rb100)
-            mainTimer->setTime(60);
+void PcScreen::slotHeightTimer(bool b)
+{
+    tvScreen->grid->removeWidget(tvScreen->mainTimer);
+    tvScreen->grid->removeWidget(tvScreen->cukamiTimer);
+    tvScreen->grid->removeWidget(tvScreen->parterTimer);
+    tvScreen->grid->removeWidget(tvScreen->stopwatch);
+    if(b){
+        tvScreen->grid->addWidget(tvScreen->mainTimer,   28, 17, 12, 21);
+        tvScreen->grid->addWidget(tvScreen->cukamiTimer, 28, 17, 12, 21);
+        tvScreen->grid->addWidget(tvScreen->parterTimer, 28, 17, 12, 21);
+        tvScreen->grid->addWidget(tvScreen->stopwatch,   28, 17, 12, 21);
     }
+    else{
+        tvScreen->grid->addWidget(tvScreen->mainTimer,   29, 17, 10, 21);
+        tvScreen->grid->addWidget(tvScreen->cukamiTimer, 29, 17, 10, 21);
+        tvScreen->grid->addWidget(tvScreen->parterTimer, 29, 17, 10, 21);
+        tvScreen->grid->addWidget(tvScreen->stopwatch,   29, 17, 10, 21);
+    }
+
+}
+
+void PcScreen::choiceMainTime(int time){
+    // if(!mainTimer->getInitState())
+    //     return;
+    switch (time) {
+    case 0:
+        mainTimer->setTime(60);
+        break;
+    case 1:
+        mainTimer->setTime(90);
+        break;
+    case 2:
+        mainTimer->setTime(120);
+        break;
+    case 3:
+        mainTimer->setTime(180);
+        break;
+    default:
+        break;
+    }
+    // if(t){
+    //     if(sender() == mainwin->act300)
+    //         mainTimer->setTime(180);
+    //     else if(sender() == mainwin->act200)
+    //         mainTimer->setTime(120);
+    //     else if(sender() == mainwin->act130)
+    //         mainTimer->setTime(90);
+    //     else if(sender() == mainwin->act100)
+    //         mainTimer->setTime(60);
+    // }
 }
 
 void PcScreen::choiceKoef(QListWidgetItem* item){
@@ -562,13 +739,13 @@ void PcScreen::manageCukami(){
 }
 
 void PcScreen::resizeEvent(QResizeEvent *){
-    int h = lblBallBlue->height();
+    //int h = lblBallBlue->height();
     QFont font;
-    font.setPixelSize(h * 0.8);
+    // font.setPixelSize(h * 0.8);
     font.setBold(true);
-    lblBallBlue->setFont(font);
-    lblBallRed->setFont(font);
-    h = lblVazBlue->height();
+    // lblBallBlue->setFont(font);
+    // lblBallRed->setFont(font);
+    int h = lblVazBlue->height();
     font.setPixelSize(h * 0.55);
     lblVazBlue->setFont(font);
     lblUkoBlue->setFont(font);
@@ -582,10 +759,12 @@ void PcScreen::resizeEvent(QResizeEvent *){
     font.setPixelSize(h * 0.8);
     lblKoeff->setFont(font);
     lblFight->setFont(font);
+    lblAge->setFont(font);
     h = lblKoeffValue->height();
     font.setPixelSize(h * 0.8);
     lblKoeffValue->setFont(font);
     lblFightValue->setFont(font);
+    lblAgeValue->setFont(font);
 
     int minHeight = height() * 2 / 31;
     btnTime->setMinimumHeight(minHeight);
@@ -602,7 +781,10 @@ void PcScreen::resizeEvent(QResizeEvent *){
     btnParter->setFont(font);
     btnSettings->setFont(font);
     btnTimer->setFont(font);
+    font.setPixelSize(h * 0.3);
+    btnResetTime->setFont(font);
 
+    lblEndTimer->setGeometry(0, 0, width(), height());
 }
 
 void PcScreen::changeBallWhite(int b){
@@ -700,10 +882,18 @@ void PcScreen::keyPressEvent(QKeyEvent * e){
             Fight(-1);
     }
     else if(e->key() == Qt::Key_Escape){
-        if(QMessageBox::question(0, "Exit", u8"Are you sure?") == QMessageBox::No)
-            return;
-        else
-            QApplication::exit();
+        if(mainwin->actLang->isChecked()){
+            if(QMessageBox::question(0, "Exit", u8"Are you sure?") == QMessageBox::No)
+                return;
+            else
+                QApplication::exit();
+        }
+        else{
+            if(QMessageBox::question(0, "Выход", u8"Вы уверены?") == QMessageBox::No)
+                return;
+            else
+                QApplication::exit();
+        }
     }else if(e->key() == Qt::Key_0)
         Fight(0);
     else if(e->key() == Qt::Key_1)
@@ -753,8 +943,14 @@ void PcScreen::Fight(int f){
 void PcScreen::Reset(){
     if(mainTimer->getStatus() == 1 || stopwatch->isVisible())
         return;
-    if(QMessageBox::question(0, "Reset", u8"Are you sure?") == QMessageBox::No)
-        return;
+    if(mainwin->actLang->isChecked()){
+        if(QMessageBox::question(0, "Reset", u8"Are you sure?") == QMessageBox::No)
+            return;
+    }
+    else{
+        if(QMessageBox::question(0, "Сброс", u8"Вы уверены?") == QMessageBox::No)
+            return;
+    }
     vaz_blue->sbros();
     uko_blue->sbros();
     kok_blue->sbros();
@@ -770,4 +966,310 @@ void PcScreen::Reset(){
     mainTimer->Reset();
     cukamiTimer->Reset();
     parterTimer->Reset();
+}
+
+void PcScreen::newListSportsmens(){
+    choosingNames->setNames(lf->getSportsmens());
+    choosingNames->setAge(lf->lAge);
+    choosingNames->setWeight(lf->lWeight);
+}
+
+void PcScreen::showListSportsmens(){
+    choosingNames->showMaximized();
+}
+
+void PcScreen::initListNames(){
+    if(mainwin->actLang->isChecked())
+        choosingNames = new ChoosingNames("en");
+    else
+        choosingNames = new ChoosingNames;
+    lf = new ListFamily(this);
+    lf->setObjectName("lf");
+    choosingNames->setNames(lf->getSportsmens());
+    choosingNames->setAge(lf->lAge);
+    choosingNames->setWeight(lf->lWeight);
+
+    connect(choosingNames,
+            SIGNAL(close(QString, QString, QString, QString, QString, QString, QString, QString)),
+            this,
+            SLOT(closeWinName(QString, QString, QString, QString, QString, QString, QString, QString)));
+
+    connect(choosingNames, SIGNAL(del()), this, SLOT(delListNames()));;
+}
+
+void PcScreen::switchLanguage(){
+    if(mainwin->actLang->isChecked()){
+        lblVazBlue->setText("WAZA-ARI");// =  new QLabel(tr("ВАЗАРИ"), this);//("WAZA-ARI", this);
+        lblUkoBlue->setText("YUKO");//new QLabel(tr("ЮКО"), this);//("YUKO", this);
+        lblKokBlue->setText("KOKA");//new QLabel(tr("КОКА"), this);//("KOKA", this);
+        lblHanBlue->setText("HANSOKU");//new QLabel(tr("ХАНСОКУ"), this);//("HANSOKU", this);
+        lblVazWhite->setText("WAZA-ARI");//new QLabel(tr("ВАЗАРИ"), this);
+        lblUkoWhite->setText("YUKO");//new QLabel(tr("ЮКО"), this);
+        lblKokWhite->setText("КОКА");//new QLabel(tr("КОКА"), this);
+        lblHanWhite->setText("HANSOKU");//new QLabel(tr("ХАНСОКУ"), this);
+        lblKoeff->setText("PI (PHYSICAL INDEX)");//("PI (PHYSICAL INDEX)", this);
+        lblAge->setText("AGE");
+        lblFight->setText("FIGHT №");
+
+        btnTime->setText("TIME");
+        btnCukami->setText("TSUKAMI");//("TSUKAMI", this);
+        btnParter->setText("GROUND");//("GROUND", this);
+        btnSettings->setText("ATHLETES");
+        btnTimer->setText("TIMER");
+        btnResetTime->setText("RESET TIME");
+    }
+    else{
+        lblVazBlue->setText("ВАЗАРИ");
+        lblUkoBlue->setText("ЮКО");//new QLabel(tr("ЮКО"), this);//("YUKO", this);
+        lblKokBlue->setText("KOKA");//new QLabel(tr("КОКА"), this);//("KOKA", this);
+        lblHanBlue->setText("ХАНСОКУ");//new QLabel(tr("ХАНСОКУ"), this);//("HANSOKU", this);
+        lblVazWhite->setText("ВАЗАРИ");//new QLabel(tr("ВАЗАРИ"), this);
+        lblUkoWhite->setText("ЮКО");//new QLabel(tr("ЮКО"), this);
+        lblKokWhite->setText("KOKA");//new QLabel(tr("КОКА"), this);
+        lblHanWhite->setText("ХАНСОКУ");//new QLabel(tr("ХАНСОКУ"), this);
+        lblKoeff->setText("КОЭФФИЦИЕНТ");//("PI (PHYSICAL INDEX)", this);
+        lblAge->setText("ВОЗРАСТ");
+        lblFight->setText("БОЙ №");
+
+        btnTime->setText("ВРЕМЯ");
+        btnCukami->setText("ЦУКАМИ");//("TSUKAMI", this);
+        btnParter->setText("ПАРТЕР");//("GROUND", this);
+        btnSettings->setText("СПОРТСМЕНЫ");
+        btnTimer->setText("ТАЙМЕР");
+        btnResetTime->setText("СБРОС ВРЕМЕНИ");
+    }
+}
+
+void PcScreen::changeEvent(QEvent* event)
+{
+    if(0 != event) {
+        switch(event->type()) {
+        // this event is send if a translator is loaded
+        case QEvent::LanguageChange:
+            qDebug()<<"retranslate pc";
+            switchLanguage();
+            break;
+
+        case QEvent::None:
+        case QEvent::Timer:
+        case QEvent::MouseButtonPress:
+        case QEvent::MouseButtonRelease:
+        case QEvent::MouseButtonDblClick:
+        case QEvent::MouseMove:
+        case QEvent::KeyPress:
+        case QEvent::KeyRelease:
+        case QEvent::FocusIn:
+        case QEvent::FocusOut:
+        case QEvent::FocusAboutToChange:
+        case QEvent::Enter:
+        case QEvent::Leave:
+        case QEvent::Paint:
+        case QEvent::Move:
+        case QEvent::Resize:
+        case QEvent::Create:
+        case QEvent::Destroy:
+        case QEvent::Show:
+        case QEvent::Hide:
+        case QEvent::Close:
+        case QEvent::Quit:
+        case QEvent::ParentChange:
+        case QEvent::ParentAboutToChange:
+        case QEvent::ThreadChange:
+        case QEvent::WindowActivate:
+        case QEvent::WindowDeactivate:
+        case QEvent::ShowToParent:
+        case QEvent::HideToParent:
+        case QEvent::Wheel:
+        case QEvent::WindowTitleChange:
+        case QEvent::WindowIconChange:
+        case QEvent::ApplicationWindowIconChange:
+        case QEvent::ApplicationFontChange:
+        case QEvent::ApplicationLayoutDirectionChange:
+        case QEvent::ApplicationPaletteChange:
+        case QEvent::PaletteChange:
+        case QEvent::Clipboard:
+        case QEvent::Speech:
+        case QEvent::MetaCall:
+        case QEvent::SockAct:
+        case QEvent::WinEventAct:
+        case QEvent::DeferredDelete:
+        case QEvent::DragEnter:
+        case QEvent::DragMove:
+        case QEvent::DragLeave:
+        case QEvent::Drop:
+        case QEvent::DragResponse:
+        case QEvent::ChildAdded:
+        case QEvent::ChildPolished:
+        case QEvent::ChildRemoved:
+        case QEvent::ShowWindowRequest:
+        case QEvent::PolishRequest:
+        case QEvent::Polish:
+        case QEvent::LayoutRequest:
+        case QEvent::UpdateRequest:
+        case QEvent::UpdateLater:
+        case QEvent::EmbeddingControl:
+        case QEvent::ActivateControl:
+        case QEvent::DeactivateControl:
+        case QEvent::ContextMenu:
+        case QEvent::InputMethod:
+        case QEvent::TabletMove:
+        case QEvent::LocaleChange:
+        case QEvent::LayoutDirectionChange:
+        case QEvent::Style:
+        case QEvent::TabletPress:
+        case QEvent::TabletRelease:
+        case QEvent::OkRequest:
+        case QEvent::HelpRequest:
+        case QEvent::IconDrag:
+        case QEvent::FontChange:
+        case QEvent::EnabledChange:
+        case QEvent::ActivationChange:
+        case QEvent::StyleChange:
+        case QEvent::IconTextChange:
+        case QEvent::ModifiedChange:
+        case QEvent::MouseTrackingChange:
+        case QEvent::WindowBlocked:
+        case QEvent::WindowUnblocked:
+        case QEvent::WindowStateChange:
+        case QEvent::ReadOnlyChange:
+        case QEvent::ToolTip:
+        case QEvent::WhatsThis:
+        case QEvent::StatusTip:
+        case QEvent::ActionChanged:
+        case QEvent::ActionAdded:
+        case QEvent::ActionRemoved:
+        case QEvent::FileOpen:
+        case QEvent::Shortcut:
+        case QEvent::ShortcutOverride:
+        case QEvent::WhatsThisClicked:
+        case QEvent::ToolBarChange:
+        case QEvent::ApplicationActivate:
+        case QEvent::ApplicationDeactivate:
+        case QEvent::QueryWhatsThis:
+        case QEvent::EnterWhatsThisMode:
+        case QEvent::LeaveWhatsThisMode:
+        case QEvent::ZOrderChange:
+        case QEvent::HoverEnter:
+        case QEvent::HoverLeave:
+        case QEvent::HoverMove:
+        case QEvent::AcceptDropsChange:
+        case QEvent::ZeroTimerEvent:
+        case QEvent::GraphicsSceneMouseMove:
+        case QEvent::GraphicsSceneMousePress:
+        case QEvent::GraphicsSceneMouseRelease:
+        case QEvent::GraphicsSceneMouseDoubleClick:
+        case QEvent::GraphicsSceneContextMenu:
+        case QEvent::GraphicsSceneHoverEnter:
+        case QEvent::GraphicsSceneHoverMove:
+        case QEvent::GraphicsSceneHoverLeave:
+        case QEvent::GraphicsSceneHelp:
+        case QEvent::GraphicsSceneDragEnter:
+        case QEvent::GraphicsSceneDragMove:
+        case QEvent::GraphicsSceneDragLeave:
+        case QEvent::GraphicsSceneDrop:
+        case QEvent::GraphicsSceneWheel:
+        case QEvent::KeyboardLayoutChange:
+        case QEvent::DynamicPropertyChange:
+        case QEvent::TabletEnterProximity:
+        case QEvent::TabletLeaveProximity:
+        case QEvent::NonClientAreaMouseMove:
+        case QEvent::NonClientAreaMouseButtonPress:
+        case QEvent::NonClientAreaMouseButtonRelease:
+        case QEvent::NonClientAreaMouseButtonDblClick:
+        case QEvent::MacSizeChange:
+        case QEvent::ContentsRectChange:
+        case QEvent::MacGLWindowChange:
+        case QEvent::FutureCallOut:
+        case QEvent::GraphicsSceneResize:
+        case QEvent::GraphicsSceneMove:
+        case QEvent::CursorChange:
+        case QEvent::ToolTipChange:
+        case QEvent::NetworkReplyUpdated:
+        case QEvent::GrabMouse:
+        case QEvent::UngrabMouse:
+        case QEvent::GrabKeyboard:
+        case QEvent::UngrabKeyboard:
+        case QEvent::MacGLClearDrawable:
+        case QEvent::StateMachineSignal:
+        case QEvent::StateMachineWrapped:
+        case QEvent::TouchBegin:
+        case QEvent::TouchUpdate:
+        case QEvent::TouchEnd:
+        case QEvent::NativeGesture:
+        case QEvent::RequestSoftwareInputPanel:
+        case QEvent::CloseSoftwareInputPanel:
+        case QEvent::WinIdChange:
+        case QEvent::Gesture:
+        case QEvent::GestureOverride:
+        case QEvent::ScrollPrepare:
+        case QEvent::Scroll:
+        case QEvent::Expose:
+        case QEvent::InputMethodQuery:
+        case QEvent::OrientationChange:
+        case QEvent::TouchCancel:
+        case QEvent::ThemeChange:
+        case QEvent::SockClose:
+        case QEvent::PlatformPanel:
+        case QEvent::StyleAnimationUpdate:
+        case QEvent::ApplicationStateChange:
+        case QEvent::WindowChangeInternal:
+        case QEvent::ScreenChangeInternal:
+        case QEvent::PlatformSurface:
+        case QEvent::Pointer:
+        case QEvent::TabletTrackingChange:
+        case QEvent::User:
+        case QEvent::MaxUser:
+            break;
+        }
+    }
+}
+
+void PcScreen::delListNames()
+{
+    //QThread::msleep(100);
+    if(choosingNames != nullptr)
+        choosingNames->deleteLater();
+    if(lf != nullptr)
+        lf->deleteLater();
+
+    initListNames();
+
+    choosingNames->showMaximized();
+}
+
+void PcScreen::closeWinName(QString redName, QString redRegion, QString blueName,
+                            QString blueRegion, QString redNameNext, QString blueNameNext,
+                            QString Age, QString Weight){
+    NameBlue-> Text(redName);
+    TeamBlue->Text(redRegion);
+    NameWhite->Text(blueName);
+    TeamWhite->Text(blueRegion);
+    NameNextBlue->Text(redNameNext);
+    NameNextWhite->Text(blueNameNext);
+    lblAgeValue->setText(Age);
+    lblKoeffValue->setText(Weight);
+    tvScreen->lblAgeValue->setText(Age);
+    tvScreen->lblKoeffValue->setText(Weight);
+}
+
+void PcScreen::drawTvScreenshot(){
+    if(mainwin->dlgSettings->isVisible()){
+        QPixmap pix = tvScreen->grab();
+        pix = pix.scaled(mainwin->lblTV->width(), mainwin->lblTV->height());
+        mainwin->lblTV->setPixmap(pix);
+    }
+}
+
+void PcScreen::slotParter()
+{
+    if(mainwin->actNoParter->isChecked())
+        btnParter->setVisible(false);
+    else
+        btnParter->setVisible(true);
+
+    if(mainwin->actNoCukami->isChecked())
+        btnCukami->setVisible(false);
+    else
+        btnCukami->setVisible(true);
+
 }

@@ -1,5 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file>gong.mp3</file>
+        <file>images/DOWN.png</file>
+        <file>images/UP.png</file>
+        <file>ChoosingNames.qml</file>
+        <file>DelegateSide.qml</file>
+        <file>SliderNames.qml</file>
+        <file>SliderNamesNext.qml</file>
+        <file>TableAllSportsmens.qml</file>
+        <file>TableChoosingNames.qml</file>
+        <file>TableSide.qml</file>
+        <file>ChoosingNames_en.qml</file>
     </qresource>
 </RCC>

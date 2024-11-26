@@ -3,15 +3,21 @@
 #include "lcdtimer.h"
 
 #include <QLabel>
+#include <QGridLayout>
+#include <QSettings>
 #include "hansoku.h"
 #include "rate.h"
 
 #include "lcdstopwatch.h"
+#include "nameandteam.h"
+#include "mainwindow.h"
+#include "endtime.h"
 
 class TVScreen : public QWidget {
 	Q_OBJECT
 public:
-    explicit TVScreen(QWidget *parent = 0);
+    explicit TVScreen(MainWindow*, QWidget *parent = 0);
+    EndTime* lblEndTimer;
 
     ~TVScreen();
 
@@ -35,6 +41,18 @@ public:
     QLabel* lblFightValue;
 
     QLabel* lblKoeffValue;
+    QLabel* lblAgeValue;
+
+    FirstLastName* NameBlue;
+    FirstLastName* NameWhite;
+    NameAndTeam* NameNextBlue;
+    NameAndTeam* NameNextWhite;
+    NameAndTeam* TeamBlue;
+    NameAndTeam* TeamWhite;
+
+    QGridLayout* grid;
+
+    void removeLogo(void);
 
 private:
 
@@ -50,14 +68,29 @@ private:
     QLabel* lblKokBlue;
     QLabel* lblHanBlue;
 
-    QLabel* lblKoeff;
+    QLabel* logo;
+
+
+    //QLabel* lblKoeff;
+    //QLabel* lblAge;
 
     QLabel* lblFight;
 
-	
+    int HEIGHT_FAMILY;
+    int HEIGHT_TEAM;
+    int HEIGHT_NEXT_FAMILY;
+
+    QSettings* settings;
+
+    MainWindow* main;
+
 	virtual void paintEvent(QPaintEvent *);
     virtual void resizeEvent(QResizeEvent *);
 
+protected:
+    void changeEvent(QEvent*);
 
+private slots:
+    void slotChangeSize(int);
 
 };

@@ -85,6 +85,7 @@ void LCDTimer::showTime(){
         if(_sound){
             QMediaPlayer * pPlayer = new QMediaPlayer;
             pPlayer->setMedia(QUrl("qrc:/gong.mp3"));
+            emit sigEndTime();
             pPlayer->play() ;
         }
     }
@@ -101,6 +102,14 @@ void LCDTimer::showTime(QString sTime, QPalette pal){
 
 int LCDTimer::getStatus(){
     return status;
+}
+
+bool LCDTimer::getInitState()
+{
+    if(time == intInitTime)
+        return true;
+    else
+        return false;
 }
 
 int LCDTimer::strTimeToInt(QString sTime){

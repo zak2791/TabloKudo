@@ -32,7 +32,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Select point value</string>
+   <string>Выберите оценку</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>
@@ -45,12 +45,12 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>70</width>
+     <width>151</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Keikoku</string>
+    <string>Кейкоку</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="cbHansoku1">
@@ -58,12 +58,12 @@
     <rect>
      <x>20</x>
      <y>40</y>
-     <width>70</width>
+     <width>161</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Hansoku-1</string>
+    <string>Хансоку-1</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="cbHansoku2">
@@ -71,12 +71,12 @@
     <rect>
      <x>20</x>
      <y>70</y>
-     <width>70</width>
+     <width>151</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Hansoku-2</string>
+    <string>Хансоку-2</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="cbHansoku3">
@@ -84,12 +84,12 @@
     <rect>
      <x>20</x>
      <y>100</y>
-     <width>70</width>
+     <width>161</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Hansoku-3</string>
+    <string>Хансоку-3</string>
    </property>
   </widget>
  </widget>

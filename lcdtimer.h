@@ -29,6 +29,7 @@ public:
     virtual void showEvent(QShowEvent*);
     virtual void hideEvent(QHideEvent*);
     int getStatus(void);
+    bool getInitState(void);
 
 
 private:
@@ -71,6 +72,7 @@ signals:
     void sigStarted(bool);
     void sigReset(void);
     void sigVisible(bool);
+    void sigEndTime(void);
 
 };
 

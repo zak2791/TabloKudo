@@ -31,6 +31,9 @@ private:
     QString styleHan2;
     QString styleHan3;
 
+protected:
+    void changeEvent(QEvent*);
+
 private slots:
     void choiceHansoku(int);
 
