@@ -82,8 +82,8 @@
     </property>
     <addaction name="separator"/>
     <addaction name="separator"/>
-    <addaction name="about"/>
     <addaction name="winHelp"/>
+    <addaction name="about"/>
    </widget>
    <addaction name="mFile"/>
    <addaction name="mSettings"/>
@@ -98,12 +98,12 @@
     <string>Открыть файл</string>
    </property>
   </action>
-  <action name="about">
+  <action name="winHelp">
    <property name="text">
     <string>Вызов справки</string>
    </property>
   </action>
-  <action name="winHelp">
+  <action name="about">
    <property name="text">
     <string>О программе</string>
    </property>

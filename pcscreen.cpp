@@ -1038,6 +1038,12 @@ void PcScreen::switchLanguage(){
         btnTimer->setText("ТАЙМЕР");
         btnResetTime->setText("СБРОС ВРЕМЕНИ");
     }
+    // if(choosingNames != nullptr)
+    //     choosingNames->deleteLater();
+    // if(lf != nullptr)
+    //     lf->deleteLater();
+
+    // initListNames();
 }
 
 void PcScreen::changeEvent(QEvent* event)
@@ -1046,7 +1052,6 @@ void PcScreen::changeEvent(QEvent* event)
         switch(event->type()) {
         // this event is send if a translator is loaded
         case QEvent::LanguageChange:
-            qDebug()<<"retranslate pc";
             switchLanguage();
             break;
 

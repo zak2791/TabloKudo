@@ -1,0 +1,65 @@
+CHECKING THE PROGRAM BEFORE PURCHASE
+
+Since the program is linked to the serial number of a specific computer, before purchasing the program, it is necessary
+to check the correctness of its operation on this computer, after purchase, claims about the operation of the program will not
+be accepted:
+1. From the folder with the program, you need to run the file "TabloKudo.exe ". If the program has started, then proceed to step 2.
+
+2. Next, you need to exit the program and connect the TV to the computer. Then in the graphics settings – on the right 
+using the mouse button on the desktop or through the control panel, in the "multiple displays" section, set the mode 
+"Extend these displays" (some computers may not support this mode). 
+Next, you need to run the program. If everything is set up correctly, the program interface will be displayed on the computer display
+, with a blue background color on the left and a white color on
+the right and controls (buttons) will be present on the screen. On the TV screen, on the contrary, there will be white on the left, blue on the right and no buttons on the screen 
+will be. If that's the case, then you can proceed to step 3, if not, then you need to try to set it up again or use
+another computer.
+
+3. When the program starts, a window appears asking for the key.  You need to copy the computer number from this window 
+(you can select the BIOS number or MAC address), send it and enter the key received in return in the appropriate field.
+
+TABLEAU MANAGEMENT
+From the keyboard:
+ESC -- exit the program
+BACK SPACE(<--) -- reset
+The number of the fight:
+ALT + BACK SPACE(<--) -- deleting a digit
+numeric key -- setting a number
+Using the buttons on the screen:
+The "ATHLETES" button displays a window for selecting athletes, coefficient, age. 
+Grades are set by clicking on the corresponding grade with the left mouse button (the grades are removed with the right mouse button)
+When you click on the Hansoku rating window, a rating input window appears where you can select them in any sequence.
+The time of the fight, the stalls, the tsuki and the timer are controlled by left-clicking on the corresponding time button.
+The timer turns on when the battle time is stopped, the countdown stops by pressing again and the third press
+is removed from the screen.
+
+Preparing a file with a list of athletes 
+Create an Excel file (format .xlsx) in any catalog. The file should contain columns with the athlete's last name,
+the name of the team (region), age category and coefficient. The table should not contain
+empty rows. After opening the program, select a file from the "file" menu.
+
+The choice of athletes 
+1. The athletes selection window is opened by clicking the "Athletes" button. Next, the age category and coefficient are selected (optionally, if not
+already selected). 
+
+2. Athletes are selected by left-clicking on a cell in the main (left) table. If
+a lot of athletes are displayed in the table, then to simplify the selection, you can enter the initial letters of their surnames in the
+"filter by last name" field. At the same time, only athletes whose surnames begin with these letters will be shown in the table
+. If there is time, it is advisable to select as many athletes as possible, according to the protocols.
+
+3. The selected athletes are displayed in the right table. The pair being called is located in the green field of the slider 
+athletes, in yellow - preparing. For the next fights, the slider must be moved down using the left
+mouse button. You can remove an athlete from this table by right-clicking on a cell. Also, with the left button 
+You can drag cells between each other with the mouse (you cannot drag or delete cells located in the slider). 
+
+4. The selected athletes are not displayed in the main table, so periodically you need to clear the right table
+by clicking the "delete used names" button or the "delete all" button. If the program has failed and in 
+The names of athletes are displayed incorrectly on the slider, then it is necessary to clear the table by clicking the "delete all" button.
+
+5. If there is not enough athlete(s) in the lists, then clicking the "Add athlete" button, the window
+for adding or selecting an athlete is called. After entering the last name and region (team) in the appropriate fields,
+click the "Add" button. The added athletes are selected from the bottom list by clicking the left mouse button. Since these
+athletes remain in the program's memory, then at the next competitions, the list must be cleared by pressing
+the "clear list" button. 
+
+6. For the convenience of working with the athletes selection window, you can adjust the font sizes of the tables and the height of the slider with 
+using the appropriate controls at the top of the window.

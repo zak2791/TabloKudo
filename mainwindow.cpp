@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -145,7 +146,7 @@ MainWindow::MainWindow(QWidget *parent)
     if(!heightTimer)
         uiSettings.rbSmall->setChecked(true);
 
-    connect(uiSettings.rbBig, &QRadioButton::toggled, [=](bool check)
+    connect(uiSettings.rbBig, &QRadioButton::toggled, this, [=](bool check)
             {
                 settings->beginGroup("heightTimers");
                 settings->setValue("heightTimer", check);
@@ -153,7 +154,20 @@ MainWindow::MainWindow(QWidget *parent)
                 settings->endGroup();
             });
 
-    //slotSelectEng(true);
+    connect(ui->about, &QAction::triggered, this, [=](){
+        if(actLang->isChecked())
+            QMessageBox::information(this, "About programm", "Version 2.0, 26.12.2024");
+        else
+            QMessageBox::information(this, "О программе", "Версия 2.0, 26.12.2024");
+    });
+
+    connect(ui->winHelp, &QAction::triggered, this, [=](){
+        QProcess proc(this);
+        if(actLang->isChecked())
+            proc.startDetached("notepad", {"manual_en.txt"});
+        else
+            proc.startDetached("notepad", {"manual_ru.txt"});
+    });
 
 }
 
