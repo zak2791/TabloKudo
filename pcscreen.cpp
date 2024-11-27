@@ -411,10 +411,12 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     if(QGuiApplication::screens().count() == 1)
         tvScreen->setGeometry(0, 0, QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2);
     else{
-        tvScreen->setGeometry(width(), 0, 100, height());
-        tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right(),
-                              0, QApplication::desktop()->availableGeometry(tvScreen).width(),
-                              QApplication::desktop()->availableGeometry(tvScreen).height());
+        //tvScreen->setGeometry(width(), 0, 100, height());
+        tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right() + 100, 0, 100, height());
+        // tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right(),
+        //                       0, QApplication::desktop()->availableGeometry(tvScreen).width(),
+        //                       QApplication::desktop()->availableGeometry(tvScreen).height());
+        tvScreen->showFullScreen();
     }
 
     connect(vaz_blue,	SIGNAL(sigRate(int)),		tvScreen->vaz_blue,	  SLOT(setRate(int)));

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/">
+        <file alias="gong.mp3">../../gong.mp3</file>
+        <file alias="images/DOWN.png">../../images/DOWN.png</file>
+        <file alias="images/UP.png">../../images/UP.png</file>
+        <file alias="ChoosingNames.qml">../../ChoosingNames.qml</file>
+        <file alias="DelegateSide.qml">../../DelegateSide.qml</file>
+        <file alias="SliderNames.qml">../../SliderNames.qml</file>
+        <file alias="SliderNamesNext.qml">../../SliderNamesNext.qml</file>
+        <file alias="TableAllSportsmens.qml">../../TableAllSportsmens.qml</file>
+        <file alias="TableChoosingNames.qml">../../TableChoosingNames.qml</file>
+        <file alias="TableSide.qml">../../TableSide.qml</file>
+        <file alias="ChoosingNames_en.qml">../../ChoosingNames_en.qml</file>
+    </qresource>
+</RCC>
