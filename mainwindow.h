@@ -105,6 +105,8 @@ signals:
     void sigParter(void);
 
     void sigHeightTimer(bool);
+
+    //void sigEnglish(void);
 };
 
 #endif // MAINWINDOW_H

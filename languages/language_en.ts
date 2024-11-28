@@ -175,111 +175,111 @@
         <translation>Tablo KUDO</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="28"/>
+        <location filename="../mainwindow.ui" line="31"/>
         <source>Файл</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="34"/>
+        <location filename="../mainwindow.ui" line="37"/>
         <source>Настройки</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="40"/>
+        <location filename="../mainwindow.ui" line="43"/>
         <source>Время</source>
         <translation>Time</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="44"/>
+        <location filename="../mainwindow.ui" line="47"/>
         <source>Время боя</source>
         <translation>Fight time</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="53"/>
+        <location filename="../mainwindow.ui" line="56"/>
         <source>Время партера</source>
         <translation>Ground time</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="65"/>
-        <location filename="../mainwindow.ui" line="110"/>
+        <location filename="../mainwindow.ui" line="68"/>
+        <location filename="../mainwindow.ui" line="113"/>
         <source>Сброс</source>
         <translation>Reset</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="71"/>
+        <location filename="../mainwindow.ui" line="74"/>
         <source>Язык</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="78"/>
+        <location filename="../mainwindow.ui" line="81"/>
         <source>Помощь</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="95"/>
+        <location filename="../mainwindow.ui" line="98"/>
         <source>Открыть файл</source>
         <translation>Open file</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="100"/>
+        <location filename="../mainwindow.ui" line="103"/>
         <source>Вызов справки</source>
         <translation>Show help</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="105"/>
+        <location filename="../mainwindow.ui" line="108"/>
         <source>О программе</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="115"/>
+        <location filename="../mainwindow.ui" line="118"/>
         <source>Окно настроек</source>
         <translation>Settings window</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="123"/>
+        <location filename="../mainwindow.ui" line="126"/>
         <source>Недавние файлы</source>
         <translation>Last files</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="158"/>
-        <location filename="../mainwindow.ui" line="193"/>
+        <location filename="../mainwindow.ui" line="179"/>
+        <location filename="../mainwindow.ui" line="214"/>
         <source>Русский</source>
         <translation>Russian</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="163"/>
-        <location filename="../mainwindow.ui" line="201"/>
+        <location filename="../mainwindow.ui" line="184"/>
+        <location filename="../mainwindow.ui" line="222"/>
         <source>Английский</source>
         <translation>English</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="171"/>
+        <location filename="../mainwindow.ui" line="192"/>
         <source>Без партера</source>
         <translation>No ground</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="182"/>
+        <location filename="../mainwindow.ui" line="203"/>
         <source>Без цуками</source>
         <translation>No tsukami</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="39"/>
+        <location filename="../mainwindow.cpp" line="46"/>
         <source>Последние файлы</source>
         <translation>Last files</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="40"/>
-        <location filename="../mainwindow.cpp" line="104"/>
+        <location filename="../mainwindow.cpp" line="47"/>
+        <location filename="../mainwindow.cpp" line="207"/>
         <source>Выход</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="105"/>
+        <location filename="../mainwindow.cpp" line="208"/>
         <source>Вы уверены?</source>
         <translation>Are you shure?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="117"/>
+        <location filename="../mainwindow.cpp" line="220"/>
         <source>Выберите файл</source>
         <translation>Select file</translation>
     </message>
@@ -287,115 +287,83 @@
 <context>
     <name>PcScreen</name>
     <message>
-        <location filename="../pcscreen.cpp" line="188"/>
-        <location filename="../pcscreen.cpp" line="200"/>
         <source>ВАЗАРИ</source>
-        <translation>WAZA-ARI</translation>
+        <translation type="vanished">WAZA-ARI</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="191"/>
-        <location filename="../pcscreen.cpp" line="203"/>
         <source>ЮКО</source>
-        <translation>UKO</translation>
+        <translation type="vanished">UKO</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="194"/>
-        <location filename="../pcscreen.cpp" line="206"/>
         <source>КОКА</source>
-        <translation>KOKA</translation>
+        <translation type="vanished">KOKA</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="197"/>
-        <location filename="../pcscreen.cpp" line="209"/>
         <source>ХАНСОКУ</source>
-        <translation>HANSOKU</translation>
+        <translation type="vanished">HANSOKU</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="213"/>
         <source>КОЭФФИЦИЕНТ</source>
-        <translation>PI (PHYSICAL INDEX)</translation>
+        <translation type="vanished">PI (PHYSICAL INDEX)</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="221"/>
         <source>ВОЗРАСТ</source>
-        <translation>AGE</translation>
+        <translation type="vanished">AGE</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="229"/>
         <source>БОЙ №</source>
-        <translation>FIGHT №</translation>
+        <translation type="vanished">FIGHT №</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="237"/>
         <source>ВРЕМЯ</source>
-        <translation>TIME</translation>
+        <translation type="vanished">TIME</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="239"/>
         <source>ЦУКАМИ</source>
-        <translation>TSUKAMI</translation>
+        <translation type="vanished">TSUKAMI</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="241"/>
         <source>ПАРТЕР</source>
-        <translation>GROUND</translation>
+        <translation type="vanished">GROUND</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="243"/>
         <source>СПОРТСМЕНЫ</source>
-        <translation>ATHLETES</translation>
+        <translation type="vanished">ATHLETES</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="245"/>
         <source>ТАЙМЕР</source>
-        <translation>TIMER</translation>
+        <translation type="vanished">TIMER</translation>
     </message>
     <message>
-        <location filename="../pcscreen.cpp" line="248"/>
         <source>Сброс времени</source>
-        <translation>Reset time</translation>
+        <translation type="vanished">Reset time</translation>
     </message>
 </context>
 <context>
     <name>TVScreen</name>
     <message>
-        <location filename="../tvscreen.cpp" line="83"/>
-        <location filename="../tvscreen.cpp" line="95"/>
         <source>ВАЗАРИ</source>
-        <translation>WAZA-ARI</translation>
+        <translation type="vanished">WAZA-ARI</translation>
     </message>
     <message>
-        <location filename="../tvscreen.cpp" line="86"/>
-        <location filename="../tvscreen.cpp" line="98"/>
         <source>ЮКО</source>
-        <translation>UKO</translation>
+        <translation type="vanished">UKO</translation>
     </message>
     <message>
-        <location filename="../tvscreen.cpp" line="89"/>
-        <location filename="../tvscreen.cpp" line="101"/>
         <source>КОКА</source>
-        <translation>KOKA</translation>
+        <translation type="vanished">KOKA</translation>
     </message>
     <message>
-        <location filename="../tvscreen.cpp" line="92"/>
-        <location filename="../tvscreen.cpp" line="104"/>
-        <source>ХАНСОКУ</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../tvscreen.cpp" line="108"/>
         <source>КОЭФФИЦИЕНТ</source>
-        <translation>PI (PHYSICAL INDEX)</translation>
+        <translation type="vanished">PI (PHYSICAL INDEX)</translation>
     </message>
     <message>
-        <location filename="../tvscreen.cpp" line="116"/>
         <source>ВОЗРАСТ</source>
-        <translation>AGE</translation>
+        <translation type="vanished">AGE</translation>
     </message>
     <message>
-        <location filename="../tvscreen.cpp" line="125"/>
         <source>БОЙ №</source>
-        <translation>FIGHT №</translation>
+        <translation type="vanished">FIGHT №</translation>
     </message>
 </context>
 <context>
@@ -496,6 +464,21 @@ the athlete
         <translation>Name of
 the preparing
 athlete</translation>
+    </message>
+    <message>
+        <location filename="../settings_window.ui" line="253"/>
+        <source>Высота таймера</source>
+        <translation>Height of timer</translation>
+    </message>
+    <message>
+        <location filename="../settings_window.ui" line="265"/>
+        <source>Больше</source>
+        <translation>Up</translation>
+    </message>
+    <message>
+        <location filename="../settings_window.ui" line="281"/>
+        <source>Меньше</source>
+        <translation>Down</translation>
     </message>
 </context>
 </TS>

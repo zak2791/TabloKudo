@@ -80,6 +80,7 @@ MainWindow::MainWindow(QWidget *parent)
             qApp->installTranslator(&translator);
             ui->retranslateUi(this);
             uiSettings.retranslateUi(dlgSettings);
+            //emit sigEnglish();
         }
     }
 

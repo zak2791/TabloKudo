@@ -246,7 +246,7 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     lblAgeValue->setStyleSheet("color: white;");
     lblAgeValue->setAlignment(Qt::AlignCenter);
 
-    lblFight =  new QLabel(tr("БОЙ №"), this);
+    lblFight =  new QLabel("БОЙ №", this);
     lblFight->setStyleSheet("color: blue;");
     lblFight->setAlignment(Qt::AlignCenter);
 
@@ -265,7 +265,7 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     btnTimer = new QPushButton("ТАЙМЕР", this);
     btnTimer->setStyleSheet("color: yellow");
 
-    btnResetTime = new QPushButton(tr("Сброс времени"), this);
+    btnResetTime = new QPushButton("Сброс времени", this);
     connect(btnResetTime, SIGNAL(clicked(bool)), this, SLOT(resetTime()));
     //btnResetTime->setStyleSheet("color: black");
 
@@ -503,6 +503,8 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
 
     connect(mainTimer, SIGNAL(sigEndTime()), tvScreen->lblEndTimer,     SLOT(startProcess()));
     connect(mainTimer, SIGNAL(sigEndTime()), lblEndTimer,               SLOT(startProcess()));
+    QEvent ev(QEvent::LanguageChange);
+    changeEvent(&ev);
 }
 
 PcScreen::~PcScreen()
@@ -1001,15 +1003,15 @@ void PcScreen::initListNames(){
 
 void PcScreen::switchLanguage(){
     if(mainwin->actLang->isChecked()){
-        lblVazBlue->setText("WAZA-ARI");// =  new QLabel(tr("ВАЗАРИ"), this);//("WAZA-ARI", this);
-        lblUkoBlue->setText("YUKO");//new QLabel(tr("ЮКО"), this);//("YUKO", this);
-        lblKokBlue->setText("KOKA");//new QLabel(tr("КОКА"), this);//("KOKA", this);
-        lblHanBlue->setText("HANSOKU");//new QLabel(tr("ХАНСОКУ"), this);//("HANSOKU", this);
-        lblVazWhite->setText("WAZA-ARI");//new QLabel(tr("ВАЗАРИ"), this);
-        lblUkoWhite->setText("YUKO");//new QLabel(tr("ЮКО"), this);
-        lblKokWhite->setText("КОКА");//new QLabel(tr("КОКА"), this);
-        lblHanWhite->setText("HANSOKU");//new QLabel(tr("ХАНСОКУ"), this);
-        lblKoeff->setText("PI (PHYSICAL INDEX)");//("PI (PHYSICAL INDEX)", this);
+        lblVazBlue->setText("WAZA-ARI");
+        lblUkoBlue->setText("YUKO");
+        lblKokBlue->setText("KOKA");
+        lblHanBlue->setText("HANSOKU");
+        lblVazWhite->setText("WAZA-ARI");
+        lblUkoWhite->setText("YUKO");
+        lblKokWhite->setText("КОКА");
+        lblHanWhite->setText("HANSOKU");
+        lblKoeff->setText("PI (PHYSICAL INDEX)");
         lblAge->setText("AGE");
         lblFight->setText("FIGHT №");
 
@@ -1022,30 +1024,24 @@ void PcScreen::switchLanguage(){
     }
     else{
         lblVazBlue->setText("ВАЗАРИ");
-        lblUkoBlue->setText("ЮКО");//new QLabel(tr("ЮКО"), this);//("YUKO", this);
-        lblKokBlue->setText("KOKA");//new QLabel(tr("КОКА"), this);//("KOKA", this);
-        lblHanBlue->setText("ХАНСОКУ");//new QLabel(tr("ХАНСОКУ"), this);//("HANSOKU", this);
-        lblVazWhite->setText("ВАЗАРИ");//new QLabel(tr("ВАЗАРИ"), this);
-        lblUkoWhite->setText("ЮКО");//new QLabel(tr("ЮКО"), this);
-        lblKokWhite->setText("KOKA");//new QLabel(tr("КОКА"), this);
-        lblHanWhite->setText("ХАНСОКУ");//new QLabel(tr("ХАНСОКУ"), this);
-        lblKoeff->setText("КОЭФФИЦИЕНТ");//("PI (PHYSICAL INDEX)", this);
+        lblUkoBlue->setText("ЮКО");
+        lblKokBlue->setText("KOKA");
+        lblHanBlue->setText("ХАНСОКУ");
+        lblVazWhite->setText("ВАЗАРИ");
+        lblUkoWhite->setText("ЮКО");
+        lblKokWhite->setText("KOKA");
+        lblHanWhite->setText("ХАНСОКУ");
+        lblKoeff->setText("КОЭФФИЦИЕНТ");
         lblAge->setText("ВОЗРАСТ");
         lblFight->setText("БОЙ №");
 
         btnTime->setText("ВРЕМЯ");
-        btnCukami->setText("ЦУКАМИ");//("TSUKAMI", this);
-        btnParter->setText("ПАРТЕР");//("GROUND", this);
+        btnCukami->setText("ЦУКАМИ");
+        btnParter->setText("ПАРТЕР");
         btnSettings->setText("СПОРТСМЕНЫ");
         btnTimer->setText("ТАЙМЕР");
         btnResetTime->setText("СБРОС ВРЕМЕНИ");
     }
-    // if(choosingNames != nullptr)
-    //     choosingNames->deleteLater();
-    // if(lf != nullptr)
-    //     lf->deleteLater();
-
-    // initListNames();
 }
 
 void PcScreen::changeEvent(QEvent* event)

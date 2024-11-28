@@ -72,58 +72,41 @@ TVScreen::TVScreen(MainWindow* mWin, QWidget * parent) : QWidget(parent) {
     stopwatch = new LCDStopwatch(this, "3:00", QColor(255, 255, 0), QColor(255, 255, 0), true);
     stopwatch->setVisible(false);
 
-    //QLabel* lbl = new QLabel(this);
-
-    //lblBallBlue = new QLabel("POINTS", this);
-    //lblBallBlue->setStyleSheet("color: white;");
-    //lblBallBlue->setAlignment(Qt::AlignCenter);
-    //lblBallRed = new QLabel("POINTS", this);
-    //lblBallRed->setStyleSheet("color: blue");
-    //lblBallRed->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-
-    lblVazBlue =  new QLabel(tr("ВАЗАРИ"), this);
+    lblVazBlue =  new QLabel("ВАЗАРИ", this);
     lblVazBlue->setStyleSheet("color: white;");
     lblVazBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoBlue =  new QLabel(tr("ЮКО"), this);
+    lblUkoBlue =  new QLabel("ЮКО", this);
     lblUkoBlue->setStyleSheet("color: white;");
     lblUkoBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokBlue =  new QLabel(tr("КОКА"), this);
+    lblKokBlue =  new QLabel("КОКА", this);
     lblKokBlue->setStyleSheet("color: white;");
     lblKokBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanBlue =  new QLabel(tr("ХАНСОКУ"), this);
+    lblHanBlue =  new QLabel("ХАНСОКУ", this);
     lblHanBlue->setStyleSheet("color: white;");
     lblHanBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblVazWhite =  new QLabel(tr("ВАЗАРИ"), this);
+    lblVazWhite =  new QLabel("ВАЗАРИ", this);
     lblVazWhite->setStyleSheet("color: blue;");
     lblVazWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoWhite =  new QLabel(tr("ЮКО"), this);
+    lblUkoWhite =  new QLabel("ЮКО", this);
     lblUkoWhite->setStyleSheet("color: blue;");
     lblUkoWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokWhite =  new QLabel(tr("КОКА"), this);
+    lblKokWhite =  new QLabel("КОКА", this);
     lblKokWhite->setStyleSheet("color: blue;");
     lblKokWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanWhite =  new QLabel(tr("ХАНСОКУ"), this);
+    lblHanWhite =  new QLabel("ХАНСОКУ", this);
     lblHanWhite->setStyleSheet("color: blue;");
     lblHanWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-
-    // lblKoeff =  new QLabel(tr("КОЭФФИЦИЕНТ"), this);
-    // lblKoeff->setStyleSheet("color: white;");
-    // lblKoeff->setAlignment(Qt::AlignCenter);
 
     lblKoeffValue =  new QLabel("", this);
     lblKoeffValue->setStyleSheet("color: white;");
     lblKoeffValue->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
-
-    // lblAge =  new QLabel(tr("ВОЗРАСТ"), this);
-    // lblAge->setStyleSheet("color: white;");
-    // lblAge->setAlignment(Qt::AlignCenter);
 
     lblAgeValue =  new QLabel("", this);
     lblAgeValue->setStyleSheet("color: white;");
     lblAgeValue->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
 
-    lblFight =  new QLabel(tr("БОЙ №"), this);
+    lblFight =  new QLabel("БОЙ №", this);
     lblFight->setStyleSheet("color: blue;");
     lblFight->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
@@ -253,6 +236,9 @@ TVScreen::TVScreen(MainWindow* mWin, QWidget * parent) : QWidget(parent) {
     main = mWin;
 
     lblEndTimer = new EndTime(this);
+
+    QEvent ev(QEvent::LanguageChange);
+    changeEvent(&ev);
 }
 
 TVScreen::~TVScreen()
@@ -299,12 +285,12 @@ void TVScreen::resizeEvent(QResizeEvent *){
     lblKokWhite->setFont(font);
     lblHanWhite->setFont(font);
     h = lblFight->height();
-    font.setPixelSize(h * 0.5);
+    font.setPixelSize(h * 0.45);
     //lblKoeff->setFont(font);
     //lblAge->setFont(font);
     lblFight->setFont(font);
     h = lblKoeffValue->height();
-    font.setPixelSize(h * 0.8);
+    font.setPixelSize(h * 0.7 );
     lblKoeffValue->setFont(font);
     lblFightValue->setFont(font);
     lblAgeValue->setFont(font);
@@ -417,15 +403,15 @@ void TVScreen::changeEvent(QEvent* event)
             qDebug()<<"retranslate tv";
             //switchLanguage();
             if(main->actLang->isChecked()){
-                lblVazBlue->setText("WAZA-ARI");// =  new QLabel(tr("ВАЗАРИ"), this);//("WAZA-ARI", this);
-                lblUkoBlue->setText("YUKO");//new QLabel(tr("ЮКО"), this);//("YUKO", this);
-                lblKokBlue->setText("KOKA");//new QLabel(tr("КОКА"), this);//("KOKA", this);
-                lblHanBlue->setText("HANSOKU");//new QLabel(tr("ХАНСОКУ"), this);//("HANSOKU", this);
-                lblVazWhite->setText("WAZA-ARI");//new QLabel(tr("ВАЗАРИ"), this);
-                lblUkoWhite->setText("YUKO");//new QLabel(tr("ЮКО"), this);
-                lblKokWhite->setText("КОКА");//new QLabel(tr("КОКА"), this);
-                lblHanWhite->setText("HANSOKU");//new QLabel(tr("ХАНСОКУ"), this);
-                //lblKoeff->setText("PI (PHYSICAL INDEX)");//("PI (PHYSICAL INDEX)", this);
+                lblVazBlue->setText("WAZA-ARI");
+                lblUkoBlue->setText("YUKO");
+                lblKokBlue->setText("KOKA");
+                lblHanBlue->setText("HANSOKU");
+                lblVazWhite->setText("WAZA-ARI");
+                lblUkoWhite->setText("YUKO");
+                lblKokWhite->setText("КОКА");
+                lblHanWhite->setText("HANSOKU");
+                //lblKoeff->setText("PI (PHYSICAL INDEX)");
                 //lblAge->setText("AGE");
                 lblFight->setText("FIGHT №");
                 if(logo != nullptr)
@@ -433,14 +419,14 @@ void TVScreen::changeEvent(QEvent* event)
             }
             else{
                 lblVazBlue->setText("ВАЗАРИ");
-                lblUkoBlue->setText("ЮКО");//new QLabel(tr("ЮКО"), this);//("YUKO", this);
-                lblKokBlue->setText("KOKA");//new QLabel(tr("КОКА"), this);//("KOKA", this);
-                lblHanBlue->setText("ХАНСОКУ");//new QLabel(tr("ХАНСОКУ"), this);//("HANSOKU", this);
-                lblVazWhite->setText("ВАЗАРИ");//new QLabel(tr("ВАЗАРИ"), this);
-                lblUkoWhite->setText("ЮКО");//new QLabel(tr("ЮКО"), this);
-                lblKokWhite->setText("KOKA");//new QLabel(tr("КОКА"), this);
-                lblHanWhite->setText("ХАНСОКУ");//new QLabel(tr("ХАНСОКУ"), this);
-                //lblKoeff->setText("КОЭФФИЦИЕНТ");//("PI (PHYSICAL INDEX)", this);
+                lblUkoBlue->setText("ЮКО");
+                lblKokBlue->setText("KOKA");
+                lblHanBlue->setText("ХАНСОКУ");
+                lblVazWhite->setText("ВАЗАРИ");
+                lblUkoWhite->setText("ЮКО");
+                lblKokWhite->setText("KOKA");
+                lblHanWhite->setText("ХАНСОКУ");
+                //lblKoeff->setText("КОЭФФИЦИЕНТ");
                 //lblAge->setText("ВОЗРАСТ");
                 lblFight->setText("БОЙ №");
                 if(logo != nullptr)
