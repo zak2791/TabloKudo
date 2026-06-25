@@ -73,20 +73,28 @@ TVScreen::TVScreen(MainWindow* mWin, QWidget * parent) : QWidget(parent) {
     stopwatch->setVisible(false);
 
     lblVazBlue =  new SvgLabel(":/images/vazaari_white_rus.svg", ":/images/vazaari_white_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblVazBlue, &SvgLabel::setLanguage);
 
     lblUkoBlue =  new SvgLabel(":/images/yuko_white_rus.svg", ":/images/yuko_white_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblUkoBlue, &SvgLabel::setLanguage);
 
     lblKokBlue =  new SvgLabel(":/images/koka_white_rus.svg", ":/images/koka_white_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblKokBlue, &SvgLabel::setLanguage);
 
     lblHanBlue =  new SvgLabel(":/images/hansoku_white_rus.svg", ":/images/hansoku_white_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblHanBlue, &SvgLabel::setLanguage);
 
     lblVazWhite =  new SvgLabel(":/images/vazaari_blue_rus.svg", ":/images/vazaari_blue_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblVazWhite, &SvgLabel::setLanguage);
 
     lblUkoWhite =  new SvgLabel(":/images/yuko_blue_rus.svg", ":/images/yuko_blue_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblUkoWhite, &SvgLabel::setLanguage);
 
     lblKokWhite =  new SvgLabel(":/images/koka_blue_rus.svg", ":/images/koka_blue_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblKokWhite, &SvgLabel::setLanguage);
 
     lblHanWhite =  new SvgLabel(":/images/hansoku_blue_rus.svg", ":/images/hansoku_blue_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblHanWhite, &SvgLabel::setLanguage);
 
 
     lblKoeffValue =  new QLabel("", this);
@@ -99,6 +107,8 @@ TVScreen::TVScreen(MainWindow* mWin, QWidget * parent) : QWidget(parent) {
 
 
     lblFight =  new SvgLabel(":/images/fight_tv_rus.svg", ":/images/fight_tv_eng.svg");
+    connect(mWin, &MainWindow::sigLanguage, lblFight, &SvgLabel::setLanguage);
+
 
     lblFightValue =  new QLabel("1", this);
     lblFightValue->setStyleSheet("color: blue;");

@@ -557,7 +557,6 @@ void MainWindow::slotSelectEng(bool b)
         ui->actEnglish->toggle();
         return;
     }
-    qDebug()<<"slotSelectEng";
     settings->beginGroup("languages");
     settings->setValue("language", "en");
     settings->endGroup();
@@ -567,9 +566,10 @@ void MainWindow::slotSelectEng(bool b)
     if(translator.load((QApplication::applicationDirPath() + "/languages/language_en"))){
         qApp->installTranslator(&translator);
         ui->retranslateUi(this);
-        //emit sigTranslate(true);
         uiSettings.retranslateUi(dlgSettings);
     }
+
+    sigLanguage(false);
 
 }
 
@@ -580,19 +580,20 @@ void MainWindow::slotSelectRus(bool b)
         qDebug()<<"rus checked";
         return;
     }
-    qDebug()<<"slotSelectRus";
+
     settings->beginGroup("languages");
     settings->setValue("language", "ru");
     settings->endGroup();
 
     ui->actEnglish->setChecked(false);
 
-    qApp->removeTranslator(&translator);
-    ui->retranslateUi(this);
-    uiSettings.retranslateUi(dlgSettings);
-    //emit sigTranslate(false);
+    if(translator.load((QApplication::applicationDirPath() + "/languages/language_en"))){
+        qApp->removeTranslator(&translator);
+        ui->retranslateUi(this);
+        uiSettings.retranslateUi(dlgSettings);
+    }
 
-
+    sigLanguage(true);
 
 }
 

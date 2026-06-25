@@ -15,7 +15,7 @@ public:
     SVGPushButton(QString, QString);
 
 public slots:
-    void setLanguage(void);
+    void setLanguage(bool);
 
 };
 

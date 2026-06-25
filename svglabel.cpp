@@ -12,15 +12,18 @@ SvgLabel::SvgLabel(QString _pathRus, QString _pathEng, QWidget* parent) : QLabel
     box->setContentsMargins(0,0,0,0);
     setLayout(box);
     layout()->addWidget(&w);
-    setLanguage();
-}
-
-void SvgLabel::setLanguage(){
     QSettings settings("settings.ini", QSettings::IniFormat);
     settings.beginGroup("languages");
     QString language = settings.value("language", "ru").toString();
     settings.endGroup();
     if(language == "ru")
+        setLanguage(true);
+    else
+        setLanguage(false);
+}
+
+void SvgLabel::setLanguage(bool b){
+    if(b)
         w.load(pathRus);
     else
         w.load(pathEng);

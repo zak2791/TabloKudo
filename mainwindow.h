@@ -106,6 +106,8 @@ signals:
 
     void sigHeightTimer(bool);
 
+    void sigLanguage(bool);
+
     //void sigEnglish(void);
 };
 

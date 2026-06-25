@@ -14,7 +14,6 @@ SOURCES += \
     addform.cpp \
     choosingnames.cpp \
     endtime.cpp \
-    formsettings.cpp \
     hansoku.cpp \
     lcdstopwatch.cpp \
     lcdtimer.cpp \
@@ -34,7 +33,6 @@ HEADERS += \
     addform.h \
     choosingnames.h \
     endtime.h \
-    formsettings.h \
     hansoku.h \
     lcdstopwatch.h \
     lcdtimer.h \
@@ -58,7 +56,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 FORMS += \
     addform.ui \
     code.ui \
-    formsettings.ui \
     hans.ui \
     mainwindow.ui \
     settings_window.ui

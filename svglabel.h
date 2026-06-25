@@ -15,7 +15,7 @@ public:
     SvgLabel(QString, QString, QWidget* parent = nullptr);
 
 public slots:
-    void setLanguage(void);
+    void setLanguage(bool);
 
 };
 

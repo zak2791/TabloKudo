@@ -206,52 +206,68 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     // lblBallRed->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
     lblVazBlue =  new SvgLabel(":/images/vazaari_white_rus.svg", ":/images/vazaari_white_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblVazBlue, &SvgLabel::setLanguage);
 
     lblUkoBlue =  new SvgLabel(":/images/yuko_white_rus.svg", ":/images/yuko_white_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblUkoBlue, &SvgLabel::setLanguage);
 
     lblKokBlue =  new SvgLabel(":/images/koka_white_rus.svg", ":/images/koka_white_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblKokBlue, &SvgLabel::setLanguage);
 
     lblHanBlue =  new SvgLabel(":/images/hansoku_white_rus.svg", ":/images/hansoku_white_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblHanBlue, &SvgLabel::setLanguage);
 
     lblVazWhite =  new SvgLabel(":/images/vazaari_blue_rus.svg", ":/images/vazaari_blue_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblVazWhite, &SvgLabel::setLanguage);
 
     lblUkoWhite =  new SvgLabel(":/images/yuko_blue_rus.svg", ":/images/yuko_blue_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblUkoWhite, &SvgLabel::setLanguage);
 
     lblKokWhite =  new SvgLabel(":/images/koka_blue_rus.svg", ":/images/koka_blue_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblKokWhite, &SvgLabel::setLanguage);
 
     lblHanWhite =  new SvgLabel(":/images/hansoku_blue_rus.svg", ":/images/hansoku_blue_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblHanWhite, &SvgLabel::setLanguage);
 
     lblKoeff =  new SvgLabel(":/images/koeff_rus.svg", ":/images/koeff_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblKoeff, &SvgLabel::setLanguage);
 
     lblKoeffValue =  new QLabel("", this);
     lblKoeffValue->setStyleSheet("color: white;");
     lblKoeffValue->setAlignment(Qt::AlignCenter);
 
     lblAge =  new SvgLabel(":/images/age_rus.svg", ":/images/age_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblAge, &SvgLabel::setLanguage);
 
     lblAgeValue =  new QLabel("", this);
     lblAgeValue->setStyleSheet("color: white;");
     lblAgeValue->setAlignment(Qt::AlignCenter);
 
     lblFight =  new SvgLabel(":/images/fight_rus.svg", ":/images/fight_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, lblFight, &SvgLabel::setLanguage);
 
     lblFightValue =  new QLabel("1", this);
     lblFightValue->setStyleSheet("color: blue;");
     lblFightValue->setAlignment(Qt::AlignCenter);
 
     btnTime = new SVGPushButton(":/images/time_rus.svg", ":/images/time_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, btnTime, &SVGPushButton::setLanguage);
 
     btnCukami = new SVGPushButton(":/images/tsukami_rus.svg", ":/images/tsukami_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, btnCukami, &SVGPushButton::setLanguage);
 
     btnParter = new SVGPushButton(":/images/parter_rus.svg", ":/images/parter_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, btnParter, &SVGPushButton::setLanguage);
 
     btnSettings = new SVGPushButton(":/images/athletes_rus.svg", ":/images/athletes_eng.svg");
-    //btnSettings->setStyleSheet("color: red");
+    connect(mw, &MainWindow::sigLanguage, btnSettings, &SVGPushButton::setLanguage);
+
     btnTimer = new SVGPushButton(":/images/timer_rus.svg", ":/images/timer_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, btnTimer, &SVGPushButton::setLanguage);
 
     btnResetTime = new SVGPushButton(":/images/reset_time_rus.svg", ":/images/reset_time_eng.svg");
+    connect(mw, &MainWindow::sigLanguage, btnResetTime, &SVGPushButton::setLanguage);
     connect(btnResetTime, SIGNAL(clicked(bool)), this, SLOT(resetTime()));
-    //btnResetTime->setStyleSheet("color: black");
 
     connect(btnTime, SIGNAL(clicked()), this, SLOT(manageTime()));
     connect(btnParter, SIGNAL(clicked()), this, SLOT(manageParter()));
