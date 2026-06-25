@@ -3,30 +3,22 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: dragItem
-
     property string textRed: ""
     property string textBlue: ""
     property real txtYpos
     property real heightRow
-
     property string ageRed: ""
     property string ageBlue: ""
-
     property string weightRed: ""
     property string weightBlue: ""
-
     property real maxY: 0
-
     property string col: "#556b2f"
-
     //property real textHeight: 14
     property real textOffset // heightRow - 42
     property int szFont
-
     function setTextOffset(){
         textOffset = heightRow / 2 - txtRed.contentHeight / 2 - 5
     }
-
     width: parent.width
     height: heightRow + 1
     x: 0
@@ -34,7 +26,6 @@ Item {
     Drag.active: dragArea.drag.active
     Drag.hotSpot.y: 0
     property point beginDrag
-
     Rectangle {
         width: parent.width
         height: parent.height
@@ -71,7 +62,6 @@ Item {
                     text: textRed
                     font.pixelSize: szFont
                     horizontalAlignment: Text.AlignHCenter
-
                     y: txtYpos + textOffset
                 }
             }
@@ -87,7 +77,6 @@ Item {
                     //x: 15
                     width: parent.width
                     color: "white"
-
                     text: textBlue
                     font.pixelSize: szFont
                     horizontalAlignment: Text.AlignHCenter

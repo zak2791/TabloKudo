@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>gong.mp3</file>
         <file>images/DOWN.png</file>
         <file>images/UP.png</file>
         <file>ChoosingNames.qml</file>
@@ -11,5 +10,42 @@
         <file>TableChoosingNames.qml</file>
         <file>TableSide.qml</file>
         <file>ChoosingNames_en.qml</file>
+        <file>gong.wav</file>
+        <file>images/vazaari_blue_eng.svg</file>
+        <file>images/vazaari_blue_rus.svg</file>
+        <file>images/vazaari_white_eng.svg</file>
+        <file>images/vazaari_white_rus.svg</file>
+        <file>images/yuko_white_rus.svg</file>
+        <file>images/yuko_blue_rus.svg</file>
+        <file>images/yuko_white_eng.svg</file>
+        <file>images/yuko_blue_eng.svg</file>
+        <file>images/koka_white_rus.svg</file>
+        <file>images/koka_blue_rus.svg</file>
+        <file>images/koka_white_eng.svg</file>
+        <file>images/koka_blue_eng.svg</file>
+        <file>images/hansoku_white_eng.svg</file>
+        <file>images/hansoku_blue_eng.svg</file>
+        <file>images/hansoku_white_rus.svg</file>
+        <file>images/hansoku_blue_rus.svg</file>
+        <file>images/koeff_rus.svg</file>
+        <file>images/koeff_eng.svg</file>
+        <file>images/fight_eng.svg</file>
+        <file>images/fight_rus.svg</file>
+        <file>images/age_eng.svg</file>
+        <file>images/age_rus.svg</file>
+        <file>images/time_rus.svg</file>
+        <file>images/time_eng.svg</file>
+        <file>images/reset_time_eng.svg</file>
+        <file>images/reset_time_rus.svg</file>
+        <file>images/tsukami_rus.svg</file>
+        <file>images/tsukami_eng.svg</file>
+        <file>images/timer_eng.svg</file>
+        <file>images/timer_rus.svg</file>
+        <file>images/athletes_eng.svg</file>
+        <file>images/athletes_rus.svg</file>
+        <file>images/parter_rus.svg</file>
+        <file>images/parter_eng.svg</file>
+        <file>images/fight_tv_rus.svg</file>
+        <file>images/fight_tv_eng.svg</file>
     </qresource>
 </RCC>

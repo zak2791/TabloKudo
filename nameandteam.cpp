@@ -54,7 +54,7 @@ QString NameAndTeam::getText(){
 
 void NameAndTeam::paintEvent(QPaintEvent * ){
     fm.setPixelSize(height() / 0.9);
-    fm.setWeight(wt); //63
+    fm.setWeight(QFont::DemiBold); //63
     setFont(fm);
 
     QPainter pn;
@@ -96,7 +96,7 @@ FirstLastName::FirstLastName(QString _cl,
 
 void FirstLastName::paintEvent(QPaintEvent * ){
     fm.setPixelSize(height() / 1.8);
-    fm.setWeight(wt); //63
+    fm.setWeight(QFont::DemiBold); //63
     setFont(fm);
 
     QPainter pn;

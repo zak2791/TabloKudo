@@ -12,6 +12,7 @@
 #include "nameandteam.h"
 #include "mainwindow.h"
 #include "endtime.h"
+#include "svglabel.h"
 
 class TVScreen : public QWidget {
 	Q_OBJECT
@@ -59,14 +60,14 @@ private:
     QLabel* lblBallBlue;
     QLabel* lblBallRed;
 
-    QLabel* lblVazWhite;
-    QLabel* lblUkoWhite;
-    QLabel* lblKokWhite;
-    QLabel* lblHanWhite;
-    QLabel* lblVazBlue;
-    QLabel* lblUkoBlue;
-    QLabel* lblKokBlue;
-    QLabel* lblHanBlue;
+    SvgLabel* lblVazWhite;
+    SvgLabel* lblUkoWhite;
+    SvgLabel* lblKokWhite;
+    SvgLabel* lblHanWhite;
+    SvgLabel* lblVazBlue;
+    SvgLabel* lblUkoBlue;
+    SvgLabel* lblKokBlue;
+    SvgLabel* lblHanBlue;
 
     QLabel* logo;
 
@@ -74,7 +75,7 @@ private:
     //QLabel* lblKoeff;
     //QLabel* lblAge;
 
-    QLabel* lblFight;
+    SvgLabel* lblFight;
 
     int HEIGHT_FAMILY;
     int HEIGHT_TEAM;

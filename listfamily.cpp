@@ -21,7 +21,7 @@ QStringList ListFamily::getSportsmens(){
     readFileSportsmens();
 
     foreach(QString s, sportsmens){
-        s = s.remove(s.lastIndexOf(";"), 5);
+        //s = s.remove(s.lastIndexOf(";"), 5);
         s.replace(";", "\n");
         list.append(s);
     }
@@ -62,15 +62,20 @@ void ListFamily::readFileSportsmens(){
 
     for(int i = 1; i <= maxRow; i++){
         if(doc.read(i, 1).toString() == "") break;
-        sportsmens.append(doc.read(i, 1).toString() + ";"
+        // sportsmens.append(doc.read(i, 1).toString() + ";"
+        //                   + doc.read(i, 2).toString() + ";"
+        //                   + doc.read(i, 3).toString() + ";"
+        //                   + doc.read(i, 4).toString() + ";"
+        //                   + doc.read(i, 5).toString());
+        sportsmens.append(doc.read(i, 1).toString() + " " + doc.read(i, 5).toString() + ";"
                           + doc.read(i, 2).toString() + ";"
                           + doc.read(i, 3).toString() + ";"
-                          + doc.read(i, 4).toString() + ";"
-                          + doc.read(i, 5).toString());
-        //l.append(doc.read(i, 1).toString() + ";" + doc.read(i, 2).toString() + ";" + doc.read(i, 5).toString());
+                          + doc.read(i, 4).toString());
         lAge.append(doc.read(i, 3).toString());
         lWeight.append(doc.read(i, 4).toString());
     }
+
+
     lAge.append("");
     lWeight.append("");
     lAge.removeDuplicates();

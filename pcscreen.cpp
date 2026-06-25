@@ -3,7 +3,7 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QMessageBox>
-#include <QDesktopWidget>
+//#include <QDesktopWidget>
 #include <QProcess>
 //#include "qthread.h"
 #include "qmenubar.h"
@@ -37,7 +37,7 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
             break;
         }
         QString s = QString::fromUtf8(buf);
-        QList<QString> list = s.split(QRegExp("\\s+"));
+        QList<QString> list = s.split(QRegularExpression("\\s+"));
         foreach(auto each, list){
             QRegularExpressionMatch match = re.match(each);
             if (match.hasMatch()) {
@@ -205,67 +205,51 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     // lblBallRed->setStyleSheet("color: blue");
     // lblBallRed->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
-    lblVazBlue =  new QLabel("ВАЗАРИ", this);//("WAZA-ARI", this);
-    lblVazBlue->setStyleSheet("color: white;");
-    lblVazBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoBlue =  new QLabel("ЮКО", this);//("YUKO", this);
-    lblUkoBlue->setStyleSheet("color: white;");
-    lblUkoBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokBlue =  new QLabel("КОКА", this);//("KOKA", this);
-    lblKokBlue->setStyleSheet("color: white;");
-    lblKokBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanBlue =  new QLabel("ХАНСОКУ", this);//("HANSOKU", this);
-    lblHanBlue->setStyleSheet("color: white;");
-    lblHanBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblVazWhite =  new QLabel("ВАЗАРИ", this);
-    lblVazWhite->setStyleSheet("color: blue;");
-    lblVazWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoWhite =  new QLabel("ЮКО", this);
-    lblUkoWhite->setStyleSheet("color: blue;");
-    lblUkoWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokWhite =  new QLabel("КОКА", this);
-    lblKokWhite->setStyleSheet("color: blue;");
-    lblKokWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanWhite =  new QLabel("ХАНСОКУ", this);
-    lblHanWhite->setStyleSheet("color: blue;");
-    lblHanWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    lblVazBlue =  new SvgLabel(":/images/vazaari_white_rus.svg", ":/images/vazaari_white_eng.svg");
 
-    lblKoeff =  new QLabel("КОЭФФИЦИЕНТ", this);//("PI (PHYSICAL INDEX)", this);
-    lblKoeff->setStyleSheet("color: white;");
-    lblKoeff->setAlignment(Qt::AlignCenter);
+    lblUkoBlue =  new SvgLabel(":/images/yuko_white_rus.svg", ":/images/yuko_white_eng.svg");
+
+    lblKokBlue =  new SvgLabel(":/images/koka_white_rus.svg", ":/images/koka_white_eng.svg");
+
+    lblHanBlue =  new SvgLabel(":/images/hansoku_white_rus.svg", ":/images/hansoku_white_eng.svg");
+
+    lblVazWhite =  new SvgLabel(":/images/vazaari_blue_rus.svg", ":/images/vazaari_blue_eng.svg");
+
+    lblUkoWhite =  new SvgLabel(":/images/yuko_blue_rus.svg", ":/images/yuko_blue_eng.svg");
+
+    lblKokWhite =  new SvgLabel(":/images/koka_blue_rus.svg", ":/images/koka_blue_eng.svg");
+
+    lblHanWhite =  new SvgLabel(":/images/hansoku_blue_rus.svg", ":/images/hansoku_blue_eng.svg");
+
+    lblKoeff =  new SvgLabel(":/images/koeff_rus.svg", ":/images/koeff_eng.svg");
 
     lblKoeffValue =  new QLabel("", this);
     lblKoeffValue->setStyleSheet("color: white;");
     lblKoeffValue->setAlignment(Qt::AlignCenter);
 
-    lblAge =  new QLabel("ВОЗРАСТ", this);
-    lblAge->setStyleSheet("color: white;");
-    lblAge->setAlignment(Qt::AlignCenter);
+    lblAge =  new SvgLabel(":/images/age_rus.svg", ":/images/age_eng.svg");
 
     lblAgeValue =  new QLabel("", this);
     lblAgeValue->setStyleSheet("color: white;");
     lblAgeValue->setAlignment(Qt::AlignCenter);
 
-    lblFight =  new QLabel("БОЙ №", this);
-    lblFight->setStyleSheet("color: blue;");
-    lblFight->setAlignment(Qt::AlignCenter);
+    lblFight =  new SvgLabel(":/images/fight_rus.svg", ":/images/fight_eng.svg");
 
     lblFightValue =  new QLabel("1", this);
     lblFightValue->setStyleSheet("color: blue;");
     lblFightValue->setAlignment(Qt::AlignCenter);
 
-    btnTime = new QPushButton("ВРЕМЯ", this);
-    btnTime->setStyleSheet("color: green");
-    btnCukami = new QPushButton("ЦУКАМИ", this);//("TSUKAMI", this);
-    btnCukami->setStyleSheet("color: blue");
-    btnParter = new QPushButton("ПАРТЕР", this);//("GROUND", this);
-    btnParter->setStyleSheet("color: red");
-    btnSettings = new QPushButton("СПОРТСМЕНЫ", this);
-    //btnSettings->setStyleSheet("color: red");
-    btnTimer = new QPushButton("ТАЙМЕР", this);
-    btnTimer->setStyleSheet("color: yellow");
+    btnTime = new SVGPushButton(":/images/time_rus.svg", ":/images/time_eng.svg");
 
-    btnResetTime = new QPushButton("Сброс времени", this);
+    btnCukami = new SVGPushButton(":/images/tsukami_rus.svg", ":/images/tsukami_eng.svg");
+
+    btnParter = new SVGPushButton(":/images/parter_rus.svg", ":/images/parter_eng.svg");
+
+    btnSettings = new SVGPushButton(":/images/athletes_rus.svg", ":/images/athletes_eng.svg");
+    //btnSettings->setStyleSheet("color: red");
+    btnTimer = new SVGPushButton(":/images/timer_rus.svg", ":/images/timer_eng.svg");
+
+    btnResetTime = new SVGPushButton(":/images/reset_time_rus.svg", ":/images/reset_time_eng.svg");
     connect(btnResetTime, SIGNAL(clicked(bool)), this, SLOT(resetTime()));
     //btnResetTime->setStyleSheet("color: black");
 
@@ -282,7 +266,7 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     //margin = 6;
     //сетка 56х31
     grid->setSpacing(5);
-    grid->setMargin(5);
+    //grid->setMargin(5);
 
     //grid->SetNoConstraint;
 
@@ -339,8 +323,8 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     grid->addWidget(han_white,   4, 49, 8,  6);
     grid->addWidget(lblHanWhite, 12, 49, 2,  6);
 
-    grid->addWidget(lblFight,       14, 28, 2,  27);
-    grid->addWidget(lblFightValue,  16, 28, 4,  27);
+    grid->addWidget(lblFight,       14, 31, 2,  24);
+    grid->addWidget(lblFightValue,  16, 31, 4,  24);
 
     grid->addWidget(rate_blue,  20,  0, 12, 16);
     grid->addWidget(rate_white, 20, 39, 12, 16);
@@ -408,16 +392,18 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     //mainW = static_cast<MainWindow*>(parent);
     tvScreen = new TVScreen(mainwin);
 
-    if(QGuiApplication::screens().count() == 1)
-        tvScreen->setGeometry(0, 0, QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2);
-    else{
-        //tvScreen->setGeometry(width(), 0, 100, height());
-        tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right() + 100, 0, 100, height());
-        // tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right(),
-        //                       0, QApplication::desktop()->availableGeometry(tvScreen).width(),
-        //                       QApplication::desktop()->availableGeometry(tvScreen).height());
-        tvScreen->showFullScreen();
-    }
+    setTvScreenGeometry();
+
+    // if(QGuiApplication::screens().count() == 1)
+    //     tvScreen->setGeometry(0, 0, QApplication::desktop()->availableGeometry(this).width() / 2, QApplication::desktop()->availableGeometry(this).height() / 2);
+    // else{
+    //     //tvScreen->setGeometry(width(), 0, 100, height());
+    //     tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right() + 100, 0, 100, height());
+    //     // tvScreen->setGeometry(QApplication::desktop()->availableGeometry(this).right(),
+    //     //                       0, QApplication::desktop()->availableGeometry(tvScreen).width(),
+    //     //                       QApplication::desktop()->availableGeometry(tvScreen).height());
+    //     tvScreen->showFullScreen();
+    // }
 
     connect(vaz_blue,	SIGNAL(sigRate(int)),		tvScreen->vaz_blue,	  SLOT(setRate(int)));
     connect(uko_blue,	SIGNAL(sigRate(int)),		tvScreen->uko_blue,   SLOT(setRate(int)));
@@ -743,51 +729,13 @@ void PcScreen::manageCukami(){
 }
 
 void PcScreen::resizeEvent(QResizeEvent *){
-    //int h = lblBallBlue->height();
     QFont font;
-    // font.setPixelSize(h * 0.8);
     font.setBold(true);
-    // lblBallBlue->setFont(font);
-    // lblBallRed->setFont(font);
-    int h = lblVazBlue->height();
-    font.setPixelSize(h * 0.55);
-    lblVazBlue->setFont(font);
-    lblUkoBlue->setFont(font);
-    lblKokBlue->setFont(font);
-    lblHanBlue->setFont(font);
-    lblVazWhite->setFont(font);
-    lblUkoWhite->setFont(font);
-    lblKokWhite->setFont(font);
-    lblHanWhite->setFont(font);
-    h = lblKoeff->height();
-    font.setPixelSize(h * 0.8);
-    lblKoeff->setFont(font);
-    lblFight->setFont(font);
-    lblAge->setFont(font);
-    h = lblKoeffValue->height();
-    font.setPixelSize(h * 0.8);
+    int h = lblKoeffValue->height();
+    font.setPixelSize(h * 0.7);
     lblKoeffValue->setFont(font);
     lblFightValue->setFont(font);
     lblAgeValue->setFont(font);
-
-    int minHeight = height() * 2 / 31;
-    btnTime->setMinimumHeight(minHeight);
-    btnCukami->setMinimumHeight(minHeight);
-    btnParter->setMinimumHeight(minHeight);
-    btnSettings->setMinimumHeight(minHeight);
-    btnTimer->setMinimumHeight(minHeight);
-    btnResetTime->setMinimumHeight(minHeight);
-
-    h = btnTime->height();
-    font.setPixelSize(h * 0.4);
-    btnTime->setFont(font);
-    btnCukami->setFont(font);
-    btnParter->setFont(font);
-    btnSettings->setFont(font);
-    btnTimer->setFont(font);
-    font.setPixelSize(h * 0.3);
-    btnResetTime->setFont(font);
-
     lblEndTimer->setGeometry(0, 0, width(), height());
 }
 
@@ -1003,44 +951,12 @@ void PcScreen::initListNames(){
 
 void PcScreen::switchLanguage(){
     if(mainwin->actLang->isChecked()){
-        lblVazBlue->setText("WAZA-ARI");
-        lblUkoBlue->setText("YUKO");
-        lblKokBlue->setText("KOKA");
-        lblHanBlue->setText("HANSOKU");
-        lblVazWhite->setText("WAZA-ARI");
-        lblUkoWhite->setText("YUKO");
-        lblKokWhite->setText("КОКА");
-        lblHanWhite->setText("HANSOKU");
-        lblKoeff->setText("PI (PHYSICAL INDEX)");
-        lblAge->setText("AGE");
-        lblFight->setText("FIGHT №");
 
-        btnTime->setText("TIME");
-        btnCukami->setText("TSUKAMI");//("TSUKAMI", this);
-        btnParter->setText("GROUND");//("GROUND", this);
-        btnSettings->setText("ATHLETES");
-        btnTimer->setText("TIMER");
-        btnResetTime->setText("RESET TIME");
+
     }
     else{
-        lblVazBlue->setText("ВАЗАРИ");
-        lblUkoBlue->setText("ЮКО");
-        lblKokBlue->setText("KOKA");
-        lblHanBlue->setText("ХАНСОКУ");
-        lblVazWhite->setText("ВАЗАРИ");
-        lblUkoWhite->setText("ЮКО");
-        lblKokWhite->setText("KOKA");
-        lblHanWhite->setText("ХАНСОКУ");
-        lblKoeff->setText("КОЭФФИЦИЕНТ");
-        lblAge->setText("ВОЗРАСТ");
-        lblFight->setText("БОЙ №");
 
-        btnTime->setText("ВРЕМЯ");
-        btnCukami->setText("ЦУКАМИ");
-        btnParter->setText("ПАРТЕР");
-        btnSettings->setText("СПОРТСМЕНЫ");
-        btnTimer->setText("ТАЙМЕР");
-        btnResetTime->setText("СБРОС ВРЕМЕНИ");
+
     }
 }
 
@@ -1192,7 +1108,7 @@ void PcScreen::changeEvent(QEvent* event)
         case QEvent::UngrabMouse:
         case QEvent::GrabKeyboard:
         case QEvent::UngrabKeyboard:
-        case QEvent::MacGLClearDrawable:
+        //case QEvent::MacGLClearDrawable:
         case QEvent::StateMachineSignal:
         case QEvent::StateMachineWrapped:
         case QEvent::TouchBegin:
@@ -1275,4 +1191,19 @@ void PcScreen::slotParter()
     else
         btnCukami->setVisible(true);
 
+}
+
+void PcScreen::setTvScreenGeometry(){
+    if(QGuiApplication::screens().count() == 2){
+        QList<QScreen*> lScreens = QGuiApplication::screens();
+        qDebug()<<lScreens<<lScreens.at(0)->availableGeometry()<<lScreens.at(1)->availableGeometry();
+        tvScreen->setGeometry(lScreens.at(1)->availableGeometry());
+        tvScreen->show();
+        tvScreen->showFullScreen();
+    }
+    else{
+        tvScreen->setGeometry(0, 0, QApplication::primaryScreen()->availableGeometry().width() / 2,
+                              QApplication::primaryScreen()->availableGeometry().height() / 2);
+        tvScreen->show();
+    }
 }

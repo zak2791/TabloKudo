@@ -1,5 +1,6 @@
 #include "hansoku.h"
 #include <QDebug>
+#include <QEvent>
 
 Hansoku::Hansoku(QString col, QWidget *parent):
 QLabel(parent){
@@ -111,7 +112,7 @@ void Hansoku::sbros(){
 }
 
 void Hansoku::resizeEvent(QResizeEvent *){
-    font.setWeight(50);
+    font.setWeight(QFont::DemiBold);
     font.setPixelSize(height() * 2);
     QFontMetrics fm = QFontMetrics(font);
 
@@ -277,7 +278,7 @@ void Hansoku::changeEvent(QEvent* event)
         case QEvent::UngrabMouse:
         case QEvent::GrabKeyboard:
         case QEvent::UngrabKeyboard:
-        case QEvent::MacGLClearDrawable:
+        //case QEvent::MacGLClearDrawable:
         case QEvent::StateMachineSignal:
         case QEvent::StateMachineWrapped:
         case QEvent::TouchBegin:

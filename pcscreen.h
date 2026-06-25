@@ -8,6 +8,8 @@
 #include "hansoku.h"
 #include "lcdtimer.h"
 #include "lcdstopwatch.h"
+#include "svglabel.h"
+#include "svgpushbutton.h"
 #include "ui_formsettings.h"
 #include <QKeyEvent>
 #include "tvscreen.h"
@@ -36,30 +38,30 @@ private:
     QLabel* lblBallBlue;
     QLabel* lblBallRed;
 
-    QLabel* lblVazWhite;
-    QLabel* lblUkoWhite;
-    QLabel* lblKokWhite;
-    QLabel* lblHanWhite;
-    QLabel* lblVazBlue;
-    QLabel* lblUkoBlue;
-    QLabel* lblKokBlue;
-    QLabel* lblHanBlue;
+    SvgLabel* lblVazWhite;
+    SvgLabel* lblUkoWhite;
+    SvgLabel* lblKokWhite;
+    SvgLabel* lblHanWhite;
+    SvgLabel* lblVazBlue;
+    SvgLabel* lblUkoBlue;
+    SvgLabel* lblKokBlue;
+    SvgLabel* lblHanBlue;
 
-    QLabel* lblKoeff;
+    SvgLabel* lblKoeff;
     QLabel* lblKoeffValue;
 
-    QLabel* lblAge;
+    SvgLabel* lblAge;
     QLabel* lblAgeValue;
 
-    QLabel* lblFight;
+    SvgLabel* lblFight;
     QLabel* lblFightValue;
 
-    QPushButton* btnTime;
-    QPushButton* btnCukami;
-    QPushButton* btnParter;
-    QPushButton* btnSettings;
-    QPushButton* btnTimer;
-    QPushButton* btnResetTime;
+    SVGPushButton* btnTime;
+    SVGPushButton* btnCukami;
+    SVGPushButton* btnParter;
+    SVGPushButton* btnSettings;
+    SVGPushButton* btnTimer;
+    SVGPushButton* btnResetTime;
 
     Rate* vaz_blue;
     Rate* uko_blue;
@@ -101,6 +103,7 @@ private:
     //QGridLayout* grid;
 
     void switchLanguage(void);
+    void setTvScreenGeometry(void);
 
 private slots:
     void setBallBlue(bool);

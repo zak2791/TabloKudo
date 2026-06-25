@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="84.6666mm" height="8.4666mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 8466.66 846.66"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <font id="FontID0" horiz-adv-x="722" font-variant="normal" style="fill-rule:nonzero" font-weight="700">
+	<font-face 
+		font-family="Arial">
+		<font-face-src>
+			<font-face-name name="Arial Полужирный"/>
+		</font-face-src>
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="A" horiz-adv-x="722" d="M717.993 0l-156.162 0 -61.8383 162.993 -287.166 0 -59.4997 -162.993 -153.327 0 277.996 715.995 153.171 0 286.826 -715.995zm-264.999 284.005l-99.4968 264.999 -96.6622 -264.999 196.159 0z"/>
+   <glyph unicode="E" horiz-adv-x="666" d="M73.0069 0l0 715.995 529.998 0 0 -120.998 -385.005 0 0 -158.997 358.004 0 0 -120.998 -358.004 0 0 -194.005 398.994 0 0 -120.998 -543.987 0z"/>
+   <glyph unicode="G" horiz-adv-x="777" d="M405.995 263l0 120.998 311.006 0 0 -285.664c-30.1609,-29.4947 -73.999,-55.3327 -131.5,-77.84 -57.3312,-22.323 -115.499,-33.4916 -174.502,-33.4916 -74.8352,0 -140.004,15.6615 -195.663,47.1689 -55.5028,31.4932 -97.3425,76.6636 -125.335,135.157 -28.0065,58.5075 -41.9956,122.344 -41.9956,191.17 0,74.6652 15.6615,140.996 46.8287,199.164 31.3373,57.9973 77.0038,102.672 137.17,133.669 45.9925,23.8396 102.998,35.6743 171.327,35.6743 88.8385,0 158.33,-18.6663 208.334,-55.9989 49.8335,-37.5027 82.0069,-89.0086 96.3362,-155.014l-144.001 -26.986c-10.0064,35.1641 -28.9987,62.9863 -56.8351,83.4951 -27.6664,20.3246 -62.3343,30.501 -104.004,30.501 -63.0005,0 -113.16,-19.9986 -150.322,-60.1658 -37.1767,-40.1672 -55.843,-99.6669 -55.843,-178.499 0,-85.1676 18.8364,-149.004 56.5091,-191.51 37.8286,-42.4917 87.166,-63.8225 148.324,-63.8225 30.175,0 60.506,5.99532 90.8369,17.8301 30.501,11.8347 56.4949,26.3341 78.336,43.3279l0 90.8369 -165.006 0z"/>
+  </font>
+  <style type="text/css">
+   <![CDATA[
+    @font-face { font-family:"Arial";font-variant:normal;font-weight:bold;src:url("#FontID0") format(svg)}
+    .fil0 {fill:white}
+    .fnt0 {font-weight:bold;font-size:705.55px;font-family:'Arial'}
+   ]]>
+  </style>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <text x="3474.98" y="675.92"  class="fil0 fnt0">AGE</text>
+ </g>
+</svg>

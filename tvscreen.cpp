@@ -72,30 +72,22 @@ TVScreen::TVScreen(MainWindow* mWin, QWidget * parent) : QWidget(parent) {
     stopwatch = new LCDStopwatch(this, "3:00", QColor(255, 255, 0), QColor(255, 255, 0), true);
     stopwatch->setVisible(false);
 
-    lblVazBlue =  new QLabel("ВАЗАРИ", this);
-    lblVazBlue->setStyleSheet("color: white;");
-    lblVazBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoBlue =  new QLabel("ЮКО", this);
-    lblUkoBlue->setStyleSheet("color: white;");
-    lblUkoBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokBlue =  new QLabel("КОКА", this);
-    lblKokBlue->setStyleSheet("color: white;");
-    lblKokBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanBlue =  new QLabel("ХАНСОКУ", this);
-    lblHanBlue->setStyleSheet("color: white;");
-    lblHanBlue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblVazWhite =  new QLabel("ВАЗАРИ", this);
-    lblVazWhite->setStyleSheet("color: blue;");
-    lblVazWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblUkoWhite =  new QLabel("ЮКО", this);
-    lblUkoWhite->setStyleSheet("color: blue;");
-    lblUkoWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblKokWhite =  new QLabel("КОКА", this);
-    lblKokWhite->setStyleSheet("color: blue;");
-    lblKokWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    lblHanWhite =  new QLabel("ХАНСОКУ", this);
-    lblHanWhite->setStyleSheet("color: blue;");
-    lblHanWhite->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    lblVazBlue =  new SvgLabel(":/images/vazaari_white_rus.svg", ":/images/vazaari_white_eng.svg");
+
+    lblUkoBlue =  new SvgLabel(":/images/yuko_white_rus.svg", ":/images/yuko_white_eng.svg");
+
+    lblKokBlue =  new SvgLabel(":/images/koka_white_rus.svg", ":/images/koka_white_eng.svg");
+
+    lblHanBlue =  new SvgLabel(":/images/hansoku_white_rus.svg", ":/images/hansoku_white_eng.svg");
+
+    lblVazWhite =  new SvgLabel(":/images/vazaari_blue_rus.svg", ":/images/vazaari_blue_eng.svg");
+
+    lblUkoWhite =  new SvgLabel(":/images/yuko_blue_rus.svg", ":/images/yuko_blue_eng.svg");
+
+    lblKokWhite =  new SvgLabel(":/images/koka_blue_rus.svg", ":/images/koka_blue_eng.svg");
+
+    lblHanWhite =  new SvgLabel(":/images/hansoku_blue_rus.svg", ":/images/hansoku_blue_eng.svg");
+
 
     lblKoeffValue =  new QLabel("", this);
     lblKoeffValue->setStyleSheet("color: white;");
@@ -106,9 +98,7 @@ TVScreen::TVScreen(MainWindow* mWin, QWidget * parent) : QWidget(parent) {
     lblAgeValue->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
 
-    lblFight =  new QLabel("БОЙ №", this);
-    lblFight->setStyleSheet("color: blue;");
-    lblFight->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+    lblFight =  new SvgLabel(":/images/fight_tv_rus.svg", ":/images/fight_tv_eng.svg");
 
     lblFightValue =  new QLabel("1", this);
     lblFightValue->setStyleSheet("color: blue;");
@@ -141,14 +131,14 @@ TVScreen::TVScreen(MainWindow* mWin, QWidget * parent) : QWidget(parent) {
     //margin = 6;
     //сетка 56х44
     grid->setSpacing(5);
-    grid->setMargin(5);
+    //grid->setMargin(5);
 
     //grid->SetNoConstraint;
-    grid->addWidget(NameBlue,    0,  0, 8,  27);
-    grid->addWidget(NameWhite,   0, 28, 8,  27);
+    grid->addWidget(NameWhite,    0,  0, 8,  27);
+    grid->addWidget(NameBlue,   0, 28, 8,  27);
 
-    grid->addWidget(TeamBlue,    8,  0, 4,  27);
-    grid->addWidget(TeamWhite,   8, 28, 4,  27);
+    grid->addWidget(TeamWhite,    8,  0, 4,  27);
+    grid->addWidget(TeamBlue,   8, 28, 4,  27);
 
     grid->addWidget(vaz_blue,    12,  28, 8,  6);
     grid->addWidget(lblVazBlue,  20,  28, 2,  6);
@@ -268,28 +258,10 @@ void TVScreen::paintEvent(QPaintEvent * ) {
 
 
 void TVScreen::resizeEvent(QResizeEvent *){
-    //int h = lblBallBlue->height();
     QFont font;
-    //font.setPixelSize(h * 0.8);
     font.setBold(true);
-    //lblBallBlue->setFont(font);
-    //lblBallRed->setFont(font);
-    int h = lblVazBlue->height();
-    font.setPixelSize(h * 0.55);
-    lblVazBlue->setFont(font);
-    lblUkoBlue->setFont(font);
-    lblKokBlue->setFont(font);
-    lblHanBlue->setFont(font);
-    lblVazWhite->setFont(font);
-    lblUkoWhite->setFont(font);
-    lblKokWhite->setFont(font);
-    lblHanWhite->setFont(font);
-    h = lblFight->height();
-    font.setPixelSize(h * 0.45);
-    //lblKoeff->setFont(font);
-    //lblAge->setFont(font);
-    lblFight->setFont(font);
-    h = lblKoeffValue->height();
+
+    int h = lblKoeffValue->height();
     font.setPixelSize(h * 0.7 );
     lblKoeffValue->setFont(font);
     lblFightValue->setFont(font);
@@ -403,32 +375,10 @@ void TVScreen::changeEvent(QEvent* event)
             qDebug()<<"retranslate tv";
             //switchLanguage();
             if(main->actLang->isChecked()){
-                lblVazBlue->setText("WAZA-ARI");
-                lblUkoBlue->setText("YUKO");
-                lblKokBlue->setText("KOKA");
-                lblHanBlue->setText("HANSOKU");
-                lblVazWhite->setText("WAZA-ARI");
-                lblUkoWhite->setText("YUKO");
-                lblKokWhite->setText("КОКА");
-                lblHanWhite->setText("HANSOKU");
-                //lblKoeff->setText("PI (PHYSICAL INDEX)");
-                //lblAge->setText("AGE");
-                lblFight->setText("FIGHT №");
                 if(logo != nullptr)
                     logo->setText("Not\nactivated");
             }
             else{
-                lblVazBlue->setText("ВАЗАРИ");
-                lblUkoBlue->setText("ЮКО");
-                lblKokBlue->setText("KOKA");
-                lblHanBlue->setText("ХАНСОКУ");
-                lblVazWhite->setText("ВАЗАРИ");
-                lblUkoWhite->setText("ЮКО");
-                lblKokWhite->setText("KOKA");
-                lblHanWhite->setText("ХАНСОКУ");
-                //lblKoeff->setText("КОЭФФИЦИЕНТ");
-                //lblAge->setText("ВОЗРАСТ");
-                lblFight->setText("БОЙ №");
                 if(logo != nullptr)
                     logo->setText("Не\nактивировано");
             }
@@ -574,7 +524,7 @@ void TVScreen::changeEvent(QEvent* event)
         case QEvent::UngrabMouse:
         case QEvent::GrabKeyboard:
         case QEvent::UngrabKeyboard:
-        case QEvent::MacGLClearDrawable:
+        //case QEvent::MacGLClearDrawable:
         case QEvent::StateMachineSignal:
         case QEvent::StateMachineWrapped:
         case QEvent::TouchBegin:

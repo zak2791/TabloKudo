@@ -8,18 +8,13 @@ Item {
     property string textBlue: ""
     property real txtYpos
     property real heightRow
-
     property real maxY: 0
-
     property real textOffset // heightRow - 42
     property int szFont
-
     property color col: "#c8be64"
-
     function setTextOffset(){
         textOffset = heightRow / 2 - txtRed.contentHeight / 2 - 5
     }
-
     width: parent.width
     height: heightRow + 1
     x: 0
@@ -27,7 +22,6 @@ Item {
     Drag.active: dragArea.drag.active
     Drag.hotSpot.y: 0
     property point beginDrag
-
     Rectangle {
         width: parent.width
         height: parent.height

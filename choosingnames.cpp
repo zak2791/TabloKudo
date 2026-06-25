@@ -1,8 +1,5 @@
 #include "choosingnames.h"
-
 #include <QQuickItem>
-//#include <QJsonObject>
-//#include <QJsonDocument>
 #include <QQmlContext>
 #include <QStringListModel>
 
@@ -89,8 +86,8 @@ void ChoosingNames::setNames(QStringList list){
     model->setList(list);
     slmodel->clearModel();
     QMetaObject::invokeMethod(objGridSide, "updateSlider");
-    proxyAge->setFilterRegExp("");
-    proxyWeight->setFilterRegExp("");
+    proxyAge->setFilterRegularExpression("");
+    proxyWeight->setFilterRegularExpression("");
 }
 
 void ChoosingNames::setAge(QStringList list){
@@ -112,6 +109,7 @@ void ChoosingNames::resizeEvent(QResizeEvent* e){
 }
 
 void ChoosingNames::closeEvent(QCloseEvent *){
+    setCursor(Qt::WaitCursor);
     auto slider = objGridSide->findChild<QObject*>("sld");
     QStringList strRed = slider->property("textRed").toString().split(";");
     QString NameRed(""), NameBlue(""), RegionRed(""), RegionBlue("");
@@ -124,7 +122,6 @@ void ChoosingNames::closeEvent(QCloseEvent *){
         NameBlue = strBlue[0].toUpper();
         RegionBlue = strBlue[1].toUpper();
     }
-
     auto sliderNext = objGridSide->findChild<QObject*>("sldNext");
     QStringList strRedNext = sliderNext->property("textRed").toString().split(";");
     QString NameRedNext(""), NameBlueNext("");
@@ -135,33 +132,32 @@ void ChoosingNames::closeEvent(QCloseEvent *){
     if(strBlueNext.length() == 2){
         NameBlueNext = strBlueNext[0].toUpper();
     }
-
     QString age = slider->property("ageRed").toString();
     if(age == "")
-        //age = slider->property("ageBlue").toString();
         age = objAge->property("displayText").toString();
-
     QString weight = slider->property("weightRed").toString();
     if(weight == "")
-        //weight = slider->property("weightBlue").toString();
         weight = objWeight->property("displayText").toString();
-    emit close(NameRed, RegionRed, NameBlue, RegionBlue, NameRedNext, NameBlueNext, age, weight);
-    //qDebug()<<age<<weight;
-    //emit startRecordObs();
+    //emit close(NameRed, RegionRed, NameBlue, RegionBlue, NameRedNext, NameBlueNext, age, weight);
+    static QRegularExpression re("-?\\d+");
+    emit close(NameRed.replace(re, ""), RegionRed,
+               NameBlue.replace(re, ""), RegionBlue,
+               NameRedNext.replace(re, ""),
+               NameBlueNext.replace(re, ""), age, weight);
 }
 
 void ChoosingNames::choiceAge(QString age){
-    proxyAge->setFilterRegExp(age);
+    proxyAge->setFilterRegularExpression(age);
 }
 
 void ChoosingNames::choiceWeight(QString weight){
-    proxyWeight->setFilterRegExp(weight);
+    proxyWeight->setFilterRegularExpression(weight);
 
 }
 
 void ChoosingNames::filterName(QString name){
-    QRegExp regExp( "^" + name, Qt::CaseInsensitive );
-    proxyName->setFilterRegExp(regExp);
+    QRegularExpression  regExp("(^" + name + ")|(?=\\b" + name + "\\b)", QRegularExpression::CaseInsensitiveOption );
+    proxyName->setFilterRegularExpression(regExp);
 }
 
 void ChoosingNames::fromAllToSide(int item){
@@ -174,7 +170,7 @@ void ChoosingNames::fromAllToSide(int item){
                   model->data(modIndexAge, model->WeightRole).toString();
     model->moveItem(modIndexAge.row());
     slmodel->insertData(str);
-    QVariant varRet;
+    //QVariant varRet;
     QMetaObject::invokeMethod(objGridSide, "updateSlider");
 }
 

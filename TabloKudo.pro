@@ -1,6 +1,6 @@
 RC_ICONS = kudo.ico
 
-QT       += core gui multimedia qml quickwidgets
+QT       += core gui multimedia qml quickwidgets svg svgwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,6 +26,8 @@ SOURCES += \
     pcscreen.cpp \
     rate.cpp \
     sidelistmodel.cpp \
+    svglabel.cpp \
+    svgpushbutton.cpp \
     tvscreen.cpp
 
 HEADERS += \
@@ -44,6 +46,8 @@ HEADERS += \
     pcscreen.h \
     rate.h \
     sidelistmodel.h \
+    svglabel.h \
+    svgpushbutton.h \
     tvscreen.h
 
 # Default rules for deployment.

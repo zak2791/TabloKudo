@@ -264,7 +264,7 @@ void addForm::changeEvent(QEvent* event)
         case QEvent::UngrabMouse:
         case QEvent::GrabKeyboard:
         case QEvent::UngrabKeyboard:
-        case QEvent::MacGLClearDrawable:
+        //case QEvent::MacGLClearDrawable:
         case QEvent::StateMachineSignal:
         case QEvent::StateMachineWrapped:
         case QEvent::TouchBegin:
