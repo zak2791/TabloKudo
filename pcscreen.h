@@ -10,7 +10,7 @@
 #include "lcdstopwatch.h"
 #include "svglabel.h"
 #include "svgpushbutton.h"
-#include "ui_formsettings.h"
+//#include "ui_formsettings.h"
 #include <QKeyEvent>
 #include "tvscreen.h"
 #include "nameandteam.h"
@@ -80,7 +80,7 @@ private:
     LCDTimer* parterTimer;
     LCDStopwatch * stopwatch;
 
-    Ui::FormSettings ui;
+    //Ui::FormSettings ui;
     QWidget* frmSettings;
 
     int numFight;
@@ -115,7 +115,7 @@ private slots:
     void manageCukami(void);
     void manageTimer(void);
     void settings(void);
-    void choiceKoef(QListWidgetItem*);
+    //void choiceKoef(QListWidgetItem*);
     void choiceMainTime(int);
 
     void endTime(bool);

@@ -670,10 +670,10 @@ void PcScreen::choiceMainTime(int time){
     // }
 }
 
-void PcScreen::choiceKoef(QListWidgetItem* item){
-    lblKoeffValue->setText(item->text());
-    tvScreen->lblKoeffValue->setText(item->text());
-}
+// void PcScreen::choiceKoef(QListWidgetItem* item){
+//     lblKoeffValue->setText(item->text());
+//     tvScreen->lblKoeffValue->setText(item->text());
+// }
 
 void PcScreen::settings(){
     if(!(cukamiTimer->isVisible()) && mainTimer->getStatus() == 0){

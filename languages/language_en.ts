@@ -30,144 +30,6 @@
     </message>
 </context>
 <context>
-    <name>FormSettings</name>
-    <message>
-        <location filename="../formsettings.ui" line="32"/>
-        <source>Settings screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="44"/>
-        <source>Fight time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="56"/>
-        <source>3:00</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="72"/>
-        <source>2:00</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="85"/>
-        <source>1:30</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="98"/>
-        <source>1:00</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="112"/>
-        <source>Ground time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="124"/>
-        <source>0:30</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="140"/>
-        <source>0:20</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="155"/>
-        <source>140</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="160"/>
-        <source>150</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="165"/>
-        <source>160</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="170"/>
-        <source>170</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="175"/>
-        <source>180</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="180"/>
-        <source>190</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="185"/>
-        <source>200</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="190"/>
-        <source>210</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="195"/>
-        <source>220</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="200"/>
-        <source>230</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="205"/>
-        <source>240</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="210"/>
-        <source>+240</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="215"/>
-        <source>250</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="220"/>
-        <source>260</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="225"/>
-        <source>+260</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="230"/>
-        <source>270</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="235"/>
-        <source>+270</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../formsettings.ui" line="240"/>
-        <source>ABS</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="14"/>
@@ -269,17 +131,17 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="47"/>
-        <location filename="../mainwindow.cpp" line="207"/>
+        <location filename="../mainwindow.cpp" line="208"/>
         <source>Выход</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="208"/>
+        <location filename="../mainwindow.cpp" line="209"/>
         <source>Вы уверены?</source>
         <translation>Are you shure?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="220"/>
+        <location filename="../mainwindow.cpp" line="221"/>
         <source>Выберите файл</source>
         <translation>Select file</translation>
     </message>
@@ -432,8 +294,8 @@
     <name>dlgSettings</name>
     <message>
         <location filename="../settings_window.ui" line="17"/>
-        <source>Dialog</source>
-        <translation></translation>
+        <source>Настройки</source>
+        <translation>Settings</translation>
     </message>
     <message>
         <location filename="../settings_window.ui" line="29"/>
