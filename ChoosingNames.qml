@@ -233,7 +233,7 @@ Item {
                 text: "Добавить спортсмена"
                 x: parent.width - width - 10
                 anchors.verticalCenter: parent.verticalCenter
-                onClicked: () => tableSide.delUpper()
+                onClicked: () => grid.addSportsman()
             }
         }
     }

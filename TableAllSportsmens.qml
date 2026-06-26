@@ -43,15 +43,6 @@ Rectangle {
             id: rectDel
             width: grid.cellWidth
             height: grid .cellHeight
-            // GridView.onRemove: SequentialAnimation {
-            //     PropertyAction {
-            //         target: rectDel
-            //         property: "GridView.delayRemove"
-            //         value: true
-            //     }
-            //     NumberAnimation { target: rectDel; property: "scale"; to: 0; duration: 250; easing.type: Easing.InOutQuad }
-            //     PropertyAction { target: rectDel; property: "GridView.delayRemove"; value: false }
-            // }
             GridView.onRemove: removeAnimation.start()
             SequentialAnimation {
                 id: removeAnimation
@@ -62,7 +53,6 @@ Rectangle {
             Text {
                 id: txt
                 padding: 5
-                //text: name + "\n" + region + "\n" + index + "\n" + age + weight
                 text: name.replace(" ", "\n") + "\n" + region + "\n" + age + " " + weight
                 font.pixelSize: sizeFont
             }
@@ -73,12 +63,6 @@ Rectangle {
                     grid.currentIndex = index;
                 }
                 anchors.fill: parent
-                // onPressed: {
-                //     if(index != -1){
-                //         txt.text = txt.text
-                //         grid.moveItem(index)
-                //     }
-                // }
                 onClicked: {
                     if(index != -1){
                         txt.text = txt.text
@@ -93,8 +77,6 @@ Rectangle {
             id: gridarea
             anchors.fill: parent
             propagateComposedEvents: true
-            // onPressed: {mouse.accepted = false}
-            // onReleased: {mouse.accepted = false}
             onPressed: (mouse) => {
                 mouse.accepted = false
             }
