@@ -1,7 +1,5 @@
 #include "sidelistmodel.h"
 
-#include <QDebug>
-
 SideListModel::SideListModel(QObject* pobj)
     : QAbstractListModel(pobj) {
 
@@ -30,8 +28,8 @@ QVariant SideListModel::data(const QModelIndex& index, int nRole) const {
         return m_list.at(index.row()).split("\n")[2];
     case WeightRole:
         return m_list.at(index.row()).split("\n")[3];
-
     }
+    return QVariant();
 }
 
 void SideListModel::swapData(int item1, int item2){

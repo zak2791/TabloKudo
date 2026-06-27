@@ -1,6 +1,4 @@
 #include "lcdtimer.h"
-#include <QDebug>
-//#include <QMediaPlayer>
 #include <QSoundEffect>
 
 LCDTimer::LCDTimer(QWidget *parent,

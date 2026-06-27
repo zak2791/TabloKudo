@@ -10,7 +10,6 @@
 #include "lcdstopwatch.h"
 #include "svglabel.h"
 #include "svgpushbutton.h"
-//#include "ui_formsettings.h"
 #include <QKeyEvent>
 #include "tvscreen.h"
 #include "nameandteam.h"

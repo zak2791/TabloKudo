@@ -1,4 +1,3 @@
-#include <QtCore>
 #include <QMouseEvent>
 #include "rate.h"
 #include <QMessageBox>

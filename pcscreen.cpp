@@ -1,11 +1,8 @@
 #include "pcscreen.h"
 #include <QPainter>
 #include <QGridLayout>
-#include <QDebug>
 #include <QMessageBox>
-//#include <QDesktopWidget>
 #include <QProcess>
-//#include "qthread.h"
 #include "qmenubar.h"
 #include "ui_code.h"
 #include <QSettings>
@@ -28,7 +25,7 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     process.write("getmac\n");
     process.closeWriteChannel();
     process.waitForFinished (); // Ожидание завершения процесса запуска, тайм-аут 30 с, затем блокировка контакта
-    QRegularExpression re("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$");
+    static QRegularExpression re("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$");
     serialNumberMac = "";
     while(1){
         char buf[1024];
@@ -37,7 +34,8 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
             break;
         }
         QString s = QString::fromUtf8(buf);
-        QList<QString> list = s.split(QRegularExpression("\\s+"));
+        static QRegularExpression re2("\\s+");
+        QList<QString> list = s.split(re2);
         foreach(auto each, list){
             QRegularExpressionMatch match = re.match(each);
             if (match.hasMatch()) {
@@ -54,9 +52,10 @@ PcScreen::PcScreen(MainWindow* mw, QWidget *parent) : QWidget(parent){
     process.waitForFinished (); // Ожидание завершения процесса запуска, тайм-аут 30 с, затем блокировка контакта
     QString s;
     int i = 0;
-    while(1){
+    while(true){
         s = QString::fromLocal8Bit(process.readLine());
-        i++;
+        if(++i > 100)
+            break;
         if(s.contains("SerialNumber"))
             break;
     }
@@ -587,8 +586,8 @@ int PcScreen::rec(int num){
 QString PcScreen::calculateCode(QString serial)
 {
     int lenString = serial.length();
-    int myListStart[lenString];
-    int myListEnd[lenString];
+    int* myListStart = new int[lenString];
+    int* myListEnd = new int[lenString];
     for(int i=0; i < lenString; i++)
         myListStart[i] = serial.at(i).toLatin1();
 
@@ -601,6 +600,8 @@ QString PcScreen::calculateCode(QString serial)
         }
         code = code + QString::number(rec(myListEnd[i]));
     }
+    delete[] myListStart;
+    delete[] myListEnd;
     return code;
 }
 
@@ -958,9 +959,9 @@ void PcScreen::initListNames(){
     choosingNames->setWeight(lf->lWeight);
 
     connect(choosingNames,
-            SIGNAL(close(QString, QString, QString, QString, QString, QString, QString, QString)),
+            SIGNAL(close(QString,QString,QString,QString,QString,QString,QString,QString)),
             this,
-            SLOT(closeWinName(QString, QString, QString, QString, QString, QString, QString, QString)));
+            SLOT(closeWinName(QString,QString,QString,QString,QString,QString,QString,QString)));
 
     connect(choosingNames, SIGNAL(del()), this, SLOT(delListNames()));;
 }
@@ -984,176 +985,7 @@ void PcScreen::changeEvent(QEvent* event)
         case QEvent::LanguageChange:
             switchLanguage();
             break;
-
-        case QEvent::None:
-        case QEvent::Timer:
-        case QEvent::MouseButtonPress:
-        case QEvent::MouseButtonRelease:
-        case QEvent::MouseButtonDblClick:
-        case QEvent::MouseMove:
-        case QEvent::KeyPress:
-        case QEvent::KeyRelease:
-        case QEvent::FocusIn:
-        case QEvent::FocusOut:
-        case QEvent::FocusAboutToChange:
-        case QEvent::Enter:
-        case QEvent::Leave:
-        case QEvent::Paint:
-        case QEvent::Move:
-        case QEvent::Resize:
-        case QEvent::Create:
-        case QEvent::Destroy:
-        case QEvent::Show:
-        case QEvent::Hide:
-        case QEvent::Close:
-        case QEvent::Quit:
-        case QEvent::ParentChange:
-        case QEvent::ParentAboutToChange:
-        case QEvent::ThreadChange:
-        case QEvent::WindowActivate:
-        case QEvent::WindowDeactivate:
-        case QEvent::ShowToParent:
-        case QEvent::HideToParent:
-        case QEvent::Wheel:
-        case QEvent::WindowTitleChange:
-        case QEvent::WindowIconChange:
-        case QEvent::ApplicationWindowIconChange:
-        case QEvent::ApplicationFontChange:
-        case QEvent::ApplicationLayoutDirectionChange:
-        case QEvent::ApplicationPaletteChange:
-        case QEvent::PaletteChange:
-        case QEvent::Clipboard:
-        case QEvent::Speech:
-        case QEvent::MetaCall:
-        case QEvent::SockAct:
-        case QEvent::WinEventAct:
-        case QEvent::DeferredDelete:
-        case QEvent::DragEnter:
-        case QEvent::DragMove:
-        case QEvent::DragLeave:
-        case QEvent::Drop:
-        case QEvent::DragResponse:
-        case QEvent::ChildAdded:
-        case QEvent::ChildPolished:
-        case QEvent::ChildRemoved:
-        case QEvent::ShowWindowRequest:
-        case QEvent::PolishRequest:
-        case QEvent::Polish:
-        case QEvent::LayoutRequest:
-        case QEvent::UpdateRequest:
-        case QEvent::UpdateLater:
-        case QEvent::EmbeddingControl:
-        case QEvent::ActivateControl:
-        case QEvent::DeactivateControl:
-        case QEvent::ContextMenu:
-        case QEvent::InputMethod:
-        case QEvent::TabletMove:
-        case QEvent::LocaleChange:
-        case QEvent::LayoutDirectionChange:
-        case QEvent::Style:
-        case QEvent::TabletPress:
-        case QEvent::TabletRelease:
-        case QEvent::OkRequest:
-        case QEvent::HelpRequest:
-        case QEvent::IconDrag:
-        case QEvent::FontChange:
-        case QEvent::EnabledChange:
-        case QEvent::ActivationChange:
-        case QEvent::StyleChange:
-        case QEvent::IconTextChange:
-        case QEvent::ModifiedChange:
-        case QEvent::MouseTrackingChange:
-        case QEvent::WindowBlocked:
-        case QEvent::WindowUnblocked:
-        case QEvent::WindowStateChange:
-        case QEvent::ReadOnlyChange:
-        case QEvent::ToolTip:
-        case QEvent::WhatsThis:
-        case QEvent::StatusTip:
-        case QEvent::ActionChanged:
-        case QEvent::ActionAdded:
-        case QEvent::ActionRemoved:
-        case QEvent::FileOpen:
-        case QEvent::Shortcut:
-        case QEvent::ShortcutOverride:
-        case QEvent::WhatsThisClicked:
-        case QEvent::ToolBarChange:
-        case QEvent::ApplicationActivate:
-        case QEvent::ApplicationDeactivate:
-        case QEvent::QueryWhatsThis:
-        case QEvent::EnterWhatsThisMode:
-        case QEvent::LeaveWhatsThisMode:
-        case QEvent::ZOrderChange:
-        case QEvent::HoverEnter:
-        case QEvent::HoverLeave:
-        case QEvent::HoverMove:
-        case QEvent::AcceptDropsChange:
-        case QEvent::ZeroTimerEvent:
-        case QEvent::GraphicsSceneMouseMove:
-        case QEvent::GraphicsSceneMousePress:
-        case QEvent::GraphicsSceneMouseRelease:
-        case QEvent::GraphicsSceneMouseDoubleClick:
-        case QEvent::GraphicsSceneContextMenu:
-        case QEvent::GraphicsSceneHoverEnter:
-        case QEvent::GraphicsSceneHoverMove:
-        case QEvent::GraphicsSceneHoverLeave:
-        case QEvent::GraphicsSceneHelp:
-        case QEvent::GraphicsSceneDragEnter:
-        case QEvent::GraphicsSceneDragMove:
-        case QEvent::GraphicsSceneDragLeave:
-        case QEvent::GraphicsSceneDrop:
-        case QEvent::GraphicsSceneWheel:
-        case QEvent::KeyboardLayoutChange:
-        case QEvent::DynamicPropertyChange:
-        case QEvent::TabletEnterProximity:
-        case QEvent::TabletLeaveProximity:
-        case QEvent::NonClientAreaMouseMove:
-        case QEvent::NonClientAreaMouseButtonPress:
-        case QEvent::NonClientAreaMouseButtonRelease:
-        case QEvent::NonClientAreaMouseButtonDblClick:
-        case QEvent::MacSizeChange:
-        case QEvent::ContentsRectChange:
-        case QEvent::MacGLWindowChange:
-        case QEvent::FutureCallOut:
-        case QEvent::GraphicsSceneResize:
-        case QEvent::GraphicsSceneMove:
-        case QEvent::CursorChange:
-        case QEvent::ToolTipChange:
-        case QEvent::NetworkReplyUpdated:
-        case QEvent::GrabMouse:
-        case QEvent::UngrabMouse:
-        case QEvent::GrabKeyboard:
-        case QEvent::UngrabKeyboard:
-        //case QEvent::MacGLClearDrawable:
-        case QEvent::StateMachineSignal:
-        case QEvent::StateMachineWrapped:
-        case QEvent::TouchBegin:
-        case QEvent::TouchUpdate:
-        case QEvent::TouchEnd:
-        case QEvent::NativeGesture:
-        case QEvent::RequestSoftwareInputPanel:
-        case QEvent::CloseSoftwareInputPanel:
-        case QEvent::WinIdChange:
-        case QEvent::Gesture:
-        case QEvent::GestureOverride:
-        case QEvent::ScrollPrepare:
-        case QEvent::Scroll:
-        case QEvent::Expose:
-        case QEvent::InputMethodQuery:
-        case QEvent::OrientationChange:
-        case QEvent::TouchCancel:
-        case QEvent::ThemeChange:
-        case QEvent::SockClose:
-        case QEvent::PlatformPanel:
-        case QEvent::StyleAnimationUpdate:
-        case QEvent::ApplicationStateChange:
-        case QEvent::WindowChangeInternal:
-        case QEvent::ScreenChangeInternal:
-        case QEvent::PlatformSurface:
-        case QEvent::Pointer:
-        case QEvent::TabletTrackingChange:
-        case QEvent::User:
-        case QEvent::MaxUser:
+        default:
             break;
         }
     }
@@ -1161,7 +993,6 @@ void PcScreen::changeEvent(QEvent* event)
 
 void PcScreen::delListNames()
 {
-    //QThread::msleep(100);
     if(choosingNames != nullptr)
         choosingNames->deleteLater();
     if(lf != nullptr)

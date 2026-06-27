@@ -1,6 +1,5 @@
 #include "nameandteam.h"
 
-#include <QtCore>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QFontMetrics>

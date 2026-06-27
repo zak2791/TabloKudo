@@ -88,6 +88,8 @@ private:
 	virtual void paintEvent(QPaintEvent *);
     virtual void resizeEvent(QResizeEvent *);
 
+    void mouseDoubleClickEvent(QMouseEvent *);
+
 protected:
     void changeEvent(QEvent*);
 

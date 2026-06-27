@@ -5,7 +5,7 @@
 
 class NameAndTeam : public QLabel {
     Q_OBJECT
-    Q_PROPERTY(QString text WRITE Text)
+    //Q_PROPERTY(QString text WRITE Text)
 
 public:
     NameAndTeam(QString _cl = "white",

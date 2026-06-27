@@ -1,5 +1,4 @@
 #include "lcdstopwatch.h"
-#include <QDebug>
 
 LCDStopwatch::LCDStopwatch(QWidget* parent,
                            QString strInitTime,

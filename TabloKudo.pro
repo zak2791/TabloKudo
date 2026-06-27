@@ -12,6 +12,7 @@ CONFIG += c++11
 
 SOURCES += \
     addform.cpp \
+    categorylabel.cpp \
     choosingnames.cpp \
     endtime.cpp \
     hansoku.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
 
 HEADERS += \
     addform.h \
+    categorylabel.h \
     choosingnames.h \
     endtime.h \
     hansoku.h \

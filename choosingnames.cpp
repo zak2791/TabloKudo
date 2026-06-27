@@ -46,8 +46,6 @@ ChoosingNames::ChoosingNames(QString lang, QWidget *parent) : QWidget(parent)
         auto mainGrid = qItem->findChild<QObject*>("mainGrid");
         if(mainGrid){
             connect(mainGrid, SIGNAL(addSportsman()), fAdd, SLOT(show()));
-            //mainGrid->setProperty ( "sizeFontListAll", 20) ;
-            //mainGrid->setProperty ( "color", "red") ;
         }
 
         objAge = qItem->findChild<QObject*>("cmbAge");
@@ -78,7 +76,6 @@ ChoosingNames::ChoosingNames(QString lang, QWidget *parent) : QWidget(parent)
         }
     }
     connect(fAdd, SIGNAL(selSportsman(QString)), this, SLOT(addSportsman(QString)));
-    //setWindowFlags(Qt::Widget | Qt::WindowCloseButtonHint);
 }
 
 void ChoosingNames::setNames(QStringList list){
@@ -138,7 +135,6 @@ void ChoosingNames::closeEvent(QCloseEvent *){
     QString weight = slider->property("weightRed").toString();
     if(weight == "")
         weight = objWeight->property("displayText").toString();
-    //emit close(NameRed, RegionRed, NameBlue, RegionBlue, NameRedNext, NameBlueNext, age, weight);
     static QRegularExpression re("-?\\d+");
     emit close(NameRed.replace(re, ""), RegionRed,
                NameBlue.replace(re, ""), RegionBlue,
@@ -170,7 +166,6 @@ void ChoosingNames::fromAllToSide(int item){
                   model->data(modIndexAge, model->WeightRole).toString();
     model->moveItem(modIndexAge.row());
     slmodel->insertData(str);
-    //QVariant varRet;
     QMetaObject::invokeMethod(objGridSide, "updateSlider");
 }
 

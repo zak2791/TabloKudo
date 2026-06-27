@@ -1,7 +1,5 @@
 #include "mainlistmodel.h"
 
-#include <QDebug>
-
 MainListModel::MainListModel(QObject* pobj)
     : QAbstractListModel(pobj) {
 
@@ -32,6 +30,7 @@ QVariant MainListModel::data(const QModelIndex& index, int nRole) const {
         return m_list.at(index.row()).split("\n")[3];
 
     }
+    return QVariant();
 }
 
 int MainListModel::rowCount(const QModelIndex& parent/*=QModelindex()*/ ) const {
@@ -68,11 +67,6 @@ void MainListModel::setList(QStringList l){
     m_list = l;
     if(m_list.length())
         insertRows(0, l.count());
-    //    if(insertRows(0, l.count()))
-    //        qDebug() << "ok insert";
-    //    else
-    //        qDebug() << "no insert";
-
 }
 
 void MainListModel::moveItem(int item){
